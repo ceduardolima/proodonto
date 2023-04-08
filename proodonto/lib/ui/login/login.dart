@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proodonto/ui/home/home.dart';
 
 import '../../utils/default_size.dart';
 
@@ -7,12 +8,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
-              child: LoginTextForm(),
-    )));
+    return Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
+          child: LoginTextForm(),
+    ));
   }
 }
 
@@ -90,12 +90,18 @@ class LoginTextField extends StatelessWidget {
 class LoginButton extends StatelessWidget {
   const LoginButton({Key? key}) : super(key: key);
 
+  void _changeToHomePage(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: PaddingSize.medium),
       child: ElevatedButton(
-          onPressed: () => {},
+          onPressed: () => _changeToHomePage(context),
           style: ElevatedButton.styleFrom(
             alignment: Alignment.center,
             minimumSize: const Size.fromHeight(50),
