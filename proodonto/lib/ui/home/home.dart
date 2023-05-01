@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:proodonto/ui/patient/patient_home.dart';
 import 'package:proodonto/utils/default_size.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  void _changeToPatientHomePage(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const PatientHomePage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(onPressed: () {}, child: Text("Paciêntes")),
+            ElevatedButton(onPressed: () => _changeToPatientHomePage(context), child: Text("Paciêntes")),
             ElevatedButton(onPressed: () {}, child: Text("Triagem")),
             ElevatedButton(onPressed: () {}, child: Text("Exames")),
             ElevatedButton(onPressed: () {}, child: Text("Anamnese"))
