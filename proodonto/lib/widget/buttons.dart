@@ -13,7 +13,7 @@ class DefaultButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: PaddingSize.medium),
       child: ElevatedButton(
-        onPressed: () => onPressed,
+        onPressed: () => onPressed(),
         style: ElevatedButton.styleFrom(
           alignment: alignment ?? Alignment.center,
           minimumSize: Size.fromHeight(minimumSize ?? 50),
