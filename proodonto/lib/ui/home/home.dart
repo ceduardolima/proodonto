@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proodonto/ui/patient/patient_home.dart';
+import 'package:proodonto/ui/triage/register_triage.dart';
 import 'package:proodonto/utils/default_size.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,6 +10,11 @@ class HomePage extends StatelessWidget {
   void _changeToPatientHomePage(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const PatientHomePage()));
+  }
+
+  void _changeToTriageHomePage(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const RegisterTriageHome()));
   }
 
   @override
@@ -24,7 +30,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(onPressed: () => _changeToPatientHomePage(context), child: Text("Paciêntes")),
-            ElevatedButton(onPressed: () {}, child: Text("Triagem")),
+            ElevatedButton(onPressed: () => _changeToTriageHomePage(context), child: Text("Triagem")),
             ElevatedButton(onPressed: () {}, child: Text("Exames")),
             ElevatedButton(onPressed: () {}, child: Text("Anamnese"))
           ],
