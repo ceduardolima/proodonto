@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/ui/patient/register_patient.dart';
 import 'package:proodonto/ui/patient/register_records.dart';
+import 'package:proodonto/ui/patient/search_patient.dart';
 import '../../utils/default_size.dart';
 
 class PatientHomePage extends StatelessWidget {
@@ -26,6 +27,11 @@ class _PatientHomePageContent extends StatelessWidget {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const RegisterRecordsHome()));
   }
+  
+  void _changeToSearchPatient(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const SearchPatientHome()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class _PatientHomePageContent extends StatelessWidget {
       children: [
         ElevatedButton(
           child: Text("Pesquisar"),
-          onPressed: () => {},
+          onPressed: () => _changeToSearchPatient(context),
         ),
         ElevatedButton(
           child: Text("Cadastrar"),
