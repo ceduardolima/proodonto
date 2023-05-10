@@ -29,7 +29,7 @@ class LoginTextForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Text(
-          "Login",
+          "Proodonto",
           style: TextStyle(
             fontSize: 32.0,
           ),
