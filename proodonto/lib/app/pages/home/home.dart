@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:proodonto/ui/exam/register_exam.dart';
-import 'package:proodonto/ui/patient/patient_home.dart';
-import 'package:proodonto/ui/triage/register_triage.dart';
+import 'package:proodonto/app/ui/exam/register_exam.dart';
+import 'package:proodonto/app/ui/patient/patient_home.dart';
+import 'package:proodonto/app/ui/triage/register_triage.dart';
 import 'package:proodonto/utils/default_size.dart';
 
-import '../anamnesis/register_anamnesis.dart';
+import '../../ui/anamnesis/register_anamnesis.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

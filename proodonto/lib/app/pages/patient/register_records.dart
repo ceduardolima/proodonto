@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proodonto/ui/patient/register_patient.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/widget/buttons.dart';
-import '../../utils/default_size.dart';
+import '../../../utils/default_size.dart';
 
 class RegisterRecordsHome extends StatelessWidget {
   const RegisterRecordsHome({Key? key}) : super(key: key);

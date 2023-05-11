@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../utils/default_size.dart';
+import '../../../utils/default_size.dart';
 
 class RegisterTriageHome extends StatelessWidget {
   const RegisterTriageHome({Key? key}) : super(key: key);

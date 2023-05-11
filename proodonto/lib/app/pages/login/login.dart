@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proodonto/ui/home/home.dart';
+import 'package:proodonto/app/pages/home/home.dart';
 
 import '../../utils/default_size.dart';
 

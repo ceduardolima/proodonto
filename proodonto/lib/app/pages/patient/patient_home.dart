@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/ui/patient/register_patient.dart';
-import 'package:proodonto/ui/patient/register_records.dart';
-import 'package:proodonto/ui/patient/search_patient.dart';
-import '../../utils/default_size.dart';
+import 'package:proodonto/app/ui/patient/register_records.dart';
+import 'package:proodonto/app/ui/patient/search_patient.dart';
+import '../../../utils/default_size.dart';
 
 class PatientHomePage extends StatelessWidget {
   const PatientHomePage({Key? key}) : super(key: key);
