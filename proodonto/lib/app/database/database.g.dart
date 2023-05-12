@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../app/database/database.dart';
+part of 'database.dart';
 
 // **************************************************************************
 // FloorGenerator
 // **************************************************************************
 
 // ignore: avoid_classes_with_only_static_members
-class $FloorProodontoDB {
+class $FloorProodontoDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$ProodontoDBBuilder databaseBuilder(String name) =>
-      _$ProodontoDBBuilder(name);
+  static _$ProodontoDatabaseBuilder databaseBuilder(String name) =>
+      _$ProodontoDatabaseBuilder(name);
 
   /// Creates a database builder for an in memory database.
   /// Information stored in an in memory database disappears when the process is killed.
   /// Once a database is built, you should keep a reference to it and re-use it.
-  static _$ProodontoDBBuilder inMemoryDatabaseBuilder() =>
-      _$ProodontoDBBuilder(null);
+  static _$ProodontoDatabaseBuilder inMemoryDatabaseBuilder() =>
+      _$ProodontoDatabaseBuilder(null);
 }
 
-class _$ProodontoDBBuilder {
-  _$ProodontoDBBuilder(this.name);
+class _$ProodontoDatabaseBuilder {
+  _$ProodontoDatabaseBuilder(this.name);
 
   final String? name;
 
@@ -30,23 +30,23 @@ class _$ProodontoDBBuilder {
   Callback? _callback;
 
   /// Adds migrations to the builder.
-  _$ProodontoDBBuilder addMigrations(List<Migration> migrations) {
+  _$ProodontoDatabaseBuilder addMigrations(List<Migration> migrations) {
     _migrations.addAll(migrations);
     return this;
   }
 
   /// Adds a database [Callback] to the builder.
-  _$ProodontoDBBuilder addCallback(Callback callback) {
+  _$ProodontoDatabaseBuilder addCallback(Callback callback) {
     _callback = callback;
     return this;
   }
 
   /// Creates the database and initializes it.
-  Future<ProodontoDB> build() async {
+  Future<ProodontoDatabase> build() async {
     final path = name != null
         ? await sqfliteDatabaseFactory.getDatabasePath(name!)
         : ':memory:';
-    final database = _$ProodontoDB();
+    final database = _$ProodontoDatabase();
     database.database = await database.open(
       path,
       _migrations,
@@ -56,8 +56,8 @@ class _$ProodontoDBBuilder {
   }
 }
 
-class _$ProodontoDB extends ProodontoDB {
-  _$ProodontoDB([StreamController<String>? listener]) {
+class _$ProodontoDatabase extends ProodontoDatabase {
+  _$ProodontoDatabase([StreamController<String>? listener]) {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 

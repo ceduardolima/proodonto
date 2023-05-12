@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:proodonto/ui/patient/register_patient.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/widget/buttons.dart';
-import '../../../utils/default_size.dart';
+import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/pages/patient/register_patient.dart';
+import 'package:proodonto/app/repository/patient_repository.dart';
+import 'package:proodonto/app/shared/default_size.dart';
+import 'package:proodonto/app/widget/buttons.dart';
+
 
 class RegisterRecordsHome extends StatelessWidget {
-  const RegisterRecordsHome({Key? key}) : super(key: key);
+  const RegisterRecordsHome({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class RegisterRecordsHome extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _RegisterRecordsForm(),
+                _RegisterRecordsForm(database: database),
               ],
             ),
           ),
@@ -27,12 +31,13 @@ class RegisterRecordsHome extends StatelessWidget {
 }
 
 class _RegisterRecordsForm extends StatelessWidget {
-  _RegisterRecordsForm({Key? key}) : super(key: key);
+  _RegisterRecordsForm({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
   final _formKey = GlobalKey<FormBuilderState>();
 
   void _changeToPatientRegister(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RegisterPatientHome()));
+        MaterialPageRoute(builder: (context) => RegisterPatientHome(database: database)));
   }
 
   @override

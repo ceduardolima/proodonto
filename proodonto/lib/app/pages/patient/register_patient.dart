@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
-import '../../utils/default_size.dart';
+import 'package:proodonto/app/shared/default_size.dart';
+
 
 class RegisterPatientHome extends StatelessWidget {
-  const RegisterPatientHome({Key? key}) : super(key: key);
+  const RegisterPatientHome({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   void _finishRegister(BuildContext context) {
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => HomePage(database: database,)),
         (route) => false);
   }
 

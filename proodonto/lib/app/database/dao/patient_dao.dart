@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:proodonto/database/entity/patient.dart';
+import 'package:proodonto/app/database/entity/patient.dart';
 
 @dao
 abstract class PatientDao {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/utils/default_size.dart';
+import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/shared/default_size.dart';
 
 class RegisterAnamnesisHome extends StatelessWidget {
-  const RegisterAnamnesisHome({Key? key}) : super(key: key);
+  const RegisterAnamnesisHome({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   @override
   Widget build(BuildContext context) {

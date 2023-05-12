@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:proodonto/ui/patient/register_patient.dart';
-import 'package:proodonto/app/ui/patient/register_records.dart';
-import 'package:proodonto/app/ui/patient/search_patient.dart';
-import '../../../utils/default_size.dart';
+import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/pages/patient/register_records.dart';
+import 'package:proodonto/app/pages/patient/search_patient.dart';
+import 'package:proodonto/app/database/entity/patient.dart';
+import 'package:proodonto/app/shared/enum_types.dart';
+
+import '../../shared/default_size.dart';
 
 class PatientHomePage extends StatelessWidget {
-  const PatientHomePage({Key? key}) : super(key: key);
+  const PatientHomePage({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +17,30 @@ class PatientHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Pacientes"),
       ),
-      body: const Padding(
+      body: Padding(
           padding: EdgeInsets.symmetric(horizontal: PaddingSize.big),
-          child: _PatientHomePageContent()),
+          child: _PatientHomePageContent(database: database)),
     );
   }
 }
 
 class _PatientHomePageContent extends StatelessWidget {
-  const _PatientHomePageContent({Key? key}) : super(key: key);
+  const _PatientHomePageContent({Key? key, required this.database})
+      : super(key: key);
+  final ProodontoDatabase database;
 
   void _changeToRegisterPatient(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RegisterRecordsHome()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RegisterRecordsHome(database: database)));
   }
-  
+
   void _changeToSearchPatient(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const SearchPatientHome()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SearchPatientHome(database: database)));
   }
 
   @override
@@ -45,7 +55,38 @@ class _PatientHomePageContent extends StatelessWidget {
         ),
         ElevatedButton(
           child: Text("Cadastrar"),
-          onPressed: () => _changeToRegisterPatient(context),
+          onPressed: () => {
+            database.patientDao.insert(Patient(
+                recordNumber: 1111,
+                advisor: "cadu",
+                semester: "1",
+                careUnit: "1",
+                profession: "1",
+                workAddress: "1",
+                email: "1",
+                initialExam: "1",
+                responsibleName: "1",
+                responsibleRG: "1",
+                responsibleIssuingAgency: "1",
+                parentalRelationship: "1",
+                responsiblePhoneNumber: "1",
+                name: "1",
+                birthday: "1",
+                sex: Sex.Male,
+                cpf: "1",
+                rg: "1",
+                issuingAgency: "1",
+                cep: "1",
+                address:"1",
+                neighborhood: "1",
+                addressComplement: "1",
+                skinColor: SkinColor.branca,
+                fixNumber: "1",
+                phone: "1",
+                placeOfBirth: "1",
+                nationality: "1",
+                maritalStatus: MaritalStatus.casado))
+          },
         ),
       ],
     );

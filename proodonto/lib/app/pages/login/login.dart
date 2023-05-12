@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
+import 'package:proodonto/app/shared/default_size.dart';
 
-import '../../utils/default_size.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
-          child: LoginTextForm(),
+          child: LoginTextForm(database: database),
     ));
   }
 }
@@ -19,8 +21,9 @@ class LoginPage extends StatelessWidget {
 class LoginTextForm extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final ProodontoDatabase database;
 
-  LoginTextForm({Key? key}) : super(key: key);
+  LoginTextForm({Key? key, required this.database}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class LoginTextForm extends StatelessWidget {
           isPassword: true,
           icon: const Icon(Icons.password),
         ),
-        const LoginButton()
+        LoginButton(database: database)
       ],
     );
   }
@@ -88,12 +91,13 @@ class LoginTextField extends StatelessWidget {
 }
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key}) : super(key: key);
+  const LoginButton({Key? key, required this.database}) : super(key: key);
+  final ProodontoDatabase database;
 
   void _changeToHomePage(BuildContext context) {
     Navigator.pop(context);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomePage()));
+        context, MaterialPageRoute(builder: (context) => HomePage(database: database)));
   }
 
   @override

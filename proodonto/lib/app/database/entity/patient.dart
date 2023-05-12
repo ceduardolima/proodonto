@@ -1,14 +1,10 @@
 import 'dart:core';
-import 'dart:core';
 
 import 'package:floor/floor.dart';
-
-import '../../utils/enum_types.dart';
+import 'package:proodonto/app/database/entity/user.dart';
 
 @Entity(tableName: "patient")
 class Patient extends User {
-  @PrimaryKey(autoGenerate: true)
-  int id = 0;
   final int recordNumber;
   final String advisor;
   final String semester;
@@ -24,7 +20,7 @@ class Patient extends User {
   final String responsiblePhoneNumber;
 
   Patient(
-      {required this.id,
+      {super.id,
       required this.recordNumber,
       required this.advisor,
       required this.semester,
@@ -54,41 +50,37 @@ class Patient extends User {
       required super.placeOfBirth,
       required super.nationality,
       required super.maritalStatus});
-}
 
-class User {
-  final String name;
-  final String birthday;
-  final Sex sex;
-  final String cpf;
-  final String rg;
-  final String issuingAgency;
-  final String cep;
-  final String address;
-  final String neighborhood;
-  final String addressComplement;
-  final SkinColor skinColor;
-  final String fixNumber;
-  final String phone;
-  final String placeOfBirth;
-  final String nationality;
-  final MaritalStatus maritalStatus;
-
-  User(
-      {required this.name,
-      required this.birthday,
-      required this.sex,
-      required this.cpf,
-      required this.rg,
-      required this.issuingAgency,
-      required this.cep,
-      required this.address,
-      required this.neighborhood,
-      required this.addressComplement,
-      required this.skinColor,
-      required this.fixNumber,
-      required this.phone,
-      required this.placeOfBirth,
-      required this.nationality,
-      required this.maritalStatus});
+  static Patient mapToPatientBuilder(Map patientMap) {
+    return Patient(
+        recordNumber: patientMap["recordNumber"],
+        advisor: patientMap["advisor"],
+        semester: patientMap["semester"],
+        careUnit: patientMap["careUnit"],
+        profession: patientMap["profession"],
+        workAddress: patientMap["patientworkAddress"],
+        email: patientMap["email"],
+        initialExam: patientMap["initialExam"],
+        responsibleName: patientMap["responsibleName"],
+        responsibleRG: patientMap["responsibleRG"],
+        responsibleIssuingAgency: patientMap["responsibleIssuingAgency"],
+        parentalRelationship: patientMap["parentalRelationship"],
+        responsiblePhoneNumber: patientMap["responsiblePhoneNumber"],
+        name: patientMap["name"],
+        birthday: patientMap["birthday"],
+        sex: patientMap["sex"],
+        cpf: patientMap["cpf"],
+        rg: patientMap["rg"],
+        issuingAgency: patientMap["issuingAgency"],
+        cep: patientMap["cep"],
+        address: patientMap["address"],
+        neighborhood: patientMap["neighborhood"],
+        addressComplement: patientMap["addressComplement"],
+        skinColor: patientMap["skinColor"],
+        fixNumber: patientMap["fixNumber"],
+        phone: patientMap["phone"],
+        placeOfBirth: patientMap["placeOfBirth"],
+        nationality: patientMap["nationality"],
+        maritalStatus: patientMap["maritalStatus"]);
+  }
 }
