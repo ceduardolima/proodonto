@@ -56,7 +56,7 @@ class _PatientHomePageContent extends StatelessWidget {
         ElevatedButton(
           child: Text("Cadastrar"),
           onPressed: () => {
-            database.patientDao.insert(Patient(
+            /*database.patientDao.insert(Patient(
                 recordNumber: 1111,
                 advisor: "cadu",
                 semester: "1",
@@ -86,6 +86,9 @@ class _PatientHomePageContent extends StatelessWidget {
                 placeOfBirth: "1",
                 nationality: "1",
                 maritalStatus: MaritalStatus.casado))
+          
+             */
+            _changeToRegisterPatient(context)
           },
         ),
       ],

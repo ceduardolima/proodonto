@@ -6,8 +6,9 @@ import 'package:proodonto/app/shared/default_size.dart';
 
 
 class RegisterPatientHome extends StatelessWidget {
-  const RegisterPatientHome({Key? key, required this.database}) : super(key: key);
+  const RegisterPatientHome({Key? key, required this.database, required this.patientMap}) : super(key: key);
   final ProodontoDatabase database;
+  final Map patientMap;
 
   void _finishRegister(BuildContext context) {
     Navigator.pushAndRemoveUntil(

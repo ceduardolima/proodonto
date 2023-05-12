@@ -6,9 +6,9 @@ import 'package:proodonto/app/repository/patient_repository.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
-
 class RegisterRecordsHome extends StatelessWidget {
-  const RegisterRecordsHome({Key? key, required this.database}) : super(key: key);
+  const RegisterRecordsHome({Key? key, required this.database})
+      : super(key: key);
   final ProodontoDatabase database;
 
   @override
@@ -35,11 +35,6 @@ class _RegisterRecordsForm extends StatelessWidget {
   final ProodontoDatabase database;
   final _formKey = GlobalKey<FormBuilderState>();
 
-  void _changeToPatientRegister(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => RegisterPatientHome(database: database)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
@@ -63,11 +58,35 @@ class _RegisterRecordsForm extends StatelessWidget {
                 name: "careUnit", label: "Unidade de atendimento"),
             const _RecordFormField(name: "initialExam", label: "Exame inicial"),
             DefaultButton(
-              onPressed: () => _changeToPatientRegister(context),
+              onPressed: () {
+                Map patientMap = getFields();
+                _changeToPatientRegister(context, patientMap);
+              },
               text: "Próximo",
             )
           ],
         ));
+  }
+
+  Map getFields() {
+    var fields = _formKey.currentState?.fields;
+    return {
+      "recordNumber": fields!["recordNumber"]?.value,
+      "advisor": fields["advisor"]?.value,
+      "semester": fields["semester"]?.value,
+      "careUnit": fields["careUnit"]?.value,
+      "initialExam": fields["initialExam"]?.value
+    };
+  }
+
+  void _changeToPatientRegister(BuildContext context, Map patientMap) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RegisterPatientHome(
+                  database: database,
+                  patientMap: patientMap,
+                )));
   }
 }
 
