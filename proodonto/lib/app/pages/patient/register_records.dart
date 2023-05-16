@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/patient/register_patient.dart';
+import 'package:proodonto/app/pages/patient/register_patient_informations.dart';
 import 'package:proodonto/app/repository/patient_repository.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/widget/buttons.dart';
+
+import '../../database/entity/patient.dart';
 
 class RegisterRecordsHome extends StatelessWidget {
   const RegisterRecordsHome({Key? key, required this.database})
@@ -34,7 +36,7 @@ class _RegisterRecordsForm extends StatelessWidget {
   _RegisterRecordsForm({Key? key, required this.database}) : super(key: key);
   final ProodontoDatabase database;
   final _formKey = GlobalKey<FormBuilderState>();
-
+  final patient = Patient();
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
@@ -59,8 +61,8 @@ class _RegisterRecordsForm extends StatelessWidget {
             const _RecordFormField(name: "initialExam", label: "Exame inicial"),
             DefaultButton(
               onPressed: () {
-                Map patientMap = getFields();
-                _changeToPatientRegister(context, patientMap);
+                getFields();
+                _changeToPatientRegister(context, patient);
               },
               text: "Próximo",
             )
@@ -68,24 +70,22 @@ class _RegisterRecordsForm extends StatelessWidget {
         ));
   }
 
-  Map getFields() {
+  void getFields() {
     var fields = _formKey.currentState?.fields;
-    return {
-      "recordNumber": fields!["recordNumber"]?.value,
-      "advisor": fields["advisor"]?.value,
-      "semester": fields["semester"]?.value,
-      "careUnit": fields["careUnit"]?.value,
-      "initialExam": fields["initialExam"]?.value
-    };
+      patient.recordNumber = int.parse(fields!["recordNumber"]?.value);
+      patient.advisor = fields["advisor"]?.value;
+      patient.semester = fields["semester"]?.value;
+      patient.careUnit = fields["careUnit"]?.value;
+      patient.initialExam = fields["initialExam"]?.value;
   }
 
-  void _changeToPatientRegister(BuildContext context, Map patientMap) {
+  void _changeToPatientRegister(BuildContext context, Patient patient) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RegisterPatientHome(
+            builder: (context) => RegisterPatientInformationHome(
                   database: database,
-                  patientMap: patientMap,
+                  patient: patient,
                 )));
   }
 }

@@ -24,19 +24,21 @@ class SearchPatientHome extends StatelessWidget {
               FutureBuilder<List<Patient>>(
                 future: database.patientDao.getAll(),
                 builder: (context, snapshot) {
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(snapshot.data![index].name),
-                            );
-                          })
-                      : Center(
-                          child: Text("Vazio"),
-                        );
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: Text("Vazio"),
+                    );
+                  } else {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(snapshot.data![index].name ?? 'null'),
+                          );
+                        });
+                  }
                 },
               ),
             ])));

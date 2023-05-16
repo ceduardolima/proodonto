@@ -3,40 +3,40 @@ import 'package:proodonto/app/shared/enum_types.dart';
 
 class User {
   @PrimaryKey(autoGenerate: true)
-  final int? id;
-  final String name;
-  final String birthday;
-  final Sex sex;
-  final String cpf;
-  final String rg;
-  final String issuingAgency;
-  final String cep;
-  final String address;
-  final String neighborhood;
-  final String addressComplement;
-  final SkinColor skinColor;
-  final String fixNumber;
-  final String phone;
-  final String placeOfBirth;
-  final String nationality;
-  final MaritalStatus maritalStatus;
+  int? id;
+  String? name;
+  String? birthday;
+  Sex? sex;
+  String? cpf;
+  String? rg;
+  String? issuingAgency;
+  String? cep;
+  String? address;
+  String? neighborhood;
+  String? addressComplement;
+  SkinColor? skinColor;
+  String? fixNumber;
+  String? phone;
+  String? placeOfBirth;
+  String? nationality;
+  MaritalStatus? maritalStatus;
 
-  User(
-      {this.id,
-      required this.name,
-      required this.birthday,
-      required this.sex,
-      required this.cpf,
-      required this.rg,
-      required this.issuingAgency,
-      required this.cep,
-      required this.address,
-      required this.neighborhood,
-      required this.addressComplement,
-      required this.skinColor,
-      required this.fixNumber,
-      required this.phone,
-      required this.placeOfBirth,
-      required this.nationality,
-      required this.maritalStatus});
+  User({
+      this.id,
+      this.name,
+      this.birthday,
+      this.sex,
+      this.cpf,
+      this.rg,
+      this.issuingAgency,
+      this.cep,
+      this.address,
+      this.neighborhood,
+      this.addressComplement,
+      this.skinColor,
+      this.fixNumber,
+      this.phone,
+      this.placeOfBirth,
+      this.nationality,
+      this.maritalStatus});
 }
