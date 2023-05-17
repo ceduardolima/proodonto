@@ -107,10 +107,10 @@ class _RegisterRecordsForm extends StatelessWidget {
     _formKey.currentState?.save();
     var fields = _formKey.currentState?.fields;
     patient.recordNumber = int.parse(fields!["recordNumber"]?.value);
-    patient.advisor = fields["advisor"]?.value;
+    patient.advisor = fields["advisor"]?.value.toString().toLowerCase();
     patient.semester = fields["semester"]?.value;
-    patient.careUnit = fields["careUnit"]?.value;
-    patient.initialExam = fields["initialExam"]?.value;
+    patient.careUnit = fields["careUnit"]?.value.toString().toLowerCase();
+    patient.initialExam = fields["initialExam"]?.value.toString().toLowerCase();
   }
 
   void _changeToPatientRegister(BuildContext context, Patient patient) {
