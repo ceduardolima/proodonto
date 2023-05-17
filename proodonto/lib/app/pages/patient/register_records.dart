@@ -50,24 +50,30 @@ class _RegisterRecordsForm extends StatelessWidget {
             DefaultFormField(
               name: "recordNumber",
               label: "Número do prontuário",
+              initialValue: patient.recordNumber?.toString(),
               inputType: TextInputType.number,
             ),
             DefaultFormField(
               name: "advisor",
               label: "Orientador",
+              initialValue: patient.advisor,
             ),
             DefaultFormField(
               name: "semester",
               label: "Período",
+              initialValue: patient.semester,
+              length: 6,
               inputType: TextInputType.number,
             ),
             DefaultFormField(
               name: "careUnit",
               label: "Unidade de atendimento",
+              initialValue: patient.careUnit,
             ),
             DefaultFormField(
               name: "initialExam",
               label: "Exame inicial",
+              initialValue: patient.initialExam,
             ),
             DefaultButton(
               onPressed: () => _onPressed(context),
