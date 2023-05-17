@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/patient/register_patient_informations.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -31,22 +32,11 @@ class RegisterRecordsHome extends StatelessWidget {
   }
 }
 
-class _RegisterRecordsForm extends StatefulWidget {
+class _RegisterRecordsForm extends StatelessWidget {
   _RegisterRecordsForm({Key? key, required this.database}) : super(key: key);
   final ProodontoDatabase database;
   final patient = Patient();
-
-  @override
-  State<_RegisterRecordsForm> createState() =>
-      _RegisterRecordsFormState(database: database);
-}
-
-class _RegisterRecordsFormState extends State<_RegisterRecordsForm> {
-  _RegisterRecordsFormState({required this.database});
-
-  final ProodontoDatabase database;
   final _formKey = GlobalKey<FormBuilderState>();
-  final patient = Patient();
   String? errorMessenger;
 
   @override
@@ -58,25 +48,25 @@ class _RegisterRecordsFormState extends State<_RegisterRecordsForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _RecordFormField(
+            DefaultFormField(
               name: "recordNumber",
               label: "Número do prontuário",
               inputType: TextInputType.number,
             ),
-            _RecordFormField(
+            DefaultFormField(
               name: "advisor",
               label: "Orientador",
             ),
-            _RecordFormField(
+            DefaultFormField(
               name: "semester",
               label: "Período",
               inputType: TextInputType.number,
             ),
-            _RecordFormField(
+            DefaultFormField(
               name: "careUnit",
               label: "Unidade de atendimento",
             ),
-            _RecordFormField(
+            DefaultFormField(
               name: "initialExam",
               label: "Exame inicial",
             ),
@@ -124,47 +114,5 @@ class _RegisterRecordsFormState extends State<_RegisterRecordsForm> {
                   database: database,
                   patient: patient,
                 )));
-  }
-}
-
-class _RecordFormField extends StatelessWidget {
-  _RecordFormField(
-      {required this.name,
-      required this.label,
-      this.hint,
-      Key? key,
-      this.inputType,
-      this.maxLength,
-      this.errorMessenger})
-      : super(key: key);
-
-  final String name;
-  final String? hint;
-  final String label;
-  final int? maxLength;
-  final TextInputType? inputType;
-  String? errorMessenger;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(
-            labelText: label, hintText: hint,),
-        maxLines: 1,
-        maxLength: maxLength,
-        validator: (value) => _validate(value),
-      ),
-    );
-  }
-
-  String? _validate(String? value) {
-    if (value == null || value.isEmpty) {
-      return errorMessenger ?? "Campo obrigatório";
-    }
-    return null;
   }
 }
