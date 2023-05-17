@@ -37,7 +37,6 @@ class _RegisterRecordsForm extends StatelessWidget {
   final ProodontoDatabase database;
   final patient = Patient();
   final _formKey = GlobalKey<FormBuilderState>();
-  String? errorMessenger;
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +70,19 @@ class _RegisterRecordsForm extends StatelessWidget {
               label: "Exame inicial",
             ),
             DefaultButton(
-              onPressed: () {
-                bool isValid = _validateItems();
-                if (isValid) {
-                  getFields();
-                  _changeToPatientRegister(context, patient);
-                }
-              },
+              onPressed: () => _onPressed(context),
               text: "Próximo",
             )
           ],
         ));
+  }
+  
+  void _onPressed(BuildContext context) {
+    bool isValid = _validateItems();
+    if (isValid) {
+      _getFields();
+      _changeToPatientRegister(context, patient);
+    }
   }
 
   bool _validateItems() {
@@ -96,7 +97,7 @@ class _RegisterRecordsForm extends StatelessWidget {
     return isValid;
   }
 
-  void getFields() {
+  void _getFields() {
     _formKey.currentState?.save();
     var fields = _formKey.currentState?.fields;
     patient.recordNumber = int.parse(fields!["recordNumber"]?.value);
