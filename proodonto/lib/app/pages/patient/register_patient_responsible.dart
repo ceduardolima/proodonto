@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/home/home.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
 
@@ -37,11 +38,10 @@ class _PacientResponsibleForm extends StatelessWidget {
       {Key? key, required this.database, required this.patient})
       : super(key: key) {
     finish.addListener(() {
-      if (finish.value) {
-
-      }
+      if (finish.value) {}
     });
   }
+
   final _formKey = GlobalKey<FormBuilderState>();
   final ProodontoDatabase database;
   final Patient patient;
@@ -53,23 +53,36 @@ class _PacientResponsibleForm extends StatelessWidget {
       key: _formKey,
       child: Column(
         children: [
-          const _RegisterPatientResponsibleTextField(
-              name: "responsibleName", label: "Nome do responsável"),
-          const _RegisterPatientResponsibleTextField(
-              name: "responsibleAddress", label: "Endereço do responsável"),
-          const _RegisterPatientResponsibleTextField(
+          DefaultFormField(
+            name: "responsibleName",
+            label: "Nome do responsável",
+            initialValue: patient.responsibleName,
+          ),
+          DefaultFormField(
+            name: "responsibleAddress",
+            label: "Endereço do responsável",
+            initialValue: patient.responsibleAddress,
+          ),
+          DefaultFormField(
             name: "responsibleRG",
             label: "RG do responsável",
             inputType: TextInputType.number,
+            initialValue: patient.responsibleRG,
           ),
-          const _RegisterPatientResponsibleTextField(
-              name: "responsibleIssuingAgency",
-              label: "Orgão expedidor do responsável"),
-          const _RegisterPatientResponsibleTextField(
-              name: "parentalRelationship", label: "Relação parental"),
-          const _RegisterPatientResponsibleTextField(
+          DefaultFormField(
+            name: "responsibleIssuingAgency",
+            label: "Orgão expedidor do responsável",
+            initialValue: patient.responsibleIssuingAgency,
+          ),
+          DefaultFormField(
+            name: "parentalRelationship",
+            label: "Relação parental",
+            initialValue: patient.parentalRelationship,
+          ),
+          DefaultFormField(
             name: "responsibleNumber",
             label: "Telefone do responsável",
+            initialValue: patient.responsiblePhoneNumber,
             inputType: TextInputType.number,
           ),
           ElevatedButton(
@@ -99,43 +112,18 @@ class _PacientResponsibleForm extends StatelessWidget {
     patient.parentalRelationship = fields["parentalRelationship"]?.value;
     patient.responsiblePhoneNumber = fields["responsibleNumber"]?.value;
   }
+
   void _insertPatient(Patient patient) async {
     await database.patientDao.insert(patient);
   }
+
   void _finishRegister(BuildContext context) {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                HomePage(
+            builder: (context) => HomePage(
                   database: database,
                 )),
-            (route) => false);
-  }
-}
-
-class _RegisterPatientResponsibleTextField extends StatelessWidget {
-  const _RegisterPatientResponsibleTextField({required this.name,
-    required this.label,
-    this.hint,
-    Key? key,
-    this.inputType})
-      : super(key: key);
-
-  final String name;
-  final String? hint;
-  final String label;
-  final TextInputType? inputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(labelText: label, hintText: hint),
-      ),
-    );
+        (route) => false);
   }
 }
