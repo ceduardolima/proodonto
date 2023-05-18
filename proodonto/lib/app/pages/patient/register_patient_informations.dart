@@ -60,7 +60,9 @@ class _RegisterPatientForm extends StatelessWidget {
           ),
           DefaultDropdownButton(
             name: "sex",
-            list: sexStringList,
+            list: Sex.getNameList(),
+            initialValue:
+                patient.sex != null ? Sex.getValueByName(patient.sex!) : null,
             label: 'Sexo',
           ),
           DefaultFormField(
@@ -85,7 +87,10 @@ class _RegisterPatientForm extends StatelessWidget {
           ),
           DefaultDropdownButton(
             name: "skinColor",
-            list: skinColorStringList,
+            list: SkinColor.getNameList(),
+            initialValue: patient.skinColor != null
+                ? SkinColor.getValueByName(patient.skinColor!)
+                : null,
             label: 'Cor de pele',
           ),
           FormBuilderDateTimePicker(
@@ -152,7 +157,10 @@ class _RegisterPatientForm extends StatelessWidget {
           ),
           DefaultDropdownButton(
             name: "maritalState",
-            list: maritalStatusStringList,
+            list: MaritalStatus.getNameList(),
+            initialValue: patient.maritalStatus != null
+                ? MaritalStatus.getValueByName(patient.maritalStatus!)
+                : null,
             label: 'Estado civil',
           ),
           DefaultFormField(
@@ -196,8 +204,8 @@ class _RegisterPatientForm extends StatelessWidget {
     return isValid;
   }
 
-    void _addFieldsToPatientMap() {
-    var fields = _formKey.currentState?.fields;
+  void _addFieldsToPatientMap() {
+    final fields = _formKey.currentState?.fields;
     patient.name = fields!["name"]?.value;
     patient.cpf = fields["cpf"]?.value;
     patient.rg = fields["rg"]?.value;
@@ -214,11 +222,11 @@ class _RegisterPatientForm extends StatelessWidget {
     patient.nationality = fields["nationality"]?.value;
     patient.profession = fields["profession"]?.value;
     patient.workAddress = fields["workAddress"]?.value;
-    patient.sex = Sex.values[sexStringList.indexOf(fields["sex"]?.value)];
+    patient.sex = Sex.values[Sex.getNameList().indexOf(fields["sex"]?.value)];
     patient.maritalStatus = MaritalStatus.values[
-        maritalStatusStringList.indexOf(fields["maritalState"]?.value)];
+        MaritalStatus.getNameList().indexOf(fields["maritalState"]?.value)];
     patient.skinColor = SkinColor
-        .values[skinColorStringList.indexOf(fields["skinColor"]?.value)];
+        .values[SkinColor.getNameList().indexOf(fields["skinColor"]?.value)];
   }
 
   void _finishRegister(BuildContext context, Patient patientMap) {
