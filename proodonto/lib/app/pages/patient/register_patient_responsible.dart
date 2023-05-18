@@ -87,9 +87,6 @@ class _PacientResponsibleForm extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              _addFieldToPatientMap();
-              _insertPatient(patient);
-              _finishRegister(context);
             },
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
@@ -100,6 +97,27 @@ class _PacientResponsibleForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onPressed(BuildContext context) {
+    bool isValid = _validateItems();
+    if (isValid) {
+      _addFieldToPatientMap();
+      _insertPatient(patient);
+      _finishRegister(context);
+    }
+  }
+
+  bool _validateItems() {
+    final values = _formKey.currentState?.fields.values.toList();
+    bool isValid = true;
+    values?.forEach((element) {
+      element.validate();
+      if (!element.isValid) {
+        isValid = false;
+      }
+    });
+    return isValid;
   }
 
   void _addFieldToPatientMap() {
