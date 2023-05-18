@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/home/home.dart';
 import 'package:proodonto/app/pages/patient/register_patient_responsible.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
@@ -43,13 +42,8 @@ class _RegisterPatientForm extends StatelessWidget {
       {Key? key, required this.database, required this.patient})
       : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
-  ProodontoDatabase database;
-  Patient patient;
-  ValueNotifier<String> sexValueNotifier = ValueNotifier(sexStringList[0]);
-  ValueNotifier<String> skinColorValueNotifier =
-      ValueNotifier(skinColorStringList[0]);
-  ValueNotifier<String> maritalStatusValueNotifier =
-      ValueNotifier(maritalStatusStringList[0]);
+  final ProodontoDatabase database;
+  final Patient patient;
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +58,10 @@ class _RegisterPatientForm extends StatelessWidget {
             label: "Nome",
             initialValue: patient.name,
           ),
-          DropdownButtonSelector(
+          DefaultDropdownButton(
+            name: "sex",
             list: sexStringList,
-            valueNotifier: sexValueNotifier,
-            hint: 'Escolha seu sexo',
+            label: 'Sexo',
           ),
           DefaultFormField(
             name: "cpf",
@@ -89,10 +83,10 @@ class _RegisterPatientForm extends StatelessWidget {
             label: "Orgão expedidor",
             initialValue: patient.issuingAgency,
           ),
-          DropdownButtonSelector(
+          DefaultDropdownButton(
+            name: "skinColor",
             list: skinColorStringList,
-            hint: 'Escolha sua cor de pele',
-            valueNotifier: skinColorValueNotifier,
+            label: 'Cor de pele',
           ),
           FormBuilderDateTimePicker(
             name: "birthday",
@@ -156,10 +150,10 @@ class _RegisterPatientForm extends StatelessWidget {
             label: "Nacionalidade",
             initialValue: patient.nationality ?? "Brasileira",
           ),
-          DropdownButtonSelector(
+          DefaultDropdownButton(
+            name: "maritalState",
             list: maritalStatusStringList,
-            hint: 'Escolha seu estado civil',
-            valueNotifier: maritalStatusValueNotifier,
+            label: 'Estado civil',
           ),
           DefaultFormField(
             name: "profession",
@@ -205,11 +199,11 @@ class _RegisterPatientForm extends StatelessWidget {
     patient.nationality = fields["nationality"]?.value;
     patient.profession = fields["profession"]?.value;
     patient.workAddress = fields["workAddress"]?.value;
-    patient.sex = Sex.values[sexStringList.indexOf(sexValueNotifier.value)];
+    patient.sex = Sex.values[sexStringList.indexOf(fields["sex"]?.value)];
     patient.maritalStatus = MaritalStatus.values[
-        maritalStatusStringList.indexOf(maritalStatusValueNotifier.value)];
+        maritalStatusStringList.indexOf(fields["maritalState"]?.value)];
     patient.skinColor = SkinColor
-        .values[skinColorStringList.indexOf(skinColorValueNotifier.value)];
+        .values[skinColorStringList.indexOf(fields["skinColor"]?.value)];
   }
 
   void _finishRegister(BuildContext context, Patient patientMap) {
