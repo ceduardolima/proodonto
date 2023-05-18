@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
 import 'package:proodonto/app/pages/patient/register_patient_responsible.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/shared/dropdown_button.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
@@ -59,57 +60,57 @@ class _RegisterPatientForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const _RegisterPatientTextField(name: "name", label: "Nome"),
+          DefaultFormField(name: "name", label: "Nome"),
           DropdownButtonSelector(
             list: sexStringList,
             valueNotifier: sexValueNotifier,
             hint: 'Escolha seu sexo',
           ),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "cpf", label: "CPF", hint: "000.000.000-01"),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "rg", label: "RG", hint: "1.000.111"),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "issuingAgency", label: "Orgão expedidor"),
           DropdownButtonSelector(
             list: skinColorStringList,
             hint: 'Escolha sua cor de pele',
             valueNotifier: skinColorValueNotifier,
           ),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "birthday",
               label: "Data de nascimento",
               hint: "01/12/2000"),
-          const _RegisterPatientTextField(
+          DefaultFormField(
             name: "fixNumber",
             label: "Telefone",
             hint: "3333-3333",
           ),
-          const _RegisterPatientTextField(name: "phone", label: "Celular"),
-          const _RegisterPatientTextField(
+          DefaultFormField(name: "phone", label: "Celular"),
+          DefaultFormField(
             name: "email",
             label: "email",
           ),
-          const _RegisterPatientTextField(name: "address", label: "Endereço"),
-          const _RegisterPatientTextField(
+          DefaultFormField(name: "address", label: "Endereço"),
+          DefaultFormField(
               name: "addressComplement", label: "Complemento"),
-          const _RegisterPatientTextField(name: "cep", label: "CEP"),
-          const _RegisterPatientTextField(
+          DefaultFormField(name: "cep", label: "CEP"),
+          DefaultFormField(
               name: "neighborhood", label: "Bairro"),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "placeOfBirth", label: "Naturalidade"),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "nationality", label: "Nacionalidade"),
           DropdownButtonSelector(
             list: maritalStatusStringList,
             hint: 'Escolha seu estado civil',
             valueNotifier: maritalStatusValueNotifier,
           ),
-          const _RegisterPatientTextField(
+          DefaultFormField(
             name: "profession",
             label: "Profissão",
           ),
-          const _RegisterPatientTextField(
+          DefaultFormField(
               name: "workAddress", label: "Endereço da profissão"),
           ElevatedButton(
             onPressed: () {
@@ -158,32 +159,5 @@ class _RegisterPatientForm extends StatelessWidget {
                   database: database,
                   patient: patient,
                 )));
-  }
-}
-
-class _RegisterPatientTextField extends StatelessWidget {
-  const _RegisterPatientTextField(
-      {required this.name,
-      required this.label,
-      this.hint,
-      Key? key,
-      this.inputType})
-      : super(key: key);
-
-  final String name;
-  final String? hint;
-  final String label;
-  final TextInputType? inputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(labelText: label, hintText: hint),
-      ),
-    );
   }
 }
