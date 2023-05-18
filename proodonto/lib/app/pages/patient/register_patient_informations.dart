@@ -11,7 +11,6 @@ import 'package:proodonto/app/shared/enum_types.dart';
 import '../../database/entity/patient.dart';
 
 class RegisterPatientInformationHome extends StatelessWidget {
-
   const RegisterPatientInformationHome(
       {Key? key, required this.database, required this.patient})
       : super(key: key);
@@ -60,47 +59,103 @@ class _RegisterPatientForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          DefaultFormField(name: "name", label: "Nome"),
+          DefaultFormField(
+            name: "name",
+            label: "Nome",
+            initialValue: patient.name,
+          ),
           DropdownButtonSelector(
             list: sexStringList,
             valueNotifier: sexValueNotifier,
             hint: 'Escolha seu sexo',
           ),
           DefaultFormField(
-              name: "cpf", label: "CPF", hint: "000.000.000-01"),
+            name: "cpf",
+            label: "CPF",
+            hint: "000.000.000-01",
+            initialValue: patient.cpf,
+            length: 11,
+            inputType: TextInputType.number,
+          ),
           DefaultFormField(
-              name: "rg", label: "RG", hint: "1.000.111"),
+            name: "rg",
+            label: "RG",
+            initialValue: patient.rg,
+            hint: "1.000.111",
+            length: 7,
+          ),
           DefaultFormField(
-              name: "issuingAgency", label: "Orgão expedidor"),
+            name: "issuingAgency",
+            label: "Orgão expedidor",
+            initialValue: patient.issuingAgency,
+          ),
           DropdownButtonSelector(
             list: skinColorStringList,
             hint: 'Escolha sua cor de pele',
             valueNotifier: skinColorValueNotifier,
           ),
-          DefaultFormField(
-              name: "birthday",
-              label: "Data de nascimento",
-              hint: "01/12/2000"),
+          FormBuilderDateTimePicker(
+            name: "birthday",
+            decoration: const InputDecoration(labelText: "Aniversário"),
+            inputType: InputType.date,
+            initialDate: patient.birthday == null
+                ? null
+                : DateTime.tryParse(patient.birthday!),
+          ),
           DefaultFormField(
             name: "fixNumber",
             label: "Telefone",
             hint: "3333-3333",
+            initialValue: patient.fixNumber,
+            inputType: TextInputType.number,
+            length: 8,
           ),
-          DefaultFormField(name: "phone", label: "Celular"),
+          DefaultFormField(
+            name: "phone",
+            label: "Celular",
+            hint: "81912341234",
+            initialValue: patient.phone,
+            inputType: TextInputType.number,
+            length: 11,
+          ),
           DefaultFormField(
             name: "email",
             label: "email",
+            initialValue: patient.email,
+            inputType: TextInputType.emailAddress,
           ),
-          DefaultFormField(name: "address", label: "Endereço"),
           DefaultFormField(
-              name: "addressComplement", label: "Complemento"),
-          DefaultFormField(name: "cep", label: "CEP"),
+            name: "address",
+            label: "Endereço",
+            initialValue: patient.address,
+          ),
           DefaultFormField(
-              name: "neighborhood", label: "Bairro"),
+            name: "addressComplement",
+            label: "Complemento",
+            initialValue: patient.addressComplement,
+          ),
           DefaultFormField(
-              name: "placeOfBirth", label: "Naturalidade"),
+            name: "cep",
+            label: "CEP",
+            initialValue: patient.cep,
+            length: 8,
+            inputType: TextInputType.number,
+          ),
           DefaultFormField(
-              name: "nationality", label: "Nacionalidade"),
+            name: "neighborhood",
+            label: "Bairro",
+            initialValue: patient.neighborhood,
+          ),
+          DefaultFormField(
+            name: "placeOfBirth",
+            label: "Naturalidade",
+            initialValue: patient.placeOfBirth ?? "Brasileira",
+          ),
+          DefaultFormField(
+            name: "nationality",
+            label: "Nacionalidade",
+            initialValue: patient.nationality ?? "Brasileira",
+          ),
           DropdownButtonSelector(
             list: maritalStatusStringList,
             hint: 'Escolha seu estado civil',
@@ -109,9 +164,13 @@ class _RegisterPatientForm extends StatelessWidget {
           DefaultFormField(
             name: "profession",
             label: "Profissão",
+            initialValue: patient.profession,
           ),
           DefaultFormField(
-              name: "workAddress", label: "Endereço da profissão"),
+            name: "workAddress",
+            label: "Endereço da profissão",
+            initialValue: patient.workAddress,
+          ),
           ElevatedButton(
             onPressed: () {
               addFieldsToPatientMap();
@@ -134,7 +193,7 @@ class _RegisterPatientForm extends StatelessWidget {
     patient.cpf = fields["cpf"]?.value;
     patient.rg = fields["rg"]?.value;
     patient.issuingAgency = fields["issuingAgency"]?.value;
-    patient.birthday = fields["birthday"]?.value;
+    patient.birthday = fields["birthday"]?.value.toString();
     patient.fixNumber = fields["fixNumber"]?.value;
     patient.phone = fields["phone"]?.value;
     patient.email = fields["email"]?.value;
@@ -147,8 +206,10 @@ class _RegisterPatientForm extends StatelessWidget {
     patient.profession = fields["profession"]?.value;
     patient.workAddress = fields["workAddress"]?.value;
     patient.sex = Sex.values[sexStringList.indexOf(sexValueNotifier.value)];
-    patient.maritalStatus= MaritalStatus.values[maritalStatusStringList.indexOf(maritalStatusValueNotifier.value)];
-    patient.skinColor = SkinColor.values[skinColorStringList.indexOf(skinColorValueNotifier.value)];
+    patient.maritalStatus = MaritalStatus.values[
+        maritalStatusStringList.indexOf(maritalStatusValueNotifier.value)];
+    patient.skinColor = SkinColor
+        .values[skinColorStringList.indexOf(skinColorValueNotifier.value)];
   }
 
   void _finishRegister(BuildContext context, Patient patientMap) {
