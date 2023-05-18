@@ -86,8 +86,7 @@ class _PacientResponsibleForm extends StatelessWidget {
             inputType: TextInputType.number,
           ),
           ElevatedButton(
-            onPressed: () {
-            },
+            onPressed: () => onPressed(context),
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
               minimumSize: const Size.fromHeight(50),
@@ -103,8 +102,7 @@ class _PacientResponsibleForm extends StatelessWidget {
     bool isValid = _validateItems();
     if (isValid) {
       _addFieldToPatientMap();
-      _insertPatient(patient);
-      _finishRegister(context);
+      _insertPatient(context, patient);
     }
   }
 
@@ -131,8 +129,38 @@ class _PacientResponsibleForm extends StatelessWidget {
     patient.responsiblePhoneNumber = fields["responsibleNumber"]?.value;
   }
 
-  void _insertPatient(Patient patient) async {
+  void _insertPatient(BuildContext context, Patient patient) async {
+    _showDialog(context);
     await database.patientDao.insert(patient);
+    await Future.delayed(const Duration(seconds: 2));
+    if (context.mounted) {
+      _finishRegister(context);
+    }
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: PaddingSize.large, horizontal: PaddingSize.big),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  CircularProgressIndicator(),
+                  Spacer(),
+                  Text("Inserindo dados..."),
+                  Spacer(
+                    flex: 2,
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   void _finishRegister(BuildContext context) {
