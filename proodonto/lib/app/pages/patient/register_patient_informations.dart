@@ -167,8 +167,11 @@ class _RegisterPatientForm extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              addFieldsToPatientMap();
-              _finishRegister(context, patient);
+              bool isValid = _validateItems();
+              if (isValid) {
+                _addFieldsToPatientMap();
+                _finishRegister(context, patient);
+              }
             },
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
@@ -181,7 +184,19 @@ class _RegisterPatientForm extends StatelessWidget {
     );
   }
 
-  void addFieldsToPatientMap() {
+  bool _validateItems() {
+    final values = _formKey.currentState?.fields.values.toList();
+    bool isValid = true;
+    values?.forEach((element) {
+      element.validate();
+      if (!element.isValid) {
+        isValid = false;
+      }
+    });
+    return isValid;
+  }
+
+    void _addFieldsToPatientMap() {
     var fields = _formKey.currentState?.fields;
     patient.name = fields!["name"]?.value;
     patient.cpf = fields["cpf"]?.value;
