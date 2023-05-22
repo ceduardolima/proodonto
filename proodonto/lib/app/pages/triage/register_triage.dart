@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/database/entity/triage.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
+import 'package:proodonto/app/shared/default_radio_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 
 
 class RegisterTriageHome extends StatelessWidget {
-  const RegisterTriageHome({Key? key, required this.database}) : super(key: key);
+  RegisterTriageHome({Key? key, required this.database}) : super(key: key);
   final ProodontoDatabase database;
+  final _triage = Triage();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,26 +23,26 @@ class RegisterTriageHome extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               vertical: PaddingSize.small, horizontal: PaddingSize.medium),
           child: Column(
-            children: const [
-              _TriageFormField(name: "operatorName", label: "Nome do operador"),
-              _TriageFormField(name: "patientName", label: "Nome do paciênte"),
-              _TriageFormField(name: "recordNumber", label: "Pronuário", inputType: TextInputType.number,),
-              _TriageFormField(name: "reasonForConsultation", label: "Motivo da consulta",),
-              _TriageFormField(name: "hasCovid", label: "Confirmação de covid"),
-              _TriageFormField(name: "testType", label: "tipo do teste"),
-              _TriageFormField(name: "kinship", label: "Parentesco"),
-              _TriageFormField(name: "hasFever", label: "Febre"),
-              _TriageFormField(name: "hasTiredness", label: "Cansaço"),
-              _TriageFormField(name: "hasDifficultyBreathing", label: "Dificuldade Para respirar"),
-              _TriageFormField(name: "hasLossOfSmell", label: "Perda de olfato"),
-              _TriageFormField(name: "hasLossOfSmell", label: "Perda de olfato"),
-              _TriageFormField(name: "hasLossOfTaste", label: "Perda do paladar"),
-              _TriageFormField(name: "hasSoreThroat", label: "Dor na garganta"),
-              _TriageFormField(name: "hasHeadache", label: "Dor de cabeça"),
-              _TriageFormField(name: "hasDiarrhea", label: "Diarreia"),
-              _TriageFormField(name: "oximetria", label: "Oximatria"),
-              _TriageFormField(name: "heartRate", label: "Frequência cardíaca"),
-              _TriageFormField(name: "temperature", label: "Temperatura"),
+            children: [
+              DefaultFormField(name: "operatorCPF", label: "CPF do operador", inputType: TextInputType.number, length: 11,),
+              DefaultFormField(name: "patientCPF", label: "CPF do paciênte", inputType: TextInputType.number , length: 11,),
+              DefaultFormField(name: "recordNumber", label: "Pronuário", inputType: TextInputType.number,),
+              DefaultFormField(name: "reasonForConsultation", label: "Motivo da consulta"),
+              DefaultRadioButton(name: "hasCovid", label: "Confirmação de covid"),
+              DefaultRadioButton(name: "testType", label: "tipo do teste"),
+              DefaultRadioButton(name: "kinship", label: "Parentesco"),
+              DefaultRadioButton(name: "hasFever", label: "Febre"),
+              DefaultRadioButton(name: "hasTiredness", label: "Cansaço"),
+              DefaultRadioButton(name: "hasDifficultyBreathing", label: "Dificuldade Para respirar"),
+              DefaultRadioButton(name: "hasLossOfSmell", label: "Perda de olfato"),
+              DefaultRadioButton(name: "hasLossOfSmell", label: "Perda de olfato"),
+              DefaultRadioButton(name: "hasLossOfTaste", label: "Perda do paladar"),
+              DefaultRadioButton(name: "hasSoreThroat", label: "Dor na garganta"),
+              DefaultRadioButton(name: "hasHeadache", label: "Dor de cabeça"),
+              DefaultRadioButton(name: "hasDiarrhea", label: "Diarreia"),
+              DefaultRadioButton(name: "oximetria", label: "Oximatria"),
+              DefaultRadioButton(name: "heartRate", label: "Frequência cardíaca"),
+              DefaultRadioButton(name: "temperature", label: "Temperatura"),
             ],
           ),
         ),
@@ -46,28 +51,3 @@ class RegisterTriageHome extends StatelessWidget {
   }
 }
 
-class _TriageFormField extends StatelessWidget {
-  const _TriageFormField({required this.name,
-    required this.label,
-    this.hint,
-    Key? key,
-    this.inputType})
-      : super(key: key);
-
-  final String name;
-  final String? hint;
-  final String label;
-  final TextInputType? inputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(labelText: label, hintText: hint),
-      ),
-    );
-  }
-}
