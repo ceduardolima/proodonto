@@ -34,7 +34,7 @@ class RegisterTriageHome extends StatelessWidget {
               DefaultRadioButton(name: "hasFever", label: "Febre"),
               DefaultRadioButton(name: "hasTiredness", label: "Cansaço"),
               DefaultRadioButton(name: "hasDifficultyBreathing", label: "Dificuldade Para respirar"),
-              DefaultRadioButton(name: "hasLossOfSmell", label: "Perda de olfato"),
+              DefaultRadioButton(name: "hasCough", label: "Tosse"),
               DefaultRadioButton(name: "hasLossOfSmell", label: "Perda de olfato"),
               DefaultRadioButton(name: "hasLossOfTaste", label: "Perda do paladar"),
               DefaultRadioButton(name: "hasSoreThroat", label: "Dor na garganta"),
