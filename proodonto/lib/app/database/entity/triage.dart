@@ -4,6 +4,7 @@ import 'package:floor/floor.dart';
 
 @Entity(tableName: "triage")
 class Triage {
+  @PrimaryKey(autoGenerate: true)
   int? id;
   int? patientCPF;
   int? operatorCPF;
