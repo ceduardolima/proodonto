@@ -89,7 +89,7 @@ class _$ProodontoDatabase extends ProodontoDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `patient` (`recordNumber` INTEGER, `advisor` TEXT, `semester` TEXT, `careUnit` TEXT, `profession` TEXT, `workAddress` TEXT, `email` TEXT, `initialExam` TEXT, `responsibleName` TEXT, `responsibleAddress` TEXT, `responsibleRG` TEXT, `responsibleIssuingAgency` TEXT, `parentalRelationship` TEXT, `responsiblePhoneNumber` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `birthday` TEXT, `sex` INTEGER, `cpf` TEXT, `rg` TEXT, `issuingAgency` TEXT, `cep` TEXT, `address` TEXT, `neighborhood` TEXT, `addressComplement` TEXT, `skinColor` INTEGER, `fixNumber` TEXT, `phone` TEXT, `placeOfBirth` TEXT, `nationality` TEXT, `maritalStatus` INTEGER)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` INTEGER, `operatorCPF` INTEGER, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -414,8 +414,8 @@ class _$TriageDao extends TriageDao {
     return _queryAdapter.queryList('SELECT * FROM triage',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as int?,
-            operatorCPF: row['operatorCPF'] as int?,
+            patientCPF: row['patientCPF'] as String?,
+            operatorCPF: row['operatorCPF'] as String?,
             operatorName: row['operatorName'] as String?,
             patientName: row['patientName'] as String?,
             recordNumber: row['recordNumber'] as int?,
@@ -457,8 +457,8 @@ class _$TriageDao extends TriageDao {
     return _queryAdapter.queryStream('SELECT * FROM triage WHERE id=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as int?,
-            operatorCPF: row['operatorCPF'] as int?,
+            patientCPF: row['patientCPF'] as String?,
+            operatorCPF: row['operatorCPF'] as String?,
             operatorName: row['operatorName'] as String?,
             patientName: row['patientName'] as String?,
             recordNumber: row['recordNumber'] as int?,
@@ -504,8 +504,8 @@ class _$TriageDao extends TriageDao {
         'SELECT * FROM triage WHERE recordNumber=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as int?,
-            operatorCPF: row['operatorCPF'] as int?,
+            patientCPF: row['patientCPF'] as String?,
+            operatorCPF: row['operatorCPF'] as String?,
             operatorName: row['operatorName'] as String?,
             patientName: row['patientName'] as String?,
             recordNumber: row['recordNumber'] as int?,
@@ -551,8 +551,8 @@ class _$TriageDao extends TriageDao {
         'SELECT * FROM triage WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as int?,
-            operatorCPF: row['operatorCPF'] as int?,
+            patientCPF: row['patientCPF'] as String?,
+            operatorCPF: row['operatorCPF'] as String?,
             operatorName: row['operatorName'] as String?,
             patientName: row['patientName'] as String?,
             recordNumber: row['recordNumber'] as int?,
@@ -598,8 +598,8 @@ class _$TriageDao extends TriageDao {
         'SELECT * FROM triage WHERE operatorCPF=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as int?,
-            operatorCPF: row['operatorCPF'] as int?,
+            patientCPF: row['patientCPF'] as String?,
+            operatorCPF: row['operatorCPF'] as String?,
             operatorName: row['operatorName'] as String?,
             patientName: row['patientName'] as String?,
             recordNumber: row['recordNumber'] as int?,

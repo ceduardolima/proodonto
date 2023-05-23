@@ -6,8 +6,8 @@ import 'package:floor/floor.dart';
 class Triage {
   @PrimaryKey(autoGenerate: true)
   int? id;
-  int? patientCPF;
-  int? operatorCPF;
+  String? patientCPF;
+  String? operatorCPF;
   String? operatorName;
   String? patientName;
   int? recordNumber;
