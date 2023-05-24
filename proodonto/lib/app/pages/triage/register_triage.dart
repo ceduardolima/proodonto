@@ -31,16 +31,12 @@ class RegisterTriageHome extends StatelessWidget {
             child: Column(
               children: [
                 DefaultFormField(
-                  name: "operatorCPF",
+                  name: "operatorName",
                   label: "CPF do operador",
-                  inputType: TextInputType.number,
-                  length: 11,
                 ),
                 DefaultFormField(
-                  name: "patientCPF",
+                  name: "patientName",
                   label: "CPF do paciênte",
-                  inputType: TextInputType.number,
-                  length: 11,
                 ),
                 DefaultFormField(
                   name: "recordNumber",
@@ -116,8 +112,8 @@ class RegisterTriageHome extends StatelessWidget {
 
   void _getFields() {
     final fields = _formKey.currentState!.fields;
-    _triage.operatorCPF = fields["operatorCPF"]!.value;
-    _triage.patientCPF = fields["patientCPF"]!.value;
+    _triage.operatorName = fields["operatorName"]!.value;
+    _triage.patientName = fields["patientName"]!.value;
     _triage.recordNumber = int.tryParse(fields["recordNumber"]!.value);
     _triage.reasonForConsultation = fields["reasonForConsultation"]!.value;
     _triage.hasCovid = fields["hasCovid"]!.value;

@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46af9fa1-7aea-4e24-8e62-84e098fc0ea3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/database/dao/patient_dao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/database/dao/patient_dao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/database/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/database/database.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/database/database.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/database/database.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/database/entity/patient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/database/entity/patient.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/anamnesis/register_anamnesis.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/anamnesis/register_anamnesis.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/exam/register_exam.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/exam/register_exam.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/home/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/login/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/login/login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/main/proodonto.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/main/proodonto.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/patient_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/patient_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/register_patient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/register_patient.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/register_records.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/register_records.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/search_patient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/patient/search_patient.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proodonto/lib/app/shared/dialogs.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proodonto/lib/app/shared/form_field_validation.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proodonto/lib/app/pages/triage/register_triage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/pages/triage/register_triage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proodonto/lib/app/widget/buttons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proodonto/lib/app/widget/buttons.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,19 +54,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/eduardo/Documents/programing/projeto-proodonto/proodonto/proodonto&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "database/triage",
+    "last_opened_file_path": "/home/eduardo/di2win/duna_sdk/android",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
