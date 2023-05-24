@@ -65,6 +65,8 @@ class _$ProodontoDatabase extends ProodontoDatabase {
 
   TriageDao? _triageDaoInstance;
 
+  ExamDao? _examDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -90,6 +92,8 @@ class _$ProodontoDatabase extends ProodontoDatabase {
             'CREATE TABLE IF NOT EXISTS `patient` (`recordNumber` INTEGER, `advisor` TEXT, `semester` TEXT, `careUnit` TEXT, `profession` TEXT, `workAddress` TEXT, `email` TEXT, `initialExam` TEXT, `responsibleName` TEXT, `responsibleAddress` TEXT, `responsibleRG` TEXT, `responsibleIssuingAgency` TEXT, `parentalRelationship` TEXT, `responsiblePhoneNumber` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `birthday` TEXT, `sex` INTEGER, `cpf` TEXT, `rg` TEXT, `issuingAgency` TEXT, `cep` TEXT, `address` TEXT, `neighborhood` TEXT, `addressComplement` TEXT, `skinColor` INTEGER, `fixNumber` TEXT, `phone` TEXT, `placeOfBirth` TEXT, `nationality` TEXT, `maritalStatus` INTEGER)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -105,6 +109,11 @@ class _$ProodontoDatabase extends ProodontoDatabase {
   @override
   TriageDao get triageDao {
     return _triageDaoInstance ??= _$TriageDao(database, changeListener);
+  }
+
+  @override
+  ExamDao get examDao {
+    return _examDaoInstance ??= _$ExamDao(database, changeListener);
   }
 }
 
@@ -648,5 +657,184 @@ class _$TriageDao extends TriageDao {
   @override
   Future<void> insert(Triage triage) async {
     await _triageInsertionAdapter.insert(triage, OnConflictStrategy.fail);
+  }
+}
+
+class _$ExamDao extends ExamDao {
+  _$ExamDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database, changeListener),
+        _examInsertionAdapter = InsertionAdapter(
+            database,
+            'exam',
+            (Exam item) => <String, Object?>{
+                  'id': item.id,
+                  'patientCPF': item.patientCPF,
+                  'generalType': item.generalType?.index,
+                  'weight': item.weight,
+                  'height': item.height,
+                  'temperature': item.temperature,
+                  'bloodPressure': item.bloodPressure,
+                  'pulsation': item.pulsation,
+                  'oximetry': item.oximetry,
+                  'othersObservations': item.othersObservations,
+                  'skinColor': item.skinColor?.index,
+                  'skinColoring': item.skinColoring,
+                  'consistency': item.consistency,
+                  'skinTexture': item.skinTexture,
+                  'eyeColor': item.eyeColor,
+                  'hairColor': item.hairColor,
+                  'asymmetryType': item.asymmetryType?.index,
+                  'surfaceType': item.surfaceType?.index,
+                  'mobilityType': item.mobilityType?.index,
+                  'sensibilityType': item.sensibilityType?.index,
+                  'lipsType': item.lipsType?.index,
+                  'tongueType': item.tongueType?.index,
+                  'buccalMucosa': item.buccalMucosa,
+                  'gum': item.gum,
+                  'alveolarRidge': item.alveolarRidge,
+                  'retromolarTrigone': item.retromolarTrigone,
+                  'mouthFloor': item.mouthFloor,
+                  'palateModel': item.palateModel,
+                  'tonsilPillars': item.tonsilPillars,
+                  'variationNormality': item.variationNormality,
+                  'whichVariations': item.whichVariations,
+                  'injuryPresence': item.injuryPresence,
+                  'injuryDescription': item.injuryDescription,
+                  'complementaryExams': item.complementaryExams,
+                  'examResult': item.examResult,
+                  'definitiveDiagnosis': item.definitiveDiagnosis,
+                  'conduct': item.conduct
+                },
+            changeListener);
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<Exam> _examInsertionAdapter;
+
+  @override
+  Future<List<Exam>> getAll() async {
+    return _queryAdapter.queryList('SELECT * FROM exam',
+        mapper: (Map<String, Object?> row) => Exam(
+            row['id'] as int?,
+            row['generalType'] == null
+                ? null
+                : GeneralType.values[row['generalType'] as int],
+            row['weight'] as String?,
+            row['height'] as String?,
+            row['temperature'] as String?,
+            row['bloodPressure'] as String?,
+            row['pulsation'] as String?,
+            row['oximetry'] as String?,
+            row['othersObservations'] as String?,
+            row['skinColor'] == null
+                ? null
+                : SkinColor.values[row['skinColor'] as int],
+            row['skinColoring'] as String?,
+            row['consistency'] as String?,
+            row['skinTexture'] as String?,
+            row['eyeColor'] as String?,
+            row['hairColor'] as String?,
+            row['asymmetryType'] == null
+                ? null
+                : Asymmetry.values[row['asymmetryType'] as int],
+            row['surfaceType'] == null
+                ? null
+                : Surface.values[row['surfaceType'] as int],
+            row['mobilityType'] == null
+                ? null
+                : Mobility.values[row['mobilityType'] as int],
+            row['sensibilityType'] == null
+                ? null
+                : Sensibility.values[row['sensibilityType'] as int],
+            row['lipsType'] == null ? null : Lip.values[row['lipsType'] as int],
+            row['tongueType'] == null
+                ? null
+                : Tongue.values[row['tongueType'] as int],
+            row['buccalMucosa'] as String?,
+            row['gum'] as String?,
+            row['alveolarRidge'] as String?,
+            row['retromolarTrigone'] as String?,
+            row['mouthFloor'] as String?,
+            row['palateModel'] as String?,
+            row['tonsilPillars'] as String?,
+            row['variationNormality'] as String?,
+            row['whichVariations'] as String?,
+            row['injuryPresence'] as String?,
+            row['injuryDescription'] as String?,
+            row['complementaryExams'] as String?,
+            row['examResult'] as String?,
+            row['definitiveDiagnosis'] as String?,
+            row['conduct'] as String?));
+  }
+
+  @override
+  Stream<List<Exam>> findByCPF(String cpf) {
+    return _queryAdapter.queryListStream(
+        'SELECT * FROM exam WHERE patientCPF=?1',
+        mapper: (Map<String, Object?> row) => Exam(
+            row['id'] as int?,
+            row['generalType'] == null
+                ? null
+                : GeneralType.values[row['generalType'] as int],
+            row['weight'] as String?,
+            row['height'] as String?,
+            row['temperature'] as String?,
+            row['bloodPressure'] as String?,
+            row['pulsation'] as String?,
+            row['oximetry'] as String?,
+            row['othersObservations'] as String?,
+            row['skinColor'] == null
+                ? null
+                : SkinColor.values[row['skinColor'] as int],
+            row['skinColoring'] as String?,
+            row['consistency'] as String?,
+            row['skinTexture'] as String?,
+            row['eyeColor'] as String?,
+            row['hairColor'] as String?,
+            row['asymmetryType'] == null
+                ? null
+                : Asymmetry.values[row['asymmetryType'] as int],
+            row['surfaceType'] == null
+                ? null
+                : Surface.values[row['surfaceType'] as int],
+            row['mobilityType'] == null
+                ? null
+                : Mobility.values[row['mobilityType'] as int],
+            row['sensibilityType'] == null
+                ? null
+                : Sensibility.values[row['sensibilityType'] as int],
+            row['lipsType'] == null ? null : Lip.values[row['lipsType'] as int],
+            row['tongueType'] == null
+                ? null
+                : Tongue.values[row['tongueType'] as int],
+            row['buccalMucosa'] as String?,
+            row['gum'] as String?,
+            row['alveolarRidge'] as String?,
+            row['retromolarTrigone'] as String?,
+            row['mouthFloor'] as String?,
+            row['palateModel'] as String?,
+            row['tonsilPillars'] as String?,
+            row['variationNormality'] as String?,
+            row['whichVariations'] as String?,
+            row['injuryPresence'] as String?,
+            row['injuryDescription'] as String?,
+            row['complementaryExams'] as String?,
+            row['examResult'] as String?,
+            row['definitiveDiagnosis'] as String?,
+            row['conduct'] as String?),
+        arguments: [cpf],
+        queryableName: 'exam',
+        isView: false);
+  }
+
+  @override
+  Future<void> insert(Exam exam) async {
+    await _examInsertionAdapter.insert(exam, OnConflictStrategy.fail);
   }
 }
