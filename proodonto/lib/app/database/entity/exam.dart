@@ -41,9 +41,10 @@ class Exam {
   String? examResult;
   String? definitiveDiagnosis;
   String? conduct;
+  String? diagnosticHypothesis;
 
   Exam(
-      this.id,
+      {this.id,
       this.generalType,
       this.weight,
       this.height,
@@ -78,5 +79,11 @@ class Exam {
       this.complementaryExams,
       this.examResult,
       this.definitiveDiagnosis,
-      this.conduct);
+      this.diagnosticHypothesis,
+      this.conduct});
+
+  @override
+  String toString() {
+    return 'Exam{id: $id, patientCPF: $patientCPF, generalType: $generalType, weight: $weight, height: $height, temperature: $temperature, bloodPressure: $bloodPressure, pulsation: $pulsation, oximetry: $oximetry, othersObservations: $othersObservations, skinColor: $skinColor, skinColoring: $skinColoring, consistency: $consistency, skinTexture: $skinTexture, eyeColor: $eyeColor, hairColor: $hairColor, asymmetryType: $asymmetryType, surfaceType: $surfaceType, mobilityType: $mobilityType, sensibilityType: $sensibilityType, lipsType: $lipsType, tongueType: $tongueType, buccalMucosa: $buccalMucosa, gum: $gum, alveolarRidge: $alveolarRidge, retromolarTrigone: $retromolarTrigone, mouthFloor: $mouthFloor, palateModel: $palateModel, tonsilPillars: $tonsilPillars, variationNormality: $variationNormality, whichVariations: $whichVariations, injuryPresence: $injuryPresence, injuryDescription: $injuryDescription, complementaryExams: $complementaryExams, examResult: $examResult, definitiveDiagnosis: $definitiveDiagnosis, conduct: $conduct, diagnosticHypothesis: $diagnosticHypothesis}';
+  }
 }

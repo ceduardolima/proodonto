@@ -93,7 +93,7 @@ class _$ProodontoDatabase extends ProodontoDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -705,7 +705,8 @@ class _$ExamDao extends ExamDao {
                   'complementaryExams': item.complementaryExams,
                   'examResult': item.examResult,
                   'definitiveDiagnosis': item.definitiveDiagnosis,
-                  'conduct': item.conduct
+                  'conduct': item.conduct,
+                  'diagnosticHypothesis': item.diagnosticHypothesis
                 },
             changeListener);
 
@@ -721,56 +722,59 @@ class _$ExamDao extends ExamDao {
   Future<List<Exam>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM exam',
         mapper: (Map<String, Object?> row) => Exam(
-            row['id'] as int?,
-            row['generalType'] == null
+            id: row['id'] as int?,
+            generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
-            row['weight'] as String?,
-            row['height'] as String?,
-            row['temperature'] as String?,
-            row['bloodPressure'] as String?,
-            row['pulsation'] as String?,
-            row['oximetry'] as String?,
-            row['othersObservations'] as String?,
-            row['skinColor'] == null
+            weight: row['weight'] as String?,
+            height: row['height'] as String?,
+            temperature: row['temperature'] as String?,
+            bloodPressure: row['bloodPressure'] as String?,
+            pulsation: row['pulsation'] as String?,
+            oximetry: row['oximetry'] as String?,
+            othersObservations: row['othersObservations'] as String?,
+            skinColor: row['skinColor'] == null
                 ? null
                 : SkinColor.values[row['skinColor'] as int],
-            row['skinColoring'] as String?,
-            row['consistency'] as String?,
-            row['skinTexture'] as String?,
-            row['eyeColor'] as String?,
-            row['hairColor'] as String?,
-            row['asymmetryType'] == null
+            skinColoring: row['skinColoring'] as String?,
+            consistency: row['consistency'] as String?,
+            skinTexture: row['skinTexture'] as String?,
+            eyeColor: row['eyeColor'] as String?,
+            hairColor: row['hairColor'] as String?,
+            asymmetryType: row['asymmetryType'] == null
                 ? null
                 : Asymmetry.values[row['asymmetryType'] as int],
-            row['surfaceType'] == null
+            surfaceType: row['surfaceType'] == null
                 ? null
                 : Surface.values[row['surfaceType'] as int],
-            row['mobilityType'] == null
+            mobilityType: row['mobilityType'] == null
                 ? null
                 : Mobility.values[row['mobilityType'] as int],
-            row['sensibilityType'] == null
+            sensibilityType: row['sensibilityType'] == null
                 ? null
                 : Sensibility.values[row['sensibilityType'] as int],
-            row['lipsType'] == null ? null : Lip.values[row['lipsType'] as int],
-            row['tongueType'] == null
+            lipsType: row['lipsType'] == null
+                ? null
+                : Lip.values[row['lipsType'] as int],
+            tongueType: row['tongueType'] == null
                 ? null
                 : Tongue.values[row['tongueType'] as int],
-            row['buccalMucosa'] as String?,
-            row['gum'] as String?,
-            row['alveolarRidge'] as String?,
-            row['retromolarTrigone'] as String?,
-            row['mouthFloor'] as String?,
-            row['palateModel'] as String?,
-            row['tonsilPillars'] as String?,
-            row['variationNormality'] as String?,
-            row['whichVariations'] as String?,
-            row['injuryPresence'] as String?,
-            row['injuryDescription'] as String?,
-            row['complementaryExams'] as String?,
-            row['examResult'] as String?,
-            row['definitiveDiagnosis'] as String?,
-            row['conduct'] as String?));
+            buccalMucosa: row['buccalMucosa'] as String?,
+            gum: row['gum'] as String?,
+            alveolarRidge: row['alveolarRidge'] as String?,
+            retromolarTrigone: row['retromolarTrigone'] as String?,
+            mouthFloor: row['mouthFloor'] as String?,
+            palateModel: row['palateModel'] as String?,
+            tonsilPillars: row['tonsilPillars'] as String?,
+            variationNormality: row['variationNormality'] as String?,
+            whichVariations: row['whichVariations'] as String?,
+            injuryPresence: row['injuryPresence'] as String?,
+            injuryDescription: row['injuryDescription'] as String?,
+            complementaryExams: row['complementaryExams'] as String?,
+            examResult: row['examResult'] as String?,
+            definitiveDiagnosis: row['definitiveDiagnosis'] as String?,
+            diagnosticHypothesis: row['diagnosticHypothesis'] as String?,
+            conduct: row['conduct'] as String?));
   }
 
   @override
@@ -778,56 +782,59 @@ class _$ExamDao extends ExamDao {
     return _queryAdapter.queryListStream(
         'SELECT * FROM exam WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Exam(
-            row['id'] as int?,
-            row['generalType'] == null
+            id: row['id'] as int?,
+            generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
-            row['weight'] as String?,
-            row['height'] as String?,
-            row['temperature'] as String?,
-            row['bloodPressure'] as String?,
-            row['pulsation'] as String?,
-            row['oximetry'] as String?,
-            row['othersObservations'] as String?,
-            row['skinColor'] == null
+            weight: row['weight'] as String?,
+            height: row['height'] as String?,
+            temperature: row['temperature'] as String?,
+            bloodPressure: row['bloodPressure'] as String?,
+            pulsation: row['pulsation'] as String?,
+            oximetry: row['oximetry'] as String?,
+            othersObservations: row['othersObservations'] as String?,
+            skinColor: row['skinColor'] == null
                 ? null
                 : SkinColor.values[row['skinColor'] as int],
-            row['skinColoring'] as String?,
-            row['consistency'] as String?,
-            row['skinTexture'] as String?,
-            row['eyeColor'] as String?,
-            row['hairColor'] as String?,
-            row['asymmetryType'] == null
+            skinColoring: row['skinColoring'] as String?,
+            consistency: row['consistency'] as String?,
+            skinTexture: row['skinTexture'] as String?,
+            eyeColor: row['eyeColor'] as String?,
+            hairColor: row['hairColor'] as String?,
+            asymmetryType: row['asymmetryType'] == null
                 ? null
                 : Asymmetry.values[row['asymmetryType'] as int],
-            row['surfaceType'] == null
+            surfaceType: row['surfaceType'] == null
                 ? null
                 : Surface.values[row['surfaceType'] as int],
-            row['mobilityType'] == null
+            mobilityType: row['mobilityType'] == null
                 ? null
                 : Mobility.values[row['mobilityType'] as int],
-            row['sensibilityType'] == null
+            sensibilityType: row['sensibilityType'] == null
                 ? null
                 : Sensibility.values[row['sensibilityType'] as int],
-            row['lipsType'] == null ? null : Lip.values[row['lipsType'] as int],
-            row['tongueType'] == null
+            lipsType: row['lipsType'] == null
+                ? null
+                : Lip.values[row['lipsType'] as int],
+            tongueType: row['tongueType'] == null
                 ? null
                 : Tongue.values[row['tongueType'] as int],
-            row['buccalMucosa'] as String?,
-            row['gum'] as String?,
-            row['alveolarRidge'] as String?,
-            row['retromolarTrigone'] as String?,
-            row['mouthFloor'] as String?,
-            row['palateModel'] as String?,
-            row['tonsilPillars'] as String?,
-            row['variationNormality'] as String?,
-            row['whichVariations'] as String?,
-            row['injuryPresence'] as String?,
-            row['injuryDescription'] as String?,
-            row['complementaryExams'] as String?,
-            row['examResult'] as String?,
-            row['definitiveDiagnosis'] as String?,
-            row['conduct'] as String?),
+            buccalMucosa: row['buccalMucosa'] as String?,
+            gum: row['gum'] as String?,
+            alveolarRidge: row['alveolarRidge'] as String?,
+            retromolarTrigone: row['retromolarTrigone'] as String?,
+            mouthFloor: row['mouthFloor'] as String?,
+            palateModel: row['palateModel'] as String?,
+            tonsilPillars: row['tonsilPillars'] as String?,
+            variationNormality: row['variationNormality'] as String?,
+            whichVariations: row['whichVariations'] as String?,
+            injuryPresence: row['injuryPresence'] as String?,
+            injuryDescription: row['injuryDescription'] as String?,
+            complementaryExams: row['complementaryExams'] as String?,
+            examResult: row['examResult'] as String?,
+            definitiveDiagnosis: row['definitiveDiagnosis'] as String?,
+            diagnosticHypothesis: row['diagnosticHypothesis'] as String?,
+            conduct: row['conduct'] as String?),
         arguments: [cpf],
         queryableName: 'exam',
         isView: false);

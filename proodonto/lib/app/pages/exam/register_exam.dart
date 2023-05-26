@@ -1,12 +1,21 @@
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/database/entity/exam.dart';
+import 'package:proodonto/app/pages/home/home.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
+import 'package:proodonto/app/shared/dropdown_button.dart';
+import 'package:proodonto/app/shared/enum_types.dart';
+import 'package:proodonto/app/widget/buttons.dart';
 
+import '../../shared/form_field_validation.dart';
 
 class RegisterExamHome extends StatelessWidget {
-  const RegisterExamHome({Key? key, required this.database}) : super(key: key);
+  RegisterExamHome({Key? key, required this.database}) : super(key: key);
   final ProodontoDatabase database;
+  final _formKey = GlobalKey<FormBuilderState>();
+  final _exam = Exam();
 
   @override
   Widget build(BuildContext context) {
@@ -16,77 +25,194 @@ class RegisterExamHome extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: PaddingSize.small, horizontal: PaddingSize.medium),
-          child: Column(
-            children: const [
-              _ExamFormField(name: "generalType", label: "Tipo Geral"),
-              _ExamFormField(name: "weight", label: "Peso"),
-              _ExamFormField(name: "height", label: "altura"),
-              _ExamFormField(name: "temperature", label: "Temperatura"),
-              _ExamFormField(name: "bloodPressure", label: "Pressão arterial"),
-              _ExamFormField(name: "pulsation", label: "Pulsação"),
-              _ExamFormField(name: "oximetry", label: "Oximetria"),
-              _ExamFormField(name: "othersObservations", label: "Outras observações"),
-              _ExamFormField(name: "othersObservations", label: "Outras observações"),
-              _ExamFormField(name: "skinColor", label: "Cor da pele"),
-              _ExamFormField(name: "skinColoring", label: "Coloração da pele"),
-              _ExamFormField(name: "consistency", label: "Consistência"),
-              _ExamFormField(name: "skinTexture", label: "Textura da pele"),
-              _ExamFormField(name: "eyeColor", label: "Cor dos olhos"),
-              _ExamFormField(name: "hairColor", label: "Cor dos cabelos"),
-              _ExamFormField(name: "asymmetryType", label: "Tipo de assimetria"),
-              _ExamFormField(name: "surfaceType", label: "Tipo de superficie"),
-              _ExamFormField(name: "mobilityType", label: "Tipo de mobilidade"),
-              _ExamFormField(name: "sensibilityType", label: "Tipo de sensibilidade"),
-              _ExamFormField(name: "lipsType", label: "Tipo de lábio"),
-              _ExamFormField(name: "tongType", label: "Tipo de língua"),
-              _ExamFormField(name: "buccalMucosa", label: "Mucosa jugal"),
-              _ExamFormField(name: "gum", label: "Gengiva"),
-              _ExamFormField(name: "alveolarRidge", label: "Rebordo alveolar"),
-              _ExamFormField(name: "retromolarTrigone", label: "Trigono retromolar"),
-              _ExamFormField(name: "mouthFloor", label: "Assoalho bocal"),
-              _ExamFormField(name: "palateModel", label: "Palato moledura"),
-              _ExamFormField(name: "tonsilPillars", label: "Pilares amígdala"),
-              _ExamFormField(name: "variationNormality", label: "Variação normalidade"),
-              _ExamFormField(name: "which", label: "quais"),
-              _ExamFormField(name: "presenceInjury", label: "Presença de lesão"),
-              _ExamFormField(name: "injuryDescription", label: "Descrição da lesão"),
-              _ExamFormField(name: "diagnosticHypothesis", label: "Hipótese diagnóstica"),
-              _ExamFormField(name: "complementaryExam", label: "Exames Complementares"),
-              _ExamFormField(name: "whichExams", label: "Quais Exames?"),
-              _ExamFormField(name: "examResult", label: "Resultado do exame"),
-              _ExamFormField(name: "definitiveDiagnosis", label: "Diagnóstico definitivo"),
-              _ExamFormField(name: "conduct", label: "conduta"),
-            ],
+          padding: const EdgeInsets.symmetric(
+              vertical: PaddingSize.small, horizontal: PaddingSize.medium),
+          child: FormBuilder(
+            key: _formKey,
+            child: Column(
+              children: [
+                DefaultFormField(
+                    name: "patientCPF", label: "CPF do paciênte", length: 11),
+                DefaultDropdownButton(
+                  name: "generalType",
+                  label: "Tipo Geral",
+                  list: GeneralType.getNameList(),
+                  initialValue: GeneralType.getNameList()[0],
+                ),
+                DefaultFormField(name: "weight", label: "Peso"),
+                DefaultFormField(name: "height", label: "altura"),
+                DefaultFormField(name: "temperature", label: "Temperatura"),
+                DefaultFormField(
+                    name: "bloodPressure", label: "Pressão arterial"),
+                DefaultFormField(name: "pulsation", label: "Pulsação"),
+                DefaultFormField(name: "oximetry", label: "Oximetria"),
+                DefaultFormField(
+                    name: "othersObservations", label: "Outras observações"),
+                DefaultDropdownButton(
+                  name: "skinColor",
+                  label: "Cor da pele",
+                  list: SkinColor.getNameList(),
+                  initialValue: SkinColor.getNameList()[0],
+                ),
+                DefaultFormField(
+                    name: "skinColoring", label: "Coloração da pele"),
+                DefaultFormField(name: "consistency", label: "Consistência"),
+                DefaultFormField(name: "skinTexture", label: "Textura da pele"),
+                DefaultFormField(name: "eyeColor", label: "Cor dos olhos"),
+                DefaultFormField(name: "hairColor", label: "Cor dos cabelos"),
+                DefaultDropdownButton(
+                  name: "asymmetryType",
+                  label: "Assimetria",
+                  list: Asymmetry.getNameList(),
+                  initialValue: Asymmetry.getNameList()[0],
+                ),
+                DefaultDropdownButton(
+                  name: "surfaceType",
+                  label: "Tipo de superficie",
+                  list: Surface.getNameList(),
+                  initialValue: Surface.getNameList()[0],
+                ),
+                DefaultDropdownButton(
+                  name: "mobilityType",
+                  label: "Mobilidade",
+                  list: Mobility.getNameList(),
+                  initialValue: Mobility.getNameList()[0],
+                ),
+                DefaultDropdownButton(
+                  name: "sensibilityType",
+                  label: "Sensibilidade",
+                  list: Sensibility.getNameList(),
+                  initialValue: Sensibility.getNameList()[0],
+                ),
+                DefaultDropdownButton(
+                  name: "lipsType",
+                  label: "Tipo de lábio",
+                  list: Lip.getNameList(),
+                  initialValue: Lip.getNameList()[0],
+                ),
+                DefaultDropdownButton(
+                    name: "tongueType",
+                    label: "Tipo de língua",
+                    list: Tongue.getNameList(),
+                    initialValue: Tongue.getNameList()[0]),
+                DefaultFormField(name: "buccalMucosa", label: "Mucosa jugal"),
+                DefaultFormField(name: "gum", label: "Gengiva"),
+                DefaultFormField(
+                    name: "alveolarRidge", label: "Rebordo alveolar"),
+                DefaultFormField(
+                    name: "retromolarTrigone", label: "Trigono retromolar"),
+                DefaultFormField(name: "mouthFloor", label: "Assoalho bocal"),
+                DefaultFormField(name: "palateModel", label: "Palato moledura"),
+                DefaultFormField(
+                    name: "tonsilPillars", label: "Pilares amígdala"),
+                DefaultFormField(
+                    name: "variationNormality", label: "Variação normalidade"),
+                DefaultFormField(
+                    name: "injuryPresence", label: "Presença de lesão"),
+                DefaultFormField(
+                    name: "injuryDescription", label: "Descrição da lesão"),
+                DefaultFormField(
+                    name: "diagnosticHypothesis",
+                    label: "Hipótese diagnóstica"),
+                DefaultFormField(
+                    name: "complementaryExam", label: "Exames Complementares"),
+                DefaultFormField(
+                    name: "examResult", label: "Resultado do exame"),
+                DefaultFormField(
+                    name: "definitiveDiagnosis",
+                    label: "Diagnóstico definitivo"),
+                DefaultFormField(name: "conduct", label: "conduta"),
+                DefaultButton(
+                  text: "Registrar",
+                  onPressed: () => _finishRegister(context),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class _ExamFormField extends StatelessWidget {
-  const _ExamFormField({required this.name,
-    required this.label,
-    this.hint,
-    Key? key,
-    this.inputType})
-      : super(key: key);
+  void _finishRegister(BuildContext context) async {
+    _formKey.currentState?.save();
+    bool isValid = validateItems(_formKey);
+    if (isValid) {
+      _registerTriage(context);
+      if (context.mounted) {
+        _showSnackBar(context);
+        _backToHomePage(context);
+      }
+    }
+  }
 
-  final String name;
-  final String? hint;
-  final String label;
-  final TextInputType? inputType;
+  void _showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Triage cadastrada")));
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(labelText: label, hintText: hint),
-      ),
-    );
+  void _registerTriage(BuildContext context) async {
+    _getFields();
+    await database.examDao.insert(_exam);
+  }
+
+  void _backToHomePage(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(
+                  database: database,
+                )),
+        (route) => false);
+  }
+
+  void _getFields() {
+    _formKey.currentState!.save();
+    final fields = _formKey.currentState!.fields;
+    _exam.patientCPF = fields["patientCPF"]!.value;
+    _exam.generalType = GeneralType.values[
+        GeneralType.getNameList().indexOf(fields["generalType"]!.value)];
+    _exam.weight = fields["weight"]!.value;
+    _exam.height = fields["height"]!.value;
+    _exam.temperature = fields["temperature"]!.value;
+    _exam.bloodPressure = fields["bloodPressure"]!.value;
+    _exam.pulsation = fields["pulsation"]!.value;
+    _exam.oximetry = fields["oximetry"]!.value;
+    _exam.othersObservations = fields["othersObservations"]!.value;
+    _exam.skinColor = SkinColor
+        .values[SkinColor.getNameList().indexOf(fields["skinColor"]!.value)];
+    _exam.skinColoring = fields["skinColoring"]!.value;
+    _exam.consistency = fields["consistency"]!.value;
+    _exam.skinTexture = fields["skinTexture"]!.value;
+    _exam.eyeColor = fields["eyeColor"]!.value;
+    _exam.hairColor = fields["hairColor"]!.value;
+    _exam.asymmetryType = Asymmetry.values[
+        Asymmetry.getNameList().indexOf(fields["asymmetryType"]!.value)];
+    _exam.surfaceType = Surface
+        .values[Surface.getNameList().indexOf(fields["surfaceType"]!.value)];
+    _exam.mobilityType = Mobility
+        .values[Mobility.getNameList().indexOf(fields["mobilityType"]!.value)];
+    _exam.sensibilityType = Sensibility.values[
+        Sensibility.getNameList().indexOf(fields["sensibilityType"]!.value)];
+    _exam.lipsType =
+        Lip.values[Lip.getNameList().indexOf(fields["lipsType"]!.value)];
+    _exam.tongueType = Tongue
+        .values[Tongue.getNameList().indexOf(fields["tongueType"]!.value)];
+    _exam.buccalMucosa = fields["buccalMucosa"]!.value;
+    _exam.gum = fields["gum"]!.value;
+    _exam.alveolarRidge = fields["alveolarRidge"]!.value;
+    _exam.retromolarTrigone = fields["retromolarTrigone"]!.value;
+    _exam.mouthFloor = fields["mouthFloor"]!.value;
+    _exam.palateModel = fields["palateModel"]!.value;
+    _exam.tonsilPillars = fields["tonsilPillars"]!.value;
+    _exam.variationNormality = fields["variationNormality"]!.value;
+    _exam.injuryPresence = fields["injuryPresence"]!.value;
+    _exam.injuryDescription = fields["injuryDescription"]!.value;
+    _exam.definitiveDiagnosis = fields["definitiveDiagnosis"]!.value;
+    _exam.diagnosticHypothesis = fields["diagnosticHypothesis"]!.value;
+    _exam.examResult = fields["examResult"]!.value;
+    _exam.complementaryExams = fields["complementaryExam"]!.value;
+    _exam.definitiveDiagnosis = fields["definitiveDiagnosis"]!.value;
+    _exam.conduct = fields["conduct"]!.value;
   }
 }
