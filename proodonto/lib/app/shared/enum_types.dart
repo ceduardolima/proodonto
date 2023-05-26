@@ -147,6 +147,53 @@ enum Tongue {
     int index = nameList.indexOf(tongue);
     return getNameList()[index];
   }
+}
 
+enum Allergy {
+  none,
+  respiratoryAllergy,
+  skinAllergy,
+  insectAllergy,
+  medicineAllergy,
+  petHairAllergy;
 
+  static List<String> getNameList () => ["Nenhuma", "Alergia respiratória", "Alergia cutânea", "Alergia a insetos", "Alergia a medicamentos", "Alergia a pelo de animais"];
+
+  static String getValueByName(Allergy allergy) {
+    const nameList = Allergy.values;
+    int index = nameList.indexOf(allergy);
+    return getNameList()[index];
+  }
+}
+
+enum InfectiousDiseases {
+  none,
+  hepatitis,
+  syphilis,
+  hiv,
+  tuberculosis,
+  covid19;
+
+  static List<String> getNameList () => ["Nenhuma", "Hepatite", "Sifilis", "HIV", "Tuberculose", "Covid 19"];
+
+  static String getValueByName(InfectiousDiseases infectiousDiseases) {
+    const nameList = InfectiousDiseases.values;
+    int index = nameList.indexOf(infectiousDiseases);
+    return getNameList()[index];
+  }
+}
+
+enum FamilyBackground {
+  none,
+  diabetes,
+  highBloodPressure,
+  cancer;
+
+  static List<String> getNameList () => ["Nenhuma", "Diabete", "Hipertensão arterial", "cancer"];
+
+  static String getValueByName(FamilyBackground familyBackground) {
+    const nameList = FamilyBackground.values;
+    int index = nameList.indexOf(familyBackground);
+    return getNameList()[index];
+  }
 }
