@@ -67,6 +67,8 @@ class _$ProodontoDatabase extends ProodontoDatabase {
 
   ExamDao? _examDaoInstance;
 
+  AnamnesisDao? _anamnesisDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -94,6 +96,8 @@ class _$ProodontoDatabase extends ProodontoDatabase {
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` TEXT, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` TEXT, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` INTEGER NOT NULL, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER NOT NULL, `underwentChemotherapy` INTEGER, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` INTEGER NOT NULL, `hasAnxiety` TEXT, `dentalTreatment` TEXT, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -114,6 +118,11 @@ class _$ProodontoDatabase extends ProodontoDatabase {
   @override
   ExamDao get examDao {
     return _examDaoInstance ??= _$ExamDao(database, changeListener);
+  }
+
+  @override
+  AnamnesisDao get anamnesisDao {
+    return _anamnesisDaoInstance ??= _$AnamnesisDao(database, changeListener);
   }
 }
 
@@ -843,5 +852,334 @@ class _$ExamDao extends ExamDao {
   @override
   Future<void> insert(Exam exam) async {
     await _examInsertionAdapter.insert(exam, OnConflictStrategy.fail);
+  }
+}
+
+class _$AnamnesisDao extends AnamnesisDao {
+  _$AnamnesisDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database, changeListener),
+        _anamnesisInsertionAdapter = InsertionAdapter(
+            database,
+            'anamnesis',
+            (Anamnesis item) => <String, Object?>{
+                  'id': item.id,
+                  'patientCPF': item.patientCPF,
+                  'complain': item.complain,
+                  'diseaseHistory': item.diseaseHistory,
+                  'diseases': item.diseases,
+                  'currentTreatment': item.currentTreatment,
+                  'forWhat': item.forWhat,
+                  'pregnancy': item.pregnancy,
+                  'howManyMonth': item.howManyMonth,
+                  'prenatalExam': item.prenatalExam == null
+                      ? null
+                      : (item.prenatalExam! ? 1 : 0),
+                  'medicalRecommendations': item.medicalRecommendations,
+                  'useMedicine': item.useMedicine,
+                  'whichMedicines': item.whichMedicines,
+                  'doctorName': item.doctorName,
+                  'allergy': item.allergy.index,
+                  'surgery': item.surgery,
+                  'hasHealingProblem': item.hasHealingProblem == null
+                      ? null
+                      : (item.hasHealingProblem! ? 1 : 0),
+                  'healingProblemSituation': item.healingProblemSituation,
+                  'hasProblemWithAnesthesia':
+                      item.hasProblemWithAnesthesia == null
+                          ? null
+                          : (item.hasProblemWithAnesthesia! ? 1 : 0),
+                  'problemWithAnesthesiaSituation':
+                      item.problemWithAnesthesiaSituation,
+                  'hasBleedingProblem': item.hasBleedingProblem == null
+                      ? null
+                      : (item.hasBleedingProblem! ? 1 : 0),
+                  'bleedingProblemSituation': item.bleedingProblemSituation,
+                  'hasRheumaticFever': item.hasRheumaticFever == null
+                      ? null
+                      : (item.hasRheumaticFever! ? 1 : 0),
+                  'hasKidneyProblem': item.hasKidneyProblem == null
+                      ? null
+                      : (item.hasKidneyProblem! ? 1 : 0),
+                  'hasRespiratoryProblem': item.hasRespiratoryProblem == null
+                      ? null
+                      : (item.hasRespiratoryProblem! ? 1 : 0),
+                  'hasJointProblem': item.hasJointProblem == null
+                      ? null
+                      : (item.hasJointProblem! ? 1 : 0),
+                  'hasHighBloodPressureProblem':
+                      item.hasHighBloodPressureProblem == null
+                          ? null
+                          : (item.hasHighBloodPressureProblem! ? 1 : 0),
+                  'hasHeartProblem': item.hasHeartProblem == null
+                      ? null
+                      : (item.hasHeartProblem! ? 1 : 0),
+                  'hasGastricProblem': item.hasGastricProblem == null
+                      ? null
+                      : (item.hasGastricProblem! ? 1 : 0),
+                  'hasAnemia':
+                      item.hasAnemia == null ? null : (item.hasAnemia! ? 1 : 0),
+                  'hasDiabetes': item.hasDiabetes == null
+                      ? null
+                      : (item.hasDiabetes! ? 1 : 0),
+                  'hasNeurologicalProblems':
+                      item.hasNeurologicalProblems == null
+                          ? null
+                          : (item.hasNeurologicalProblems! ? 1 : 0),
+                  'infectiousDiseases': item.infectiousDiseases.index,
+                  'underwentChemotherapy': item.underwentChemotherapy == null
+                      ? null
+                      : (item.underwentChemotherapy! ? 1 : 0),
+                  'hasOnychophagy': item.hasOnychophagy == null
+                      ? null
+                      : (item.hasOnychophagy! ? 1 : 0),
+                  'hasMouthPiece': item.hasMouthPiece == null
+                      ? null
+                      : (item.hasMouthPiece! ? 1 : 0),
+                  'hasBruxism': item.hasBruxism == null
+                      ? null
+                      : (item.hasBruxism! ? 1 : 0),
+                  'isSmoker':
+                      item.isSmoker == null ? null : (item.isSmoker! ? 1 : 0),
+                  'cigaretteType': item.cigaretteType,
+                  'isAlcoholic': item.isAlcoholic == null
+                      ? null
+                      : (item.isAlcoholic! ? 1 : 0),
+                  'drinkType': item.drinkType,
+                  'otherHabits': item.otherHabits,
+                  'familyBackground': item.familyBackground.index,
+                  'hasAnxiety': item.hasAnxiety,
+                  'dentalTreatment': item.dentalTreatment,
+                  'lastVisitToTheDentist': item.lastVisitToTheDentist,
+                  'negativeExperience': item.negativeExperience,
+                  'whatKindOfTreatment': item.whatKindOfTreatment,
+                  'brushNumber': item.brushNumber,
+                  'brushType': item.brushType,
+                  'useDentalFloss': item.useDentalFloss == null
+                      ? null
+                      : (item.useDentalFloss! ? 1 : 0),
+                  'hasDryMouthFeeling': item.hasDryMouthFeeling == null
+                      ? null
+                      : (item.hasDryMouthFeeling! ? 1 : 0),
+                  'feelBurning': item.feelBurning == null
+                      ? null
+                      : (item.feelBurning! ? 1 : 0)
+                },
+            changeListener);
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<Anamnesis> _anamnesisInsertionAdapter;
+
+  @override
+  Future<List<Anamnesis>> getAll() async {
+    return _queryAdapter.queryList('SELECT * FROM anamnesis',
+        mapper: (Map<String, Object?> row) => Anamnesis(
+            row['id'] as int?,
+            row['patientCPF'] as String?,
+            row['complain'] as String?,
+            row['diseaseHistory'] as String?,
+            row['diseases'] as String?,
+            row['currentTreatment'] as String?,
+            row['forWhat'] as String?,
+            row['pregnancy'] as String?,
+            row['howManyMonth'] as String?,
+            row['prenatalExam'] == null
+                ? null
+                : (row['prenatalExam'] as int) != 0,
+            row['medicalRecommendations'] as String?,
+            row['useMedicine'] as String?,
+            row['whichMedicines'] as String?,
+            row['doctorName'] as String?,
+            Allergy.values[row['allergy'] as int],
+            row['surgery'] as String?,
+            row['hasHealingProblem'] == null
+                ? null
+                : (row['hasHealingProblem'] as int) != 0,
+            row['healingProblemSituation'] as String?,
+            row['hasProblemWithAnesthesia'] == null
+                ? null
+                : (row['hasProblemWithAnesthesia'] as int) != 0,
+            row['problemWithAnesthesiaSituation'] as String?,
+            row['hasBleedingProblem'] == null
+                ? null
+                : (row['hasBleedingProblem'] as int) != 0,
+            row['bleedingProblemSituation'] as String?,
+            row['hasRheumaticFever'] == null
+                ? null
+                : (row['hasRheumaticFever'] as int) != 0,
+            row['hasKidneyProblem'] == null
+                ? null
+                : (row['hasKidneyProblem'] as int) != 0,
+            row['hasRespiratoryProblem'] == null
+                ? null
+                : (row['hasRespiratoryProblem'] as int) != 0,
+            row['hasJointProblem'] == null
+                ? null
+                : (row['hasJointProblem'] as int) != 0,
+            row['hasHighBloodPressureProblem'] == null
+                ? null
+                : (row['hasHighBloodPressureProblem'] as int) != 0,
+            row['hasHeartProblem'] == null
+                ? null
+                : (row['hasHeartProblem'] as int) != 0,
+            row['hasGastricProblem'] == null
+                ? null
+                : (row['hasGastricProblem'] as int) != 0,
+            row['hasAnemia'] == null ? null : (row['hasAnemia'] as int) != 0,
+            row['hasDiabetes'] == null
+                ? null
+                : (row['hasDiabetes'] as int) != 0,
+            row['hasNeurologicalProblems'] == null
+                ? null
+                : (row['hasNeurologicalProblems'] as int) != 0,
+            InfectiousDiseases.values[row['infectiousDiseases'] as int],
+            row['underwentChemotherapy'] == null
+                ? null
+                : (row['underwentChemotherapy'] as int) != 0,
+            row['hasOnychophagy'] == null
+                ? null
+                : (row['hasOnychophagy'] as int) != 0,
+            row['hasMouthPiece'] == null
+                ? null
+                : (row['hasMouthPiece'] as int) != 0,
+            row['hasBruxism'] == null ? null : (row['hasBruxism'] as int) != 0,
+            row['isSmoker'] == null ? null : (row['isSmoker'] as int) != 0,
+            row['cigaretteType'] as String?,
+            row['isAlcoholic'] == null
+                ? null
+                : (row['isAlcoholic'] as int) != 0,
+            row['drinkType'] as String?,
+            row['otherHabits'] as String?,
+            FamilyBackground.values[row['familyBackground'] as int],
+            row['hasAnxiety'] as String?,
+            row['dentalTreatment'] as String?,
+            row['lastVisitToTheDentist'] as String?,
+            row['negativeExperience'] as String?,
+            row['whatKindOfTreatment'] as String?,
+            row['brushNumber'] as String?,
+            row['brushType'] as String?,
+            row['useDentalFloss'] == null
+                ? null
+                : (row['useDentalFloss'] as int) != 0,
+            row['hasDryMouthFeeling'] == null
+                ? null
+                : (row['hasDryMouthFeeling'] as int) != 0,
+            row['feelBurning'] == null
+                ? null
+                : (row['feelBurning'] as int) != 0));
+  }
+
+  @override
+  Stream<List<Anamnesis>> findByCPF(String cpf) {
+    return _queryAdapter.queryListStream(
+        'SELECT * FROM anamnesis WHERE patientCPF=?1',
+        mapper: (Map<String, Object?> row) => Anamnesis(
+            row['id'] as int?,
+            row['patientCPF'] as String?,
+            row['complain'] as String?,
+            row['diseaseHistory'] as String?,
+            row['diseases'] as String?,
+            row['currentTreatment'] as String?,
+            row['forWhat'] as String?,
+            row['pregnancy'] as String?,
+            row['howManyMonth'] as String?,
+            row['prenatalExam'] == null
+                ? null
+                : (row['prenatalExam'] as int) != 0,
+            row['medicalRecommendations'] as String?,
+            row['useMedicine'] as String?,
+            row['whichMedicines'] as String?,
+            row['doctorName'] as String?,
+            Allergy.values[row['allergy'] as int],
+            row['surgery'] as String?,
+            row['hasHealingProblem'] == null
+                ? null
+                : (row['hasHealingProblem'] as int) != 0,
+            row['healingProblemSituation'] as String?,
+            row['hasProblemWithAnesthesia'] == null
+                ? null
+                : (row['hasProblemWithAnesthesia'] as int) != 0,
+            row['problemWithAnesthesiaSituation'] as String?,
+            row['hasBleedingProblem'] == null
+                ? null
+                : (row['hasBleedingProblem'] as int) != 0,
+            row['bleedingProblemSituation'] as String?,
+            row['hasRheumaticFever'] == null
+                ? null
+                : (row['hasRheumaticFever'] as int) != 0,
+            row['hasKidneyProblem'] == null
+                ? null
+                : (row['hasKidneyProblem'] as int) != 0,
+            row['hasRespiratoryProblem'] == null
+                ? null
+                : (row['hasRespiratoryProblem'] as int) != 0,
+            row['hasJointProblem'] == null
+                ? null
+                : (row['hasJointProblem'] as int) != 0,
+            row['hasHighBloodPressureProblem'] == null
+                ? null
+                : (row['hasHighBloodPressureProblem'] as int) != 0,
+            row['hasHeartProblem'] == null
+                ? null
+                : (row['hasHeartProblem'] as int) != 0,
+            row['hasGastricProblem'] == null
+                ? null
+                : (row['hasGastricProblem'] as int) != 0,
+            row['hasAnemia'] == null ? null : (row['hasAnemia'] as int) != 0,
+            row['hasDiabetes'] == null
+                ? null
+                : (row['hasDiabetes'] as int) != 0,
+            row['hasNeurologicalProblems'] == null
+                ? null
+                : (row['hasNeurologicalProblems'] as int) != 0,
+            InfectiousDiseases.values[row['infectiousDiseases'] as int],
+            row['underwentChemotherapy'] == null
+                ? null
+                : (row['underwentChemotherapy'] as int) != 0,
+            row['hasOnychophagy'] == null
+                ? null
+                : (row['hasOnychophagy'] as int) != 0,
+            row['hasMouthPiece'] == null
+                ? null
+                : (row['hasMouthPiece'] as int) != 0,
+            row['hasBruxism'] == null ? null : (row['hasBruxism'] as int) != 0,
+            row['isSmoker'] == null ? null : (row['isSmoker'] as int) != 0,
+            row['cigaretteType'] as String?,
+            row['isAlcoholic'] == null
+                ? null
+                : (row['isAlcoholic'] as int) != 0,
+            row['drinkType'] as String?,
+            row['otherHabits'] as String?,
+            FamilyBackground.values[row['familyBackground'] as int],
+            row['hasAnxiety'] as String?,
+            row['dentalTreatment'] as String?,
+            row['lastVisitToTheDentist'] as String?,
+            row['negativeExperience'] as String?,
+            row['whatKindOfTreatment'] as String?,
+            row['brushNumber'] as String?,
+            row['brushType'] as String?,
+            row['useDentalFloss'] == null
+                ? null
+                : (row['useDentalFloss'] as int) != 0,
+            row['hasDryMouthFeeling'] == null
+                ? null
+                : (row['hasDryMouthFeeling'] as int) != 0,
+            row['feelBurning'] == null
+                ? null
+                : (row['feelBurning'] as int) != 0),
+        arguments: [cpf],
+        queryableName: 'anamnesis',
+        isView: false);
+  }
+
+  @override
+  Future<void> insert(Anamnesis anamnesis) async {
+    await _anamnesisInsertionAdapter.insert(anamnesis, OnConflictStrategy.fail);
   }
 }
