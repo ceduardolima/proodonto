@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/shared/default_form_field.dart';
+import 'package:proodonto/app/shared/default_radio_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
+import 'package:proodonto/app/shared/dropdown_button.dart';
+import 'package:proodonto/app/shared/enum_types.dart';
+import 'package:proodonto/app/widget/buttons.dart';
 
 class RegisterAnamnesisHome extends StatelessWidget {
-  const RegisterAnamnesisHome({Key? key, required this.database}) : super(key: key);
+  const RegisterAnamnesisHome({Key? key, required this.database})
+      : super(key: key);
   final ProodontoDatabase database;
 
   @override
@@ -15,155 +21,117 @@ class RegisterAnamnesisHome extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
               vertical: PaddingSize.small, horizontal: PaddingSize.medium),
           child: Column(
-            children: const [
-              _AnamnesisFormField(
+            children: [
+              DefaultFormField(
                   name: "chiefComplain", label: "Queixa principal"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "diseaseHistory", label: "Histórico de doenças"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "sufferFromSomeDisease",
                   label: "Sofre de alguma doença?"),
-              _AnamnesisFormField(name: "whichDiases", label: "Quais doenças?"),
-              _AnamnesisFormField(
+              DefaultFormField(name: "whichDiases", label: "Quais doenças?"),
+              DefaultFormField(
                   name: "currentTreatment", label: "Tratamento atual"),
-              _AnamnesisFormField(name: "forWhat", label: "Para que?"),
-              _AnamnesisFormField(name: "pragnancy", label: "Gravida?"),
-              _AnamnesisFormField(
-                  name: "howManyMonth", label: "Quantos meses?"),
-              _AnamnesisFormField(
+              DefaultFormField(name: "forWhat", label: "Para que?"),
+              DefaultRadioButton(name: "pragnancy", label: "Gravida?"),
+              DefaultFormField(name: "howManyMonth", label: "Quantos meses?"),
+              DefaultRadioButton(
                   name: "prenatalExam", label: "realizou o exame pre natal?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "medicalRecomendation", label: "Recomendação médica"),
-              _AnamnesisFormField(name: "breastfeeding", label: "Amamentando?"),
-              _AnamnesisFormField(
-                  name: "medicineUse", label: "Faz uso de remédio?"),
-              _AnamnesisFormField(
-                  name: "whichMedicine", label: "Quais remedios?"),
-              _AnamnesisFormField(name: "doctorName", label: "Nome do médico"),
-              _AnamnesisFormField(
-                  name: "someTypeOfAllergy", label: "Algum tipo de alergia?"),
-              _AnamnesisFormField(
-                  name: "whichAllergy", label: "Quais alergias?"),
-              _AnamnesisFormField(
-                  name: "hadSomeSurgery", label: "Fez alguma cirurgia?"),
-              _AnamnesisFormField(
-                  name: "whichSurgery", label: "Quais cirurgias?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(name: "breastfeeding", label: "Amamentando?"),
+              DefaultFormField(
+                  name: "medicineUse", label: "Faz uso de remédio? Quais?"),
+              DefaultFormField(name: "doctorName", label: "Nome do médico"),
+              DefaultDropdownButton(
+                name: "whichAllergy",
+                label: "Quais alergias?",
+                list: Allergy.getNameList(),
+              ),
+              DefaultFormField(
+                  name: "hadSomeSurgery", label: "Fez alguma cirurgia? Quais?"),
+              DefaultFormField(
                   name: "healingProblem",
                   label: "Possui problema de cicatrização?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "whatIsTheSituationWithHealingProblem",
                   label: "Qual é a situação?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "problemWithAnesthesia",
                   label: "Problema com anestesia?"),
-              _AnamnesisFormField(
-                  name: "whatIsTheSituationWithAnesthesiaProblem",
-                  label: "Qual é a situação?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "problemWithBleeding",
                   label: "Problema com hemorragia?"),
-              _AnamnesisFormField(
-                  name: "whatIsTheSituationWithBleedingProblem",
-                  label: "Qual é a situação?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasRheumaticFever", label: "Tem febre reumática?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasKidneyProblems", label: "Tem problema renais?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasRespiratoryProblems",
                   label: "Tem problemas respratórios?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasJointProblems", label: "Tem problemas articulação"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasJointProblems",
                   label: "Tem problemas articulação?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasHighBloodPressureProblem",
                   label: "Tem problemas de hipertensão arterial?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasHeartPoblems", label: "Tem problemas cardíacos?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasGastricProblem", label: "Tem problemas gástricos?"),
-              _AnamnesisFormField(name: "hasAnemia", label: "Tem anemia?"),
-              _AnamnesisFormField(name: "hasDiabetes", label: "Tem diabetes?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(name: "hasAnemia", label: "Tem anemia?"),
+              DefaultRadioButton(name: "hasDiabetes", label: "Tem diabetes?"),
+              DefaultRadioButton(
                   name: "hasNeurologicalProblems",
                   label: "Tem problemas neurológicos?"),
-              _AnamnesisFormField(
-                  name: "infectiousDiseases", label: "Doença infecciosas"),
-              _AnamnesisFormField(
+              DefaultDropdownButton(
+                  name: "infectiousDiseases", label: "Doença infecciosas", list: InfectiousDiseases.getNameList(),),
+              DefaultRadioButton(
                   name: "underwentChemotherapy",
                   label: "Realizou quimioterapia?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasOnychophagy", label: "Tem onicofagia?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "hasMouthPiece", label: "Tem repirador bucal?"),
-              _AnamnesisFormField(name: "hasBruxism", label: "Tem bruxismo?"),
-              _AnamnesisFormField(name: "isSmoker", label: "É fumante?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(name: "hasBruxism", label: "Tem bruxismo?"),
+              DefaultRadioButton(name: "isSmoker", label: "É fumante?"),
+              DefaultFormField(
                   name: "cigaretteType", label: "Tipo de cigarro?"),
-              _AnamnesisFormField(name: "isAlcoholic", label: "É alcoólatra?"),
-              _AnamnesisFormField(name: "drinkType", label: "Tipo de bebida?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(name: "isAlcoholic", label: "É alcoólatra?"),
+              DefaultFormField(name: "drinkType", label: "Tipo de bebida?"),
+              DefaultFormField(
                   name: "otherHabits", label: "Outros hábitos?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "familyBackground", label: "Antecendente familiar"),
-              _AnamnesisFormField(name: "isAnxious", label: "É ansioso?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(name: "isAnxious", label: "É ansioso?"),
+              DefaultFormField(
                   name: "dentalTreatment", label: "Tratamento odontológico"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "lastVisitToTheDentist",
                   label: "Ultima visita ao dentista"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "negativeExperience", label: "Experiência negativa"),
-              _AnamnesisFormField(
-                  name: "whichNegativeExpeience", label: "Qual?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "whatKindOfTreatment",
                   label: "Qual tipo de tratamento?"),
-              _AnamnesisFormField(
+              DefaultFormField(
                   name: "brushNumber", label: "Número da escova"),
-              _AnamnesisFormField(name: "brushType", label: "Tipo da escova"),
-              _AnamnesisFormField(
+              DefaultFormField(name: "brushType", label: "Tipo da escova"),
+              DefaultRadioButton(
                   name: "useDentalFloss", label: "Usa fio dental?"),
-              _AnamnesisFormField(
+              DefaultRadioButton(
                   name: "dryMouthFeeling",
                   label: "Tem a sensação de boc seca?"),
-              _AnamnesisFormField(name: "feelBurning", label: "Sente Ardor?"),
+              DefaultRadioButton(name: "feelBurning", label: "Sente Ardor?"),
+              DefaultButton(text: "Finalizar", onPressed: () {})
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _AnamnesisFormField extends StatelessWidget {
-  const _AnamnesisFormField(
-      {required this.name,
-      required this.label,
-      this.hint,
-      Key? key,
-      this.inputType})
-      : super(key: key);
-
-  final String name;
-  final String? hint;
-  final String label;
-  final TextInputType? inputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
-      child: FormBuilderTextField(
-        name: name,
-        keyboardType: inputType,
-        decoration: InputDecoration(labelText: label, hintText: hint),
       ),
     );
   }
