@@ -103,6 +103,9 @@ class HomePage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 4),
                             child: PatientItem(
                               patient: snapshot.data![index],
+                              onTap: (patient) {
+                                debugPrint(patient.name.toString());
+                            },
                             ));
                       })
                   : const Center(child: Text("Vazia."));
