@@ -1,41 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/patient/register_patient_informations.dart';
+import 'package:proodonto/app/interfaces/patient_form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
-import 'package:proodonto/app/shared/default_size.dart';
-import 'package:proodonto/app/widget/buttons.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../database/entity/patient.dart';
 
-class RegisterRecordsHome extends StatelessWidget {
-  const RegisterRecordsHome({Key? key, required this.database})
-      : super(key: key);
-  final ProodontoDatabase database;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Cadastrar paciente"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _RegisterRecordsForm(database: database),
-              ],
-            ),
-          ),
-        ));
-  }
-}
-
-class _RegisterRecordsForm extends StatelessWidget {
-  _RegisterRecordsForm({Key? key, required this.database}) : super(key: key);
-  final ProodontoDatabase database;
-  final patient = Patient();
+class RegisterRecordsForm extends PatientForm {
+  RegisterRecordsForm({Key? key, required this.patient}) : super(key: key);
+  Patient patient = Patient();
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -50,7 +21,6 @@ class _RegisterRecordsForm extends StatelessWidget {
             DefaultFormField(
               name: "recordNumber",
               label: "Número do prontuário",
-              initialValue: patient.recordNumber?.toString(),
               inputType: TextInputType.number,
             ),
             DefaultFormField(
@@ -75,23 +45,16 @@ class _RegisterRecordsForm extends StatelessWidget {
               label: "Exame inicial",
               initialValue: patient.initialExam,
             ),
-            DefaultButton(
-              onPressed: () => _onPressed(context),
-              text: "Próximo",
-            )
           ],
         ));
   }
-  
-  void _onPressed(BuildContext context) {
-    bool isValid = _validateItems();
-    if (isValid) {
-      _getFields();
-      _changeToPatientRegister(context, patient);
-    }
-  }
 
-  bool _validateItems() {
+  @override
+  bool validate() {
+    return validateFields();
+  }
+  
+  bool validateFields() {
     final values = _formKey.currentState?.fields.values.toList();
     bool isValid = true;
     values?.forEach((element) {
@@ -103,7 +66,8 @@ class _RegisterRecordsForm extends StatelessWidget {
     return isValid;
   }
 
-  void _getFields() {
+  @override
+  Patient getFields(Patient patient) {
     _formKey.currentState?.save();
     var fields = _formKey.currentState?.fields;
     patient.recordNumber = int.parse(fields!["recordNumber"]?.value);
@@ -111,15 +75,6 @@ class _RegisterRecordsForm extends StatelessWidget {
     patient.semester = fields["semester"]?.value;
     patient.careUnit = fields["careUnit"]?.value.toString().toLowerCase();
     patient.initialExam = fields["initialExam"]?.value.toString().toLowerCase();
-  }
-
-  void _changeToPatientRegister(BuildContext context, Patient patient) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => RegisterPatientInformationHome(
-                  database: database,
-                  patient: patient,
-                )));
+    return patient;
   }
 }

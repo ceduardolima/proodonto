@@ -11,6 +11,8 @@ import 'package:proodonto/app/pages/triage/register_triage.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'dart:math' as math;
 
+import '../patient/patient_home.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({Key? key, required this.database}) : super(key: key);
   final ProodontoDatabase database;
@@ -19,7 +21,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RegisterRecordsHome(database: database)));
+            builder: (context) => PatientHomePage(database: database)));
   }
 
   void _changeToTriageHomePage(BuildContext context) {

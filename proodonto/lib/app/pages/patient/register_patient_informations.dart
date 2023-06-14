@@ -1,48 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/patient/register_patient_responsible.dart';
+import 'package:proodonto/app/interfaces/patient_form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
-import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/shared/dropdown_button.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
 
 import '../../database/entity/patient.dart';
 
-class RegisterPatientInformationHome extends StatelessWidget {
-  const RegisterPatientInformationHome(
-      {Key? key, required this.database, required this.patient})
-      : super(key: key);
-  final ProodontoDatabase database;
-  final Patient patient;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Cadastrar paciente"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
-        child: SingleChildScrollView(
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: PaddingSize.medium),
-                child: _RegisterPatientForm(
-                  database: database,
-                  patient: patient,
-                ))),
-      ),
-    );
-  }
-}
-
-class _RegisterPatientForm extends StatelessWidget {
-  _RegisterPatientForm(
-      {Key? key, required this.database, required this.patient})
+class RegisterPatientForm extends PatientForm {
+  RegisterPatientForm(
+      {Key? key, required this.patient})
       : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
-  final ProodontoDatabase database;
   final Patient patient;
 
   @override
@@ -173,26 +142,13 @@ class _RegisterPatientForm extends StatelessWidget {
             label: "Endereço da profissão",
             initialValue: patient.workAddress,
           ),
-          ElevatedButton(
-            onPressed: () {
-              bool isValid = _validateItems();
-              if (isValid) {
-                _addFieldsToPatientMap();
-                _finishRegister(context, patient);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              alignment: Alignment.center,
-              minimumSize: const Size.fromHeight(50),
-            ),
-            child: const Text("Próximo"),
-          ),
         ],
       ),
     );
   }
 
-  bool _validateItems() {
+  @override
+  bool validate() {
     final values = _formKey.currentState?.fields.values.toList();
     bool isValid = true;
     values?.forEach((element) {
@@ -204,7 +160,8 @@ class _RegisterPatientForm extends StatelessWidget {
     return isValid;
   }
 
-  void _addFieldsToPatientMap() {
+  @override
+  Patient getFields(Patient patient) {
     final fields = _formKey.currentState?.fields;
     patient.name = fields!["name"]?.value;
     patient.cpf = fields["cpf"]?.value;
@@ -227,15 +184,6 @@ class _RegisterPatientForm extends StatelessWidget {
         MaritalStatus.getNameList().indexOf(fields["maritalState"]?.value)];
     patient.skinColor = SkinColor
         .values[SkinColor.getNameList().indexOf(fields["skinColor"]?.value)];
-  }
-
-  void _finishRegister(BuildContext context, Patient patientMap) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => RegisterPatientResponsible(
-                  database: database,
-                  patient: patient,
-                )));
+    return patient;
   }
 }
