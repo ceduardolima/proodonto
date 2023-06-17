@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const TriageHome()));
+            builder: (context) => TriageHome(database: database,)));
   }
 
   void _changeToExamHomePage(BuildContext context) {

@@ -25,7 +25,7 @@ class TriageBasicInfoForm extends RegisterForm {
             name: "recordNumber",
             label: "Número do prontuário",
             inputType: TextInputType.number,
-            initialValue: triage.recordNumber.toString(),
+            initialValue: triage.recordNumber?.toString(),
           ),
           DefaultFormField(
             name: "patientName",
@@ -50,11 +50,11 @@ class TriageBasicInfoForm extends RegisterForm {
   @override
   dynamic getFields(dynamic field) {
     final fields = _formKey.currentState!.fields;
-    triage.patientCPF = fields["patientCPF"]!.value;
-    triage.operatorName = fields["operatorName"]!.value;
-    triage.patientName = fields["patientName"]!.value;
-    triage.recordNumber = int.tryParse(fields["recordNumber"]!.value);
-    triage.reasonForConsultation = fields["reasonForConsultation"]!.value;
+    field.patientCPF = fields["patientCPF"]!.value;
+    field.operatorName = fields["operatorName"]!.value;
+    field.patientName = fields["patientName"]!.value;
+    field.reasonForConsultation = fields["reasonForConsultation"]!.value;
+    return field;
   }
 
   @override
