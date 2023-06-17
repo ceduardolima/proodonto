@@ -8,6 +8,7 @@ import 'package:proodonto/app/pages/exam/register_exam.dart';
 import 'package:proodonto/app/pages/home/patient_item_list.dart';
 import 'package:proodonto/app/pages/patient/register_records.dart';
 import 'package:proodonto/app/pages/triage/register_triage.dart';
+import 'package:proodonto/app/pages/triage/triage_home.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'dart:math' as math;
 
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RegisterTriageHome(database: database)));
+            builder: (context) => const TriageHome()));
   }
 
   void _changeToExamHomePage(BuildContext context) {
