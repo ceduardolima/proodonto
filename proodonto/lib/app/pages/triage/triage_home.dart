@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:proodonto/app/database/entity/triage.dart';
 import 'package:proodonto/app/pages/triage/register_triage_basic_info.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 class TriageHome extends StatefulWidget {
   const TriageHome({Key? key}) : super(key: key);
-
   @override
   State<TriageHome> createState() => _TriageHomeState();
 }
@@ -12,11 +12,12 @@ class TriageHome extends StatefulWidget {
 class _TriageHomeState extends State<TriageHome> {
   int _currentStep = 0;
   late int _max;
+  final Triage triage = Triage();
 
   List<Step> _getSteps() => [
       Step(
         title: const Text("Registro da triagem",),
-        content: TriageBasicInfoForm(),
+        content: TriageBasicInfoForm(triage: triage,),
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         isActive: _currentStep >= 0
       ),
@@ -49,6 +50,7 @@ class _TriageHomeState extends State<TriageHome> {
                 Expanded(
                   child: DefaultButton(
                     onPressed: () {
+                      details.onStepContinue!();
                     },
                     text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                   ),

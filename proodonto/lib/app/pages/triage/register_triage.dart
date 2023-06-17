@@ -112,10 +112,6 @@ class RegisterTriageHome extends StatelessWidget {
 
   void _getFields() {
     final fields = _formKey.currentState!.fields;
-    _triage.operatorName = fields["operatorName"]!.value;
-    _triage.patientName = fields["patientName"]!.value;
-    _triage.recordNumber = int.tryParse(fields["recordNumber"]!.value);
-    _triage.reasonForConsultation = fields["reasonForConsultation"]!.value;
     _triage.hasCovid = fields["hasCovid"]!.value;
     _triage.testType = fields["testType"]!.value;
     _triage.kinship = fields["kinship"]!.value;

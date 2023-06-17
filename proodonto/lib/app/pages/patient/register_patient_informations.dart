@@ -161,29 +161,29 @@ class RegisterPatientForm extends RegisterForm {
   }
 
   @override
-  Patient getFields(Patient patient) {
+  dynamic getFields(dynamic field) {
     final fields = _formKey.currentState?.fields;
-    patient.name = fields!["name"]?.value;
-    patient.cpf = fields["cpf"]?.value;
-    patient.rg = fields["rg"]?.value;
-    patient.issuingAgency = fields["issuingAgency"]?.value;
-    patient.birthday = fields["birthday"]?.value.toString();
-    patient.fixNumber = fields["fixNumber"]?.value;
-    patient.phone = fields["phone"]?.value;
-    patient.email = fields["email"]?.value;
-    patient.address = fields["address"]?.value;
-    patient.addressComplement = fields["addressComplement"]?.value;
-    patient.neighborhood = fields["neighborhood"]?.value;
-    patient.cep = fields["cep"]?.value;
-    patient.placeOfBirth = fields["placeOfBirth"]?.value;
-    patient.nationality = fields["nationality"]?.value;
-    patient.profession = fields["profession"]?.value;
-    patient.workAddress = fields["workAddress"]?.value;
-    patient.sex = Sex.values[Sex.getNameList().indexOf(fields["sex"]?.value)];
-    patient.maritalStatus = MaritalStatus.values[
+    field.name = fields!["name"]?.value;
+    field.cpf = fields["cpf"]?.value;
+    field.rg = fields["rg"]?.value;
+    field.issuingAgency = fields["issuingAgency"]?.value;
+    field.birthday = fields["birthday"]?.value.toString();
+    field.fixNumber = fields["fixNumber"]?.value;
+    field.phone = fields["phone"]?.value;
+    field.email = fields["email"]?.value;
+    field.address = fields["address"]?.value;
+    field.addressComplement = fields["addressComplement"]?.value;
+    field.neighborhood = fields["neighborhood"]?.value;
+    field.cep = fields["cep"]?.value;
+    field.placeOfBirth = fields["placeOfBirth"]?.value;
+    field.nationality = fields["nationality"]?.value;
+    field.profession = fields["profession"]?.value;
+    field.workAddress = fields["workAddress"]?.value;
+    field.sex = Sex.values[Sex.getNameList().indexOf(fields["sex"]?.value)];
+    field.maritalStatus = MaritalStatus.values[
         MaritalStatus.getNameList().indexOf(fields["maritalState"]?.value)];
-    patient.skinColor = SkinColor
+    field.skinColor = SkinColor
         .values[SkinColor.getNameList().indexOf(fields["skinColor"]?.value)];
-    return patient;
+    return field;
   }
 }

@@ -72,15 +72,15 @@ class PatientResponsibleForm extends RegisterForm {
   }
 
   @override
-  Patient getFields(Patient patient) {
+  dynamic getFields(dynamic field) {
     final fields = _formKey.currentState?.fields;
-    patient.responsibleName = fields!["responsibleName"]?.value;
-    patient.responsibleAddress = fields["responsibleAddress"]?.value;
-    patient.responsibleRG = fields["responsibleRG"]?.value;
-    patient.responsibleIssuingAgency =
+    field.responsibleName = fields!["responsibleName"]?.value;
+    field.responsibleAddress = fields["responsibleAddress"]?.value;
+    field.responsibleRG = fields["responsibleRG"]?.value;
+    field.responsibleIssuingAgency =
         fields["responsibleIssuingAgency"]?.value;
-    patient.parentalRelationship = fields["parentalRelationship"]?.value;
-    patient.responsiblePhoneNumber = fields["responsibleNumber"]?.value;
-    return patient;
+    field.parentalRelationship = fields["parentalRelationship"]?.value;
+    field.responsiblePhoneNumber = fields["responsibleNumber"]?.value;
+    return field;
   }
 }

@@ -67,14 +67,14 @@ class RegisterRecordsForm extends RegisterForm {
   }
 
   @override
-  Patient getFields(Patient patient) {
+  dynamic getFields(dynamic field) {
     _formKey.currentState?.save();
     var fields = _formKey.currentState?.fields;
-    patient.recordNumber = int.parse(fields!["recordNumber"]?.value);
-    patient.advisor = fields["advisor"]?.value.toString().toLowerCase();
-    patient.semester = fields["semester"]?.value;
-    patient.careUnit = fields["careUnit"]?.value.toString().toLowerCase();
-    patient.initialExam = fields["initialExam"]?.value.toString().toLowerCase();
-    return patient;
+    field.recordNumber = int.parse(fields!["recordNumber"]?.value);
+    field.advisor = fields["advisor"]?.value.toString().toLowerCase();
+    field.semester = fields["semester"]?.value;
+    field.careUnit = fields["careUnit"]?.value.toString().toLowerCase();
+    field.initialExam = fields["initialExam"]?.value.toString().toLowerCase();
+    return field;
   }
 }
