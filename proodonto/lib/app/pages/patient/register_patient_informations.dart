@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/app/interfaces/patient_form_abstraction.dart';
+import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/dropdown_button.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
 
 import '../../database/entity/patient.dart';
 
-class RegisterPatientForm extends PatientForm {
+class RegisterPatientForm extends RegisterForm {
   RegisterPatientForm(
       {Key? key, required this.patient})
       : super(key: key);

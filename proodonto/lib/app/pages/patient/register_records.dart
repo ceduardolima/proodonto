@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:proodonto/app/interfaces/patient_form_abstraction.dart';
+import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
 import '../../database/entity/patient.dart';
 
-class RegisterRecordsForm extends PatientForm {
+class RegisterRecordsForm extends RegisterForm {
   RegisterRecordsForm({Key? key, required this.patient}) : super(key: key);
   Patient patient = Patient();
   final _formKey = GlobalKey<FormBuilderState>();

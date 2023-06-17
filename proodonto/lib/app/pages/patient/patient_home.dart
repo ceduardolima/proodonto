@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
-import 'package:proodonto/app/interfaces/patient_form_abstraction.dart';
+import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/patient/register_patient_informations.dart';
 import 'package:proodonto/app/pages/patient/register_patient_responsible.dart';
 import 'package:proodonto/app/pages/patient/register_records.dart';
@@ -25,7 +25,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   late RegisterRecordsForm recordsForm;
   late RegisterPatientForm patientForm;
   late PatientResponsibleForm responsibleForm;
-  late List<PatientForm> formList;
+  late List<RegisterForm> formList;
   Patient patient = Patient();
 
   _PatientHomePageState(this._database);
@@ -70,7 +70,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                       if (isLastStep) {
                         _finishRegistry(context, responsibleForm.patient);
                       } else {
-                        PatientForm form = formList[_currentStep];
+                        RegisterForm form = formList[_currentStep];
                         if (form.validate()) {
                           patient = form.getFields(patient);
                           details.onStepContinue!();
