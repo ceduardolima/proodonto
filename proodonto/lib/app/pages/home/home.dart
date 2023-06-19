@@ -4,6 +4,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/anamnesis/register_anamnesis.dart';
+import 'package:proodonto/app/pages/exam/exam_home.dart';
 import 'package:proodonto/app/pages/exam/register_exam.dart';
 import 'package:proodonto/app/pages/home/patient_item_list.dart';
 import 'package:proodonto/app/pages/patient/register_records.dart';
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RegisterExamHome(database: database)));
+            builder: (context) => ExamHome()));
   }
 
   void _changeToAnamnesisHome(BuildContext context) {
