@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/entity/exam.dart';
+import 'package:proodonto/app/pages/exam/step/exam_basic_info_step.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 class ExamHome extends StatelessWidget {
@@ -40,7 +41,7 @@ class _ExamStepperState extends State<_ExamStepper> {
   List<Step> _getSteps() => [
         Step(
             title: Text("Informações básicas"),
-            content: Container(),
+            content: ExamBasicInfoStep(exam: exam,),
             state: setStepState(0),
             isActive: _currentStep >= 0)
       ];
