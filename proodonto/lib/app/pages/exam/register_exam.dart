@@ -47,14 +47,6 @@ class RegisterExamHome extends StatelessWidget {
                 DefaultFormField(name: "pulsation", label: "Pulsação"),
                 DefaultFormField(name: "oximetry", label: "Oximetria"),
                 DefaultFormField(
-                    name: "othersObservations", label: "Outras observações"),
-                DefaultDropdownButton(
-                  name: "skinColor",
-                  label: "Cor da pele",
-                  list: SkinColor.getNameList(),
-                  initialValue: SkinColor.getNameList()[0],
-                ),
-                DefaultFormField(
                     name: "skinColoring", label: "Coloração da pele"),
                 DefaultFormField(name: "consistency", label: "Consistência"),
                 DefaultFormField(name: "skinTexture", label: "Textura da pele"),
@@ -169,12 +161,6 @@ class RegisterExamHome extends StatelessWidget {
   void _getFields() {
     _formKey.currentState!.save();
     final fields = _formKey.currentState!.fields;
-    _exam.patientCPF = fields["patientCPF"]!.value;
-    _exam.generalType = GeneralType.values[
-        GeneralType.getNameList().indexOf(fields["generalType"]!.value)];
-    _exam.weight = fields["weight"]!.value;
-    _exam.height = fields["height"]!.value;
-    _exam.temperature = fields["temperature"]!.value;
     _exam.bloodPressure = fields["bloodPressure"]!.value;
     _exam.pulsation = fields["pulsation"]!.value;
     _exam.oximetry = fields["oximetry"]!.value;

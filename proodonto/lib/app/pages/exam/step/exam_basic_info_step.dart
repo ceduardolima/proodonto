@@ -74,6 +74,7 @@ class ExamBasicInfoStep extends RegisterForm {
             DefaultFormField(
               name: "temperature",
               label: "Temperatura",
+              inputType: TextInputType.number,
               initialValue: exam.temperature,
             ),
             DefaultDropdownButton(

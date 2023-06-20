@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ExamHome()));
+            builder: (context) => ExamHome(database: database,)));
   }
 
   void _changeToAnamnesisHome(BuildContext context) {
