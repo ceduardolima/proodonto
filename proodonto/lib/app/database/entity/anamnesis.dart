@@ -18,7 +18,7 @@ class Anamnesis {
   String? useMedicine;
   String? whichMedicines;
   String? doctorName;
-  Allergy allergy = Allergy.none;
+  Allergy? allergy = Allergy.none;
   String? surgery;
   bool? hasHealingProblem;
   String? healingProblemSituation;
@@ -36,7 +36,7 @@ class Anamnesis {
   bool? hasAnemia;
   bool? hasDiabetes;
   bool? hasNeurologicalProblems;
-  InfectiousDiseases infectiousDiseases = InfectiousDiseases.none;
+  InfectiousDiseases? infectiousDiseases = InfectiousDiseases.none;
   bool? underwentChemotherapy;
   bool? hasOnychophagy;
   bool? hasMouthPiece;
@@ -46,7 +46,7 @@ class Anamnesis {
   bool? isAlcoholic;
   String? drinkType;
   String? otherHabits;
-  FamilyBackground familyBackground = FamilyBackground.none;
+  FamilyBackground? familyBackground = FamilyBackground.none;
   String? hasAnxiety;
   String? dentalTreatment;
   String? lastVisitToTheDentist;
@@ -58,7 +58,7 @@ class Anamnesis {
   bool? hasDryMouthFeeling;
   bool? feelBurning;
 
-  Anamnesis(
+  Anamnesis({
       this.id,
       this.patientCPF,
       this.complain,
@@ -111,5 +111,5 @@ class Anamnesis {
       this.brushType,
       this.useDentalFloss,
       this.hasDryMouthFeeling,
-      this.feelBurning);
+      this.feelBurning});
 }
