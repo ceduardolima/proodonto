@@ -97,7 +97,7 @@ class _$ProodontoDatabase extends ProodontoDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` TEXT, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` TEXT, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` INTEGER, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER, `underwentChemotherapy` INTEGER, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` INTEGER, `hasAnxiety` TEXT, `dentalTreatment` TEXT, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER)');
+            'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` INTEGER, `breastfeeding` INTEGER, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` TEXT, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` INTEGER, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER, `underwentChemotherapy` INTEGER, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` INTEGER, `hasAnxiety` INTEGER, `dentalTreatment` TEXT, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -871,7 +871,11 @@ class _$AnamnesisDao extends AnamnesisDao {
                   'diseases': item.diseases,
                   'currentTreatment': item.currentTreatment,
                   'forWhat': item.forWhat,
-                  'pregnancy': item.pregnancy,
+                  'pregnancy':
+                      item.pregnancy == null ? null : (item.pregnancy! ? 1 : 0),
+                  'breastfeeding': item.breastfeeding == null
+                      ? null
+                      : (item.breastfeeding! ? 1 : 0),
                   'howManyMonth': item.howManyMonth,
                   'prenatalExam': item.prenatalExam == null
                       ? null
@@ -949,7 +953,9 @@ class _$AnamnesisDao extends AnamnesisDao {
                   'drinkType': item.drinkType,
                   'otherHabits': item.otherHabits,
                   'familyBackground': item.familyBackground?.index,
-                  'hasAnxiety': item.hasAnxiety,
+                  'hasAnxiety': item.hasAnxiety == null
+                      ? null
+                      : (item.hasAnxiety! ? 1 : 0),
                   'dentalTreatment': item.dentalTreatment,
                   'lastVisitToTheDentist': item.lastVisitToTheDentist,
                   'negativeExperience': item.negativeExperience,
@@ -987,7 +993,9 @@ class _$AnamnesisDao extends AnamnesisDao {
             diseases: row['diseases'] as String?,
             currentTreatment: row['currentTreatment'] as String?,
             forWhat: row['forWhat'] as String?,
-            pregnancy: row['pregnancy'] as String?,
+            pregnancy: row['pregnancy'] == null
+                ? null
+                : (row['pregnancy'] as int) != 0,
             howManyMonth: row['howManyMonth'] as String?,
             prenatalExam: row['prenatalExam'] == null
                 ? null
@@ -1050,7 +1058,7 @@ class _$AnamnesisDao extends AnamnesisDao {
             drinkType: row['drinkType'] as String?,
             otherHabits: row['otherHabits'] as String?,
             familyBackground: row['familyBackground'] == null ? null : FamilyBackground.values[row['familyBackground'] as int],
-            hasAnxiety: row['hasAnxiety'] as String?,
+            hasAnxiety: row['hasAnxiety'] == null ? null : (row['hasAnxiety'] as int) != 0,
             dentalTreatment: row['dentalTreatment'] as String?,
             lastVisitToTheDentist: row['lastVisitToTheDentist'] as String?,
             negativeExperience: row['negativeExperience'] as String?,
@@ -1073,7 +1081,9 @@ class _$AnamnesisDao extends AnamnesisDao {
             diseases: row['diseases'] as String?,
             currentTreatment: row['currentTreatment'] as String?,
             forWhat: row['forWhat'] as String?,
-            pregnancy: row['pregnancy'] as String?,
+            pregnancy: row['pregnancy'] == null
+                ? null
+                : (row['pregnancy'] as int) != 0,
             howManyMonth: row['howManyMonth'] as String?,
             prenatalExam: row['prenatalExam'] == null
                 ? null
@@ -1115,9 +1125,8 @@ class _$AnamnesisDao extends AnamnesisDao {
             hasHighBloodPressureProblem: row['hasHighBloodPressureProblem'] == null
                 ? null
                 : (row['hasHighBloodPressureProblem'] as int) != 0,
-            hasHeartProblem: row['hasHeartProblem'] == null
-                ? null
-                : (row['hasHeartProblem'] as int) != 0,
+            hasHeartProblem:
+                row['hasHeartProblem'] == null ? null : (row['hasHeartProblem'] as int) != 0,
             hasGastricProblem: row['hasGastricProblem'] == null ? null : (row['hasGastricProblem'] as int) != 0,
             hasAnemia: row['hasAnemia'] == null ? null : (row['hasAnemia'] as int) != 0,
             hasDiabetes: row['hasDiabetes'] == null ? null : (row['hasDiabetes'] as int) != 0,
@@ -1133,7 +1142,7 @@ class _$AnamnesisDao extends AnamnesisDao {
             drinkType: row['drinkType'] as String?,
             otherHabits: row['otherHabits'] as String?,
             familyBackground: row['familyBackground'] == null ? null : FamilyBackground.values[row['familyBackground'] as int],
-            hasAnxiety: row['hasAnxiety'] as String?,
+            hasAnxiety: row['hasAnxiety'] == null ? null : (row['hasAnxiety'] as int) != 0,
             dentalTreatment: row['dentalTreatment'] as String?,
             lastVisitToTheDentist: row['lastVisitToTheDentist'] as String?,
             negativeExperience: row['negativeExperience'] as String?,

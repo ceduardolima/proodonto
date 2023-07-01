@@ -11,7 +11,8 @@ class Anamnesis {
   String? diseases;
   String? currentTreatment;
   String? forWhat;
-  String? pregnancy;
+  bool? pregnancy;
+  bool? breastfeeding;
   String? howManyMonth;
   bool? prenatalExam;
   String? medicalRecommendations;
@@ -47,7 +48,7 @@ class Anamnesis {
   String? drinkType;
   String? otherHabits;
   FamilyBackground? familyBackground = FamilyBackground.none;
-  String? hasAnxiety;
+  bool? hasAnxiety;
   String? dentalTreatment;
   String? lastVisitToTheDentist;
   String? negativeExperience;
@@ -112,4 +113,9 @@ class Anamnesis {
       this.useDentalFloss,
       this.hasDryMouthFeeling,
       this.feelBurning});
+
+  @override
+  String toString() {
+    return 'Anamnesis{id: $id, patientCPF: $patientCPF, complain: $complain, diseaseHistory: $diseaseHistory, diseases: $diseases, currentTreatment: $currentTreatment, forWhat: $forWhat, pregnancy: $pregnancy, breastfeeding: $breastfeeding, howManyMonth: $howManyMonth, prenatalExam: $prenatalExam, medicalRecommendations: $medicalRecommendations, useMedicine: $useMedicine, whichMedicines: $whichMedicines, doctorName: $doctorName, allergy: $allergy, surgery: $surgery, hasHealingProblem: $hasHealingProblem, healingProblemSituation: $healingProblemSituation, hasProblemWithAnesthesia: $hasProblemWithAnesthesia, problemWithAnesthesiaSituation: $problemWithAnesthesiaSituation, hasBleedingProblem: $hasBleedingProblem, bleedingProblemSituation: $bleedingProblemSituation, hasRheumaticFever: $hasRheumaticFever, hasKidneyProblem: $hasKidneyProblem, hasRespiratoryProblem: $hasRespiratoryProblem, hasJointProblem: $hasJointProblem, hasHighBloodPressureProblem: $hasHighBloodPressureProblem, hasHeartProblem: $hasHeartProblem, hasGastricProblem: $hasGastricProblem, hasAnemia: $hasAnemia, hasDiabetes: $hasDiabetes, hasNeurologicalProblems: $hasNeurologicalProblems, infectiousDiseases: $infectiousDiseases, underwentChemotherapy: $underwentChemotherapy, hasOnychophagy: $hasOnychophagy, hasMouthPiece: $hasMouthPiece, hasBruxism: $hasBruxism, isSmoker: $isSmoker, cigaretteType: $cigaretteType, isAlcoholic: $isAlcoholic, drinkType: $drinkType, otherHabits: $otherHabits, familyBackground: $familyBackground, hasAnxiety: $hasAnxiety, dentalTreatment: $dentalTreatment, lastVisitToTheDentist: $lastVisitToTheDentist, negativeExperience: $negativeExperience, whatKindOfTreatment: $whatKindOfTreatment, brushNumber: $brushNumber, brushType: $brushType, useDentalFloss: $useDentalFloss, hasDryMouthFeeling: $hasDryMouthFeeling, feelBurning: $feelBurning}';
+  }
 }

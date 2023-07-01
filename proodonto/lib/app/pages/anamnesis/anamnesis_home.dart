@@ -3,6 +3,7 @@ import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/database/entity/exam.dart';
 import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/anamnesis/step/anamnesis_basic_info.dart';
+import 'package:proodonto/app/pages/anamnesis/step/anamnesis_register.dart';
 import 'package:proodonto/app/pages/exam/step/exam_basic_info_step.dart';
 import 'package:proodonto/app/pages/exam/step/exam_step.dart';
 import 'package:proodonto/app/pages/home/home.dart';
@@ -45,7 +46,12 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
   void initState() {
     super.initState();
     formList = [
-      AnamnesisBasicInfoStep(anamnesis: anamnesis,)
+      AnamnesisBasicInfoStep(
+        anamnesis: anamnesis,
+      ),
+      AnamnesisRegister(
+        anamnesis: anamnesis,
+      )
     ];
     _max = _getSteps().length;
   }
@@ -55,10 +61,15 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
 
   List<Step> _getSteps() => [
         Step(
-            title: Text("Informações básicas"),
+            title: Text("Informações do paciênte"),
             content: formList[0],
             state: setStepState(0),
             isActive: _currentStep >= 0),
+        Step(
+            title: Text("Anamnese"),
+            content: formList[1],
+            state: setStepState(1),
+            isActive: _currentStep >= 1),
       ];
 
   void onStepContinue() {
@@ -113,6 +124,9 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
                 child: DefaultButton(
                   text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                   onPressed: () {
+                    final form = formList[_currentStep];
+                    form.getFields(anamnesis);
+                    debugPrint(anamnesis.toString());
                     if (isLastStep) {
                       _finishRegistryTriage(context);
                     } else {
