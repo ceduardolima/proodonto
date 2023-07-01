@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:proodonto/app/shared/default_size.dart';
 
 class DefaultDropdownButton extends StatelessWidget {
   const DefaultDropdownButton(
@@ -16,17 +17,20 @@ class DefaultDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderDropdown<String>(
-      name: name,
-      initialValue: initialValue,
-      decoration: InputDecoration(labelText: label),
-      validator: FormBuilderValidators.required(errorText: "Campo obrigatório"),
-      items: list
-          .map((e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ))
-          .toList(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
+      child: FormBuilderDropdown<String>(
+        name: name,
+        initialValue: initialValue,
+        decoration: InputDecoration(labelText: label, helperText: ""),
+        validator: FormBuilderValidators.required(errorText: "Campo obrigatório"),
+        items: list
+            .map((e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(e),
+                ))
+            .toList(),
+      ),
     );
   }
 }

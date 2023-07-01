@@ -34,7 +34,11 @@ class RegisterTriageForm extends RegisterForm {
             DefaultRadioButton(name: "hasDiarrhea", label: "Diarreia"),
             DefaultFormField(name: "oximetry", label: "Oximatria"),
             DefaultFormField(name: "heartRate", label: "Frequência cardíaca"),
-            DefaultFormField(name: "temperature", label: "Temperatura"),
+            DefaultFormField(
+              name: "temperature",
+              label: "Temperatura",
+              suffixText: "ºC",
+            ),
           ],
         ));
   }
@@ -47,8 +51,7 @@ class RegisterTriageForm extends RegisterForm {
     triage.kinship = fields["kinship"]!.value;
     triage.hasFever = fields["hasFever"]!.value;
     triage.hasTiredness = fields["hasTiredness"]!.value;
-    triage.hasDifficultyToBreathing =
-        fields["hasDifficultyToBreathing"]!.value;
+    triage.hasDifficultyToBreathing = fields["hasDifficultyToBreathing"]!.value;
     triage.hasCough = fields["hasCough"]!.value;
     triage.hasLossOfSmell = fields["hasLossOfSmell"]!.value;
     triage.hasLossOfTaste = fields["hasLossOfTaste"]!.value;

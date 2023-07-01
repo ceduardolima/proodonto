@@ -80,12 +80,15 @@ class LoginTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: isPassword ?? false,
-      controller: controller,
-      keyboardType: inputType,
-      decoration: InputDecoration(icon: icon, labelText: label, hintText: hint),
-      validator: (String? value) => validatorMessenger,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: PaddingSize.medium),
+      child: TextFormField(
+        obscureText: isPassword ?? false,
+        controller: controller,
+        keyboardType: inputType,
+        decoration: InputDecoration(prefixIcon: icon, labelText: label, hintText: hint),
+        validator: (String? value) => validatorMessenger,
+      ),
     );
   }
 }

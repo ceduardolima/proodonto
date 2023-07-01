@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:proodonto/app/shared/default_size.dart';
 
 class DefaultRadioButton extends StatelessWidget {
   DefaultRadioButton({Key? key, required this.name, required this.label})
@@ -16,11 +17,15 @@ class DefaultRadioButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderRadioGroup(
-      name: name,
-      options: options,
-      initialValue: false,
-      decoration: InputDecoration(labelText: label),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
+      child: FormBuilderRadioGroup(
+        name: name,
+        options: options,
+        initialValue: false,
+        decoration: InputDecoration(labelText: label, helperText: ""),
+
+      ),
     );
   }
 }

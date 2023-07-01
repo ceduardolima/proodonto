@@ -13,7 +13,8 @@ class DefaultFormField extends StatelessWidget {
       this.inputType,
       this.length,
       this.requireErrorMessenger,
-      this.initialValue})
+      this.initialValue,
+        this.suffixText})
       : super(key: key);
 
   final String name;
@@ -21,6 +22,7 @@ class DefaultFormField extends StatelessWidget {
   final String label;
   final int? length;
   final TextInputType? inputType;
+  final String? suffixText;
   String? requireErrorMessenger;
   String? minLengthErrorMessenger = "Campo incompleto";
   final String? initialValue;
@@ -36,6 +38,8 @@ class DefaultFormField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
+          helperText: "",
+          suffixText: suffixText
         ),
         maxLines: 1,
         maxLength: length,
