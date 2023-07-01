@@ -24,6 +24,7 @@ class MainInputTheme {
     floatingLabelBehavior: FloatingLabelBehavior.always,
     enabledBorder: _buildBorder(Colors.grey[600]!),
     focusedErrorBorder: _buildBorder(Colors.red),
+    errorBorder: _buildBorder(Colors.red),
     focusedBorder: _buildBorder(Colors.blue),
     disabledBorder: _buildBorder(Colors.grey[400]!),
     suffixStyle: _buildTextStyle(Colors.black87),
