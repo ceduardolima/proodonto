@@ -4,6 +4,7 @@ import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
 import 'package:proodonto/app/shared/dropdown_button.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
+import 'package:proodonto/app/shared/form_field_date_time.dart';
 
 import '../../database/entity/patient.dart';
 
@@ -62,13 +63,10 @@ class RegisterPatientForm extends RegisterForm {
                 : null,
             label: 'Cor de pele',
           ),
-          FormBuilderDateTimePicker(
+          FormFieldDateTime(
             name: "birthday",
-            decoration: const InputDecoration(labelText: "Aniversário"),
-            inputType: InputType.date,
-            initialDate: patient.birthday == null
-                ? null
-                : DateTime.tryParse(patient.birthday!),
+            label: "Aniversário",
+            initialDate: patient.birthday
           ),
           DefaultFormField(
             name: "fixNumber",
