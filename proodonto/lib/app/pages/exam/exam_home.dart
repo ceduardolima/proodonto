@@ -92,6 +92,26 @@ class _ExamStepperState extends State<_ExamStepper> {
     await Future.delayed(const Duration(seconds: 2));
   }
 
+  void _onStepTapped(int step) {
+    if (step > _currentStep) {
+      if (_getFormIfHasNoEmptyField()) {
+        _currentStep = step;
+      }
+    } else {
+      _currentStep = step;
+    }
+  }
+
+  bool _getFormIfHasNoEmptyField() {
+    final form = formList[_currentStep];
+    bool isValid = form.validate();
+    if (isValid) {
+      form.getFields(exam);
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stepper(
@@ -100,7 +120,7 @@ class _ExamStepperState extends State<_ExamStepper> {
       currentStep: _currentStep,
       onStepContinue: onStepContinue,
       onStepCancel: onStepCancel,
-      onStepTapped: (step) => setState(() => _currentStep = step),
+      onStepTapped: (step) => setState(() => _onStepTapped(step)),
       controlsBuilder: (context, details) {
         bool isLastStep = _currentStep == _getSteps().length - 1;
         bool isFirstStep = _currentStep == 0;

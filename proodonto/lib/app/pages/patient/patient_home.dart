@@ -40,6 +40,26 @@ class _PatientHomePageState extends State<PatientHomePage> {
     super.initState();
   }
 
+  void _onStepTapped(int step) {
+    if (step > _currentStep) {
+      if (_getFormIfHasNoEmptyField()) {
+        _currentStep = step;
+      }
+    } else {
+      _currentStep = step;
+    }
+  }
+
+  bool _getFormIfHasNoEmptyField() {
+    final form = formList[_currentStep];
+    bool isValid = form.validate();
+    if (isValid) {
+      form.getFields(patient);
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +74,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             (_currentStep >= _max) ? _currentStep : _currentStep + 1),
         onStepCancel: () => setState(() => _currentStep =
             (_currentStep == 0) ? _currentStep : _currentStep - 1),
-        onStepTapped: (step) => setState(() => _currentStep = step),
+        onStepTapped: (step) => setState(() => _onStepTapped(step)),
         controlsBuilder: (context, details) {
           bool isLastStep = _currentStep == _getSteps().length - 1;
           bool isFirstStep = _currentStep == 0;
