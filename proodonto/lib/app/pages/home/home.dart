@@ -2,16 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/anamnesis/anamnesis_home.dart';
-import 'package:proodonto/app/pages/anamnesis/register_anamnesis.dart';
 import 'package:proodonto/app/pages/exam/exam_home.dart';
 import 'package:proodonto/app/pages/home/patient_item_list.dart';
-import 'package:proodonto/app/pages/patient/register_records.dart';
-import 'package:proodonto/app/pages/triage/register_triage.dart';
 import 'package:proodonto/app/pages/triage/triage_home.dart';
 import 'package:proodonto/app/shared/default_size.dart';
-import 'dart:math' as math;
 
 import '../patient/patient_home.dart';
 

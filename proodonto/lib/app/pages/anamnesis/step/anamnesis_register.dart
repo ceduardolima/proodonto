@@ -29,24 +29,28 @@ class AnamnesisRegister extends RegisterForm {
     field.breastfeeding = fields["breastfeeding"]!.value;
     field.whichMedicines = fields["medicineUse"]!.value;
     field.doctorName = fields["doctorName"]!.value;
-    field.allergy = Allergy
-        .values[Allergy.getNameList().indexOf(fields["allergy"]!.value)];
+    field.allergy =
+        Allergy.values[Allergy.getNameList().indexOf(fields["allergy"]!.value)];
     field.surgery = fields["hadSomeSurgery"]!.value;
     field.hasHealingProblem = fields["healingProblem"]!.value;
-    field.healingProblemSituation = fields["whatIsTheSituationWithHealingProblem"]!.value;
-    field.problemWithAnesthesiaSituation = fields["problemWithAnesthesiaSituation"]!.value;
+    field.healingProblemSituation =
+        fields["whatIsTheSituationWithHealingProblem"]!.value;
+    field.problemWithAnesthesiaSituation =
+        fields["problemWithAnesthesiaSituation"]!.value;
     field.bleedingProblemSituation = fields["problemWithBleeding"]!.value;
     field.hasRheumaticFever = fields["hasRheumaticFever"]!.value;
     field.hasKidneyProblem = fields["hasKidneyProblems"]!.value;
     field.hasRespiratoryProblem = fields["hasRespiratoryProblems"]!.value;
-    field.hasHighBloodPressureProblem = fields["hasHighBloodPressureProblem"]!.value;
+    field.hasHighBloodPressureProblem =
+        fields["hasHighBloodPressureProblem"]!.value;
     field.hasHeartProblem = fields["hasHeartProblem"]!.value;
     field.hasGastricProblem = fields["hasGastricProblem"]!.value;
     field.hasAnemia = fields["hasAnemia"]!.value;
     field.hasDiabetes = fields["hasDiabetes"]!.value;
     field.hasNeurologicalProblems = fields["hasNeurologicalProblems"]!.value;
-    field.infectiousDiseases = InfectiousDiseases
-        .values[InfectiousDiseases.getNameList().indexOf(fields["infectiousDiseases"]!.value)];
+    field.infectiousDiseases = InfectiousDiseases.values[
+        InfectiousDiseases.getNameList()
+            .indexOf(fields["infectiousDiseases"]!.value)];
     field.underwentChemotherapy = fields["underwentChemotherapy"]!.value;
     field.hasOnychophagy = fields["hasOnychophagy"]!.value;
     field.hasMouthPiece = fields["hasMouthPiece"]!.value;
@@ -55,8 +59,9 @@ class AnamnesisRegister extends RegisterForm {
     field.isAlcoholic = fields["isAlcoholic"]!.value;
     field.drinkType = fields["drinkType"]!.value;
     field.otherHabits = fields["otherHabits"]!.value;
-    field.familyBackground = FamilyBackground
-        .values[FamilyBackground.getNameList().indexOf(fields["familyBackground"]!.value)];
+    field.familyBackground = FamilyBackground.values[
+        FamilyBackground.getNameList()
+            .indexOf(fields["familyBackground"]!.value)];
     field.hasAnxiety = fields["hasAnxiety"]!.value;
     field.hasBruxism = fields["hasBruxism"]!.value;
     field.hasJointProblem = fields["hasJointProblem"]!.value;
@@ -134,7 +139,8 @@ class AnamnesisRegister extends RegisterForm {
             DefaultRadioButton(
                 name: "hasRheumaticFever", label: "Tem febre reumática?"),
             DefaultRadioButton(
-                name: "hasJointProblem", label: "Tem problemas nas articulações?"),
+                name: "hasJointProblem",
+                label: "Tem problemas nas articulações?"),
             DefaultRadioButton(
                 name: "hasKidneyProblems", label: "Tem problema renais?"),
             DefaultRadioButton(
@@ -167,42 +173,37 @@ class AnamnesisRegister extends RegisterForm {
                 name: "hasOnychophagy", label: "Tem onicofagia?"),
             DefaultRadioButton(
                 name: "hasMouthPiece", label: "Tem repirador bucal?"),
-            DefaultRadioButton(
-                name: "hasBruxism", label: "Tem bruxismo?"),
-            DefaultRadioButton(
-                name: "isSmoker", label: "É fumante?"),
-            DefaultFormField(
-                name: "cigaretteType", label: "Tipo de cigarro"),
-            DefaultRadioButton(
-                name: "isAlcoholic", label: "É alcoolatra?"),
-            DefaultFormField(
-                name: "drinkType", label: "Tipo de bebida"),
-            DefaultFormField(
-                name: "otherHabits", label: "Outros hábitos"),
+            DefaultRadioButton(name: "hasBruxism", label: "Tem bruxismo?"),
+            DefaultRadioButton(name: "isSmoker", label: "É fumante?"),
+            DefaultFormField(name: "cigaretteType", label: "Tipo de cigarro"),
+            DefaultRadioButton(name: "isAlcoholic", label: "É alcoolatra?"),
+            DefaultFormField(name: "drinkType", label: "Tipo de bebida"),
+            DefaultFormField(name: "otherHabits", label: "Outros hábitos"),
             DefaultDropdownButton(
-                name: "familyBackground",
-                label: "Doenças presente no histórico familiar",
-                list: FamilyBackground.getNameList(),
+              name: "familyBackground",
+              label: "Doenças presente no histórico familiar",
+              list: FamilyBackground.getNameList(),
               initialValue: FamilyBackground.getNameList()[0],
             ),
-            DefaultRadioButton(
-                name: "hasAnxiety", label: "Tem ansiedade?"),
+            DefaultRadioButton(name: "hasAnxiety", label: "Tem ansiedade?"),
             DefaultFormField(
                 name: "dentalTreatment", label: "Já fez tratamento dental?"),
             DefaultFormField(
-                name: "lastVisitToTheDentist", label: "Última visita ao dentista"),
+                name: "lastVisitToTheDentist",
+                label: "Última visita ao dentista"),
             DefaultFormField(
-                name: "negativeExperience", label: "Teve alguma experiencia negativa"),
+                name: "negativeExperience",
+                label: "Teve alguma experiencia negativa"),
             DefaultFormField(
-                name: "whatKindOfTreatment", label: "Qual foi o tipo do tratameto?"),
-            DefaultFormField(
-                name: "brushNumber", label: "Número da escova"),
-            DefaultFormField(
-                name: "brushType", label: "Tipo da escova"),
+                name: "whatKindOfTreatment",
+                label: "Qual foi o tipo do tratameto?"),
+            DefaultFormField(name: "brushNumber", label: "Número da escova"),
+            DefaultFormField(name: "brushType", label: "Tipo da escova"),
             DefaultRadioButton(
                 name: "useDentalFloss", label: "Faz uso do fio dental?"),
             DefaultRadioButton(
-                name: "hasDryMouthFeeling", label: "Tem a sensação de boca seca?"),
+                name: "hasDryMouthFeeling",
+                label: "Tem a sensação de boca seca?"),
             DefaultRadioButton(
                 name: "feelBurning", label: "Sente a boca queimando?"),
           ],

@@ -101,7 +101,27 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
     await widget.database.anamnesisDao.insert(anamnesis);
     await Future.delayed(const Duration(seconds: 2));
   }
-
+  
+  void _onStepTapped(int step) {
+    if (step > _currentStep) {
+      if (_getFormIfHasNoEmptyField()) {
+        _currentStep = step;
+      }
+    } else {
+      _currentStep = step;
+    }
+  }
+  
+  bool _getFormIfHasNoEmptyField() {
+    final form = formList[_currentStep];
+    bool isValid = form.validate();
+    if (isValid) {
+      form.getFields(anamnesis);
+      return true;
+    }
+    return false;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Stepper(
@@ -110,7 +130,7 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
       currentStep: _currentStep,
       onStepContinue: onStepContinue,
       onStepCancel: onStepCancel,
-      onStepTapped: (step) => setState(() => _currentStep = step),
+      onStepTapped: (step) => setState(() => _onStepTapped(step)),
       controlsBuilder: (context, details) {
         bool isLastStep = _currentStep == _getSteps().length - 1;
         bool isFirstStep = _currentStep == 0;
@@ -124,13 +144,13 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
                 child: DefaultButton(
                   text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                   onPressed: () {
-                    final form = formList[_currentStep];
-                    form.getFields(anamnesis);
-                    debugPrint(anamnesis.toString());
-                    if (isLastStep) {
-                      _finishRegistryTriage(context);
-                    } else {
-                      details.onStepContinue!();
+                    bool isValid = _getFormIfHasNoEmptyField();
+                    if (isValid) {
+                      if (isLastStep) {
+                        _finishRegistryTriage(context);
+                      } else {
+                        details.onStepContinue!();
+                      }
                     }
                   },
                 ),
