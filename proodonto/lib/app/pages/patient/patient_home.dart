@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
 import 'package:proodonto/app/interfaces/form_abstraction.dart';
-import 'package:proodonto/app/pages/patient/register_patient_informations.dart';
-import 'package:proodonto/app/pages/patient/register_patient_responsible.dart';
-import 'package:proodonto/app/pages/patient/register_records.dart';
+import 'package:proodonto/app/pages/patient/step/register_patient_informations.dart';
+import 'package:proodonto/app/pages/patient/step/register_records.dart';
+import 'package:proodonto/app/pages/patient/step/register_patient_responsible.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 

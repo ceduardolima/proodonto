@@ -3,8 +3,8 @@ import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/database/entity/triage.dart';
 import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/home/home.dart';
-import 'package:proodonto/app/pages/triage/register_triage.dart';
-import 'package:proodonto/app/pages/triage/register_triage_basic_info.dart';
+import 'package:proodonto/app/pages/triage/step/register_triage.dart';
+import 'package:proodonto/app/pages/triage/step/register_triage_basic_info.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 class TriageHome extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:proodonto/app/shared/dropdown_button.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
 import 'package:proodonto/app/shared/form_field_date_time.dart';
 
-import '../../database/entity/patient.dart';
+import '../../../database/entity/patient.dart';
 
 class RegisterPatientForm extends RegisterForm {
   RegisterPatientForm(
