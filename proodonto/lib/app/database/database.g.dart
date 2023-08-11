@@ -167,6 +167,44 @@ class _$PatientDao extends PatientDao {
                   'nationality': item.nationality,
                   'maritalStatus': item.maritalStatus?.index
                 },
+            changeListener),
+        _patientUpdateAdapter = UpdateAdapter(
+            database,
+            'patient',
+            ['id'],
+            (Patient item) => <String, Object?>{
+                  'recordNumber': item.recordNumber,
+                  'advisor': item.advisor,
+                  'semester': item.semester,
+                  'careUnit': item.careUnit,
+                  'profession': item.profession,
+                  'workAddress': item.workAddress,
+                  'email': item.email,
+                  'initialExam': item.initialExam,
+                  'responsibleName': item.responsibleName,
+                  'responsibleAddress': item.responsibleAddress,
+                  'responsibleRG': item.responsibleRG,
+                  'responsibleIssuingAgency': item.responsibleIssuingAgency,
+                  'parentalRelationship': item.parentalRelationship,
+                  'responsiblePhoneNumber': item.responsiblePhoneNumber,
+                  'id': item.id,
+                  'name': item.name,
+                  'birthday': item.birthday,
+                  'sex': item.sex?.index,
+                  'cpf': item.cpf,
+                  'rg': item.rg,
+                  'issuingAgency': item.issuingAgency,
+                  'cep': item.cep,
+                  'address': item.address,
+                  'neighborhood': item.neighborhood,
+                  'addressComplement': item.addressComplement,
+                  'skinColor': item.skinColor?.index,
+                  'fixNumber': item.fixNumber,
+                  'phone': item.phone,
+                  'placeOfBirth': item.placeOfBirth,
+                  'nationality': item.nationality,
+                  'maritalStatus': item.maritalStatus?.index
+                },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -176,6 +214,8 @@ class _$PatientDao extends PatientDao {
   final QueryAdapter _queryAdapter;
 
   final InsertionAdapter<Patient> _patientInsertionAdapter;
+
+  final UpdateAdapter<Patient> _patientUpdateAdapter;
 
   @override
   Future<List<Patient>> getAll() async {
@@ -364,6 +404,11 @@ class _$PatientDao extends PatientDao {
   @override
   Future<void> insert(Patient patient) async {
     await _patientInsertionAdapter.insert(patient, OnConflictStrategy.fail);
+  }
+
+  @override
+  Future<void> update(Patient patient) async {
+    await _patientUpdateAdapter.update(patient, OnConflictStrategy.abort);
   }
 }
 
@@ -673,7 +718,7 @@ class _$ExamDao extends ExamDao {
   _$ExamDao(
     this.database,
     this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database, changeListener),
+  )   : _queryAdapter = QueryAdapter(database),
         _examInsertionAdapter = InsertionAdapter(
             database,
             'exam',
@@ -716,8 +761,7 @@ class _$ExamDao extends ExamDao {
                   'definitiveDiagnosis': item.definitiveDiagnosis,
                   'conduct': item.conduct,
                   'diagnosticHypothesis': item.diagnosticHypothesis
-                },
-            changeListener);
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -787,9 +831,8 @@ class _$ExamDao extends ExamDao {
   }
 
   @override
-  Stream<List<Exam>> findByCPF(String cpf) {
-    return _queryAdapter.queryListStream(
-        'SELECT * FROM exam WHERE patientCPF=?1',
+  Future<Exam?> findByCPF(String cpf) async {
+    return _queryAdapter.query('SELECT * FROM exam WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Exam(
             id: row['id'] as int?,
             generalType: row['generalType'] == null
@@ -844,9 +887,7 @@ class _$ExamDao extends ExamDao {
             definitiveDiagnosis: row['definitiveDiagnosis'] as String?,
             diagnosticHypothesis: row['diagnosticHypothesis'] as String?,
             conduct: row['conduct'] as String?),
-        arguments: [cpf],
-        queryableName: 'exam',
-        isView: false);
+        arguments: [cpf]);
   }
 
   @override

@@ -7,7 +7,7 @@ abstract class ExamDao {
   Future<List<Exam>> getAll();
 
   @Query("SELECT * FROM exam WHERE patientCPF=:cpf")
-  Stream<List<Exam>> findByCPF(String cpf);
+  Future<Exam?> findByCPF(String cpf);
 
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Exam exam);

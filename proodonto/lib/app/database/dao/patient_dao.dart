@@ -19,6 +19,9 @@ abstract class PatientDao {
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Patient patient);
 
+  @Update()
+  Future<void> update(Patient patient);
+
   @Query("DELETE FROM patient WHERE cpf=:cpf")
   Future<void> deletePatientByCPF(String cpf);
 }
