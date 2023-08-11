@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:proodonto/app/database/database.dart';
+import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/anamnesis/anamnesis_home.dart';
 import 'package:proodonto/app/pages/exam/exam_home.dart';
 import 'package:proodonto/app/pages/home/patient_item_list.dart';
@@ -47,9 +48,9 @@ class HomePage extends StatelessWidget {
             builder: (context) => AnamnesisHome(database: database)));
   }
 
-  void _changeToPatientInformation(BuildContext context) {
+  void _changeToPatientInformation(BuildContext context, Patient patient) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const PatientInformation()));
+        context, MaterialPageRoute(builder: (context) => PatientInformationPage(database: database, patient: patient,)));
   }
 
   @override
@@ -93,7 +94,7 @@ class HomePage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: PatientItem(
                             patient: snapshot.data![index],
-                            onTap: (patient) => _changeToPatientInformation(context),
+                            onTap: (patient) => _changeToPatientInformation(context, snapshot.data![index]),
                           ));
                     })
                 : const Center(child: Text("Vazia."));
