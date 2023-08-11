@@ -21,7 +21,7 @@ class MainInputTheme {
   InputDecorationTheme theme() => InputDecorationTheme(
     contentPadding: const EdgeInsets.all(20),
     constraints: const BoxConstraints(minWidth: 150),
-    floatingLabelBehavior: FloatingLabelBehavior.auto,
+    floatingLabelBehavior: FloatingLabelBehavior.always,
     enabledBorder: _buildBorder(Colors.grey[600]!),
     focusedErrorBorder: _buildBorder(Colors.red),
     errorBorder: _buildBorder(Colors.red),
