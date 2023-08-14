@@ -14,10 +14,13 @@ abstract class TriageDao {
   Stream<Triage?> findByRecordNumber(int recordNumber);
 
   @Query("SELECT * FROM triage WHERE patientCPF=:cpf")
-  Stream<List<Triage?>> findByPatientCPF(String cpf);
+  Future<Triage?> findByPatientCPF(String cpf);
 
   @Query("SELECT * FROM triage WHERE operatorCPF=:cpf")
   Stream<List<Triage?>> findByOperatorCPF(String cpf);
+
+  @Update()
+  Future<void> update(Triage triage);
 
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Triage triage);

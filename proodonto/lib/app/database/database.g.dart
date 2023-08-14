@@ -462,6 +462,53 @@ class _$TriageDao extends TriageDao {
                   'heartRate': item.heartRate,
                   'temperature': item.temperature
                 },
+            changeListener),
+        _triageUpdateAdapter = UpdateAdapter(
+            database,
+            'triage',
+            ['id'],
+            (Triage item) => <String, Object?>{
+                  'id': item.id,
+                  'patientCPF': item.patientCPF,
+                  'operatorCPF': item.operatorCPF,
+                  'operatorName': item.operatorName,
+                  'patientName': item.patientName,
+                  'recordNumber': item.recordNumber,
+                  'reasonForConsultation': item.reasonForConsultation,
+                  'hasCovid':
+                      item.hasCovid == null ? null : (item.hasCovid! ? 1 : 0),
+                  'hasCough':
+                      item.hasCough == null ? null : (item.hasCough! ? 1 : 0),
+                  'testType': item.testType,
+                  'kinship': item.kinship,
+                  'hasFever':
+                      item.hasFever == null ? null : (item.hasFever! ? 1 : 0),
+                  'hasDifficultyToBreathing':
+                      item.hasDifficultyToBreathing == null
+                          ? null
+                          : (item.hasDifficultyToBreathing! ? 1 : 0),
+                  'hasTiredness': item.hasTiredness == null
+                      ? null
+                      : (item.hasTiredness! ? 1 : 0),
+                  'hasLossOfSmell': item.hasLossOfSmell == null
+                      ? null
+                      : (item.hasLossOfSmell! ? 1 : 0),
+                  'hasLossOfTaste': item.hasLossOfTaste == null
+                      ? null
+                      : (item.hasLossOfTaste! ? 1 : 0),
+                  'hasSoreThroat': item.hasSoreThroat == null
+                      ? null
+                      : (item.hasSoreThroat! ? 1 : 0),
+                  'hasHeadache': item.hasHeadache == null
+                      ? null
+                      : (item.hasHeadache! ? 1 : 0),
+                  'hasDiarrhea': item.hasDiarrhea == null
+                      ? null
+                      : (item.hasDiarrhea! ? 1 : 0),
+                  'oximetry': item.oximetry,
+                  'heartRate': item.heartRate,
+                  'temperature': item.temperature
+                },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -471,6 +518,8 @@ class _$TriageDao extends TriageDao {
   final QueryAdapter _queryAdapter;
 
   final InsertionAdapter<Triage> _triageInsertionAdapter;
+
+  final UpdateAdapter<Triage> _triageUpdateAdapter;
 
   @override
   Future<List<Triage>> getAll() async {
@@ -487,6 +536,8 @@ class _$TriageDao extends TriageDao {
                 row['hasCovid'] == null ? null : (row['hasCovid'] as int) != 0,
             testType: row['testType'] as String?,
             kinship: row['kinship'] as String?,
+            hasCough:
+                row['hasCough'] == null ? null : (row['hasCough'] as int) != 0,
             hasFever:
                 row['hasFever'] == null ? null : (row['hasFever'] as int) != 0,
             hasDifficultyToBreathing: row['hasDifficultyToBreathing'] == null
@@ -530,6 +581,8 @@ class _$TriageDao extends TriageDao {
                 row['hasCovid'] == null ? null : (row['hasCovid'] as int) != 0,
             testType: row['testType'] as String?,
             kinship: row['kinship'] as String?,
+            hasCough:
+                row['hasCough'] == null ? null : (row['hasCough'] as int) != 0,
             hasFever:
                 row['hasFever'] == null ? null : (row['hasFever'] as int) != 0,
             hasDifficultyToBreathing: row['hasDifficultyToBreathing'] == null
@@ -577,6 +630,8 @@ class _$TriageDao extends TriageDao {
                 row['hasCovid'] == null ? null : (row['hasCovid'] as int) != 0,
             testType: row['testType'] as String?,
             kinship: row['kinship'] as String?,
+            hasCough:
+                row['hasCough'] == null ? null : (row['hasCough'] as int) != 0,
             hasFever:
                 row['hasFever'] == null ? null : (row['hasFever'] as int) != 0,
             hasDifficultyToBreathing: row['hasDifficultyToBreathing'] == null
@@ -609,9 +664,8 @@ class _$TriageDao extends TriageDao {
   }
 
   @override
-  Stream<List<Triage?>> findByPatientCPF(String cpf) {
-    return _queryAdapter.queryListStream(
-        'SELECT * FROM triage WHERE patientCPF=?1',
+  Future<Triage?> findByPatientCPF(String cpf) async {
+    return _queryAdapter.query('SELECT * FROM triage WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
             patientCPF: row['patientCPF'] as String?,
@@ -624,6 +678,8 @@ class _$TriageDao extends TriageDao {
                 row['hasCovid'] == null ? null : (row['hasCovid'] as int) != 0,
             testType: row['testType'] as String?,
             kinship: row['kinship'] as String?,
+            hasCough:
+                row['hasCough'] == null ? null : (row['hasCough'] as int) != 0,
             hasFever:
                 row['hasFever'] == null ? null : (row['hasFever'] as int) != 0,
             hasDifficultyToBreathing: row['hasDifficultyToBreathing'] == null
@@ -650,9 +706,7 @@ class _$TriageDao extends TriageDao {
             oximetry: row['oximetry'] as String?,
             heartRate: row['heartRate'] as String?,
             temperature: row['temperature'] as String?),
-        arguments: [cpf],
-        queryableName: 'triage',
-        isView: false);
+        arguments: [cpf]);
   }
 
   @override
@@ -671,6 +725,8 @@ class _$TriageDao extends TriageDao {
                 row['hasCovid'] == null ? null : (row['hasCovid'] as int) != 0,
             testType: row['testType'] as String?,
             kinship: row['kinship'] as String?,
+            hasCough:
+                row['hasCough'] == null ? null : (row['hasCough'] as int) != 0,
             hasFever:
                 row['hasFever'] == null ? null : (row['hasFever'] as int) != 0,
             hasDifficultyToBreathing: row['hasDifficultyToBreathing'] == null
@@ -711,6 +767,11 @@ class _$TriageDao extends TriageDao {
   @override
   Future<void> insert(Triage triage) async {
     await _triageInsertionAdapter.insert(triage, OnConflictStrategy.fail);
+  }
+
+  @override
+  Future<void> update(Triage triage) async {
+    await _triageUpdateAdapter.update(triage, OnConflictStrategy.abort);
   }
 }
 
@@ -761,6 +822,50 @@ class _$ExamDao extends ExamDao {
                   'definitiveDiagnosis': item.definitiveDiagnosis,
                   'conduct': item.conduct,
                   'diagnosticHypothesis': item.diagnosticHypothesis
+                }),
+        _examUpdateAdapter = UpdateAdapter(
+            database,
+            'exam',
+            ['id'],
+            (Exam item) => <String, Object?>{
+                  'id': item.id,
+                  'patientCPF': item.patientCPF,
+                  'generalType': item.generalType?.index,
+                  'weight': item.weight,
+                  'height': item.height,
+                  'temperature': item.temperature,
+                  'bloodPressure': item.bloodPressure,
+                  'pulsation': item.pulsation,
+                  'oximetry': item.oximetry,
+                  'othersObservations': item.othersObservations,
+                  'skinColor': item.skinColor?.index,
+                  'skinColoring': item.skinColoring,
+                  'consistency': item.consistency,
+                  'skinTexture': item.skinTexture,
+                  'eyeColor': item.eyeColor,
+                  'hairColor': item.hairColor,
+                  'asymmetryType': item.asymmetryType?.index,
+                  'surfaceType': item.surfaceType?.index,
+                  'mobilityType': item.mobilityType?.index,
+                  'sensibilityType': item.sensibilityType?.index,
+                  'lipsType': item.lipsType?.index,
+                  'tongueType': item.tongueType?.index,
+                  'buccalMucosa': item.buccalMucosa,
+                  'gum': item.gum,
+                  'alveolarRidge': item.alveolarRidge,
+                  'retromolarTrigone': item.retromolarTrigone,
+                  'mouthFloor': item.mouthFloor,
+                  'palateModel': item.palateModel,
+                  'tonsilPillars': item.tonsilPillars,
+                  'variationNormality': item.variationNormality,
+                  'whichVariations': item.whichVariations,
+                  'injuryPresence': item.injuryPresence,
+                  'injuryDescription': item.injuryDescription,
+                  'complementaryExams': item.complementaryExams,
+                  'examResult': item.examResult,
+                  'definitiveDiagnosis': item.definitiveDiagnosis,
+                  'conduct': item.conduct,
+                  'diagnosticHypothesis': item.diagnosticHypothesis
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -771,11 +876,14 @@ class _$ExamDao extends ExamDao {
 
   final InsertionAdapter<Exam> _examInsertionAdapter;
 
+  final UpdateAdapter<Exam> _examUpdateAdapter;
+
   @override
   Future<List<Exam>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM exam',
         mapper: (Map<String, Object?> row) => Exam(
             id: row['id'] as int?,
+            patientCPF: row['patientCPF'] as String?,
             generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
@@ -835,6 +943,7 @@ class _$ExamDao extends ExamDao {
     return _queryAdapter.query('SELECT * FROM exam WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Exam(
             id: row['id'] as int?,
+            patientCPF: row['patientCPF'] as String?,
             generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
@@ -893,6 +1002,11 @@ class _$ExamDao extends ExamDao {
   @override
   Future<void> insert(Exam exam) async {
     await _examInsertionAdapter.insert(exam, OnConflictStrategy.fail);
+  }
+
+  @override
+  Future<void> update(Exam exam) async {
+    await _examUpdateAdapter.update(exam, OnConflictStrategy.abort);
   }
 }
 

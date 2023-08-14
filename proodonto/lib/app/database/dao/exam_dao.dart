@@ -9,6 +9,9 @@ abstract class ExamDao {
   @Query("SELECT * FROM exam WHERE patientCPF=:cpf")
   Future<Exam?> findByCPF(String cpf);
 
+  @Update()
+  Future<void> update(Exam exam);
+
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Exam exam);
 }
