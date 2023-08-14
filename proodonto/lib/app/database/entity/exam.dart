@@ -45,6 +45,7 @@ class Exam {
 
   Exam(
       {this.id,
+      this.patientCPF,
       this.generalType,
       this.weight,
       this.height,

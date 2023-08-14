@@ -39,6 +39,7 @@ class Triage {
       this.hasCovid,
       this.testType,
       this.kinship,
+        this.hasCough,
       this.hasFever,
       this.hasDifficultyToBreathing,
       this.hasTiredness,
