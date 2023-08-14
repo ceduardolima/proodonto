@@ -6,11 +6,13 @@ class EditableTextField extends StatefulWidget {
       {super.key,
       required this.submit,
       this.initialValue,
+      this.suffix,
       required this.label});
 
   final Function(String) submit;
   String? initialValue;
   final String label;
+  String? suffix;
 
   @override
   State<EditableTextField> createState() => _EditableTextFieldState();
@@ -55,6 +57,7 @@ class _EditableTextFieldState extends State<EditableTextField> {
               decoration: InputDecoration(
                 labelText: widget.label,
                 enabled: edit,
+                suffixText: widget.suffix,
               ),
             ),
             IconEditButton(

@@ -20,6 +20,7 @@ class TriageBasicInfoForm extends RegisterForm {
             name: "operatorName",
             label: "CPF do operador",
             initialValue: triage.operatorName,
+            length: 11,
           ),
           DefaultFormField(
             name: "recordNumber",
@@ -36,6 +37,7 @@ class TriageBasicInfoForm extends RegisterForm {
             name: "patientCPF",
             label: "CPF do paciênte",
             initialValue: triage.patientCPF,
+            length: 11,
           ),
           DefaultFormField(
             name: "reasonForConsultation",
