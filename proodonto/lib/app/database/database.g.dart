@@ -350,6 +350,49 @@ class _$PatientDao extends PatientDao {
   }
 
   @override
+  Future<List<Patient?>> findLikeCPF(String cpf) async {
+    return _queryAdapter.queryList('SELECT * FROM patient WHERE cpf LIKE ?1',
+        mapper: (Map<String, Object?> row) => Patient(
+            recordNumber: row['recordNumber'] as int?,
+            advisor: row['advisor'] as String?,
+            semester: row['semester'] as String?,
+            careUnit: row['careUnit'] as String?,
+            profession: row['profession'] as String?,
+            workAddress: row['workAddress'] as String?,
+            email: row['email'] as String?,
+            initialExam: row['initialExam'] as String?,
+            responsibleName: row['responsibleName'] as String?,
+            responsibleAddress: row['responsibleAddress'] as String?,
+            responsibleRG: row['responsibleRG'] as String?,
+            responsibleIssuingAgency:
+                row['responsibleIssuingAgency'] as String?,
+            parentalRelationship: row['parentalRelationship'] as String?,
+            responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
+            id: row['id'] as int?,
+            name: row['name'] as String?,
+            birthday: row['birthday'] as String?,
+            sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
+            cpf: row['cpf'] as String?,
+            rg: row['rg'] as String?,
+            issuingAgency: row['issuingAgency'] as String?,
+            cep: row['cep'] as String?,
+            address: row['address'] as String?,
+            neighborhood: row['neighborhood'] as String?,
+            addressComplement: row['addressComplement'] as String?,
+            skinColor: row['skinColor'] == null
+                ? null
+                : SkinColor.values[row['skinColor'] as int],
+            fixNumber: row['fixNumber'] as String?,
+            phone: row['phone'] as String?,
+            placeOfBirth: row['placeOfBirth'] as String?,
+            nationality: row['nationality'] as String?,
+            maritalStatus: row['maritalStatus'] == null
+                ? null
+                : MaritalStatus.values[row['maritalStatus'] as int]),
+        arguments: [cpf]);
+  }
+
+  @override
   Stream<List<Patient>?> findByName(String name) {
     return _queryAdapter.queryListStream(
         'SELECT * FROM patient WHERE name like ?1',
@@ -1014,7 +1057,7 @@ class _$AnamnesisDao extends AnamnesisDao {
   _$AnamnesisDao(
     this.database,
     this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database, changeListener),
+  )   : _queryAdapter = QueryAdapter(database),
         _anamnesisInsertionAdapter = InsertionAdapter(
             database,
             'anamnesis',
@@ -1126,8 +1169,7 @@ class _$AnamnesisDao extends AnamnesisDao {
                   'feelBurning': item.feelBurning == null
                       ? null
                       : (item.feelBurning! ? 1 : 0)
-                },
-            changeListener);
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -1226,8 +1268,8 @@ class _$AnamnesisDao extends AnamnesisDao {
   }
 
   @override
-  Stream<List<Anamnesis>> findByCPF(String cpf) {
-    return _queryAdapter.queryListStream('SELECT * FROM anamnesis WHERE patientCPF=?1',
+  Future<Anamnesis?> findByCPF(String cpf) async {
+    return _queryAdapter.query('SELECT * FROM anamnesis WHERE patientCPF=?1',
         mapper: (Map<String, Object?> row) => Anamnesis(
             id: row['id'] as int?,
             patientCPF: row['patientCPF'] as String?,
@@ -1277,13 +1319,19 @@ class _$AnamnesisDao extends AnamnesisDao {
             hasJointProblem: row['hasJointProblem'] == null
                 ? null
                 : (row['hasJointProblem'] as int) != 0,
-            hasHighBloodPressureProblem: row['hasHighBloodPressureProblem'] == null
+            hasHighBloodPressureProblem:
+                row['hasHighBloodPressureProblem'] == null
+                    ? null
+                    : (row['hasHighBloodPressureProblem'] as int) != 0,
+            hasHeartProblem: row['hasHeartProblem'] == null
                 ? null
-                : (row['hasHighBloodPressureProblem'] as int) != 0,
-            hasHeartProblem:
-                row['hasHeartProblem'] == null ? null : (row['hasHeartProblem'] as int) != 0,
-            hasGastricProblem: row['hasGastricProblem'] == null ? null : (row['hasGastricProblem'] as int) != 0,
-            hasAnemia: row['hasAnemia'] == null ? null : (row['hasAnemia'] as int) != 0,
+                : (row['hasHeartProblem'] as int) != 0,
+            hasGastricProblem: row['hasGastricProblem'] == null
+                ? null
+                : (row['hasGastricProblem'] as int) != 0,
+            hasAnemia: row['hasAnemia'] == null
+                ? null
+                : (row['hasAnemia'] as int) != 0,
             hasDiabetes: row['hasDiabetes'] == null ? null : (row['hasDiabetes'] as int) != 0,
             hasNeurologicalProblems: row['hasNeurologicalProblems'] == null ? null : (row['hasNeurologicalProblems'] as int) != 0,
             infectiousDiseases: row['infectiousDiseases'] == null ? null : InfectiousDiseases.values[row['infectiousDiseases'] as int],
@@ -1307,9 +1355,7 @@ class _$AnamnesisDao extends AnamnesisDao {
             useDentalFloss: row['useDentalFloss'] == null ? null : (row['useDentalFloss'] as int) != 0,
             hasDryMouthFeeling: row['hasDryMouthFeeling'] == null ? null : (row['hasDryMouthFeeling'] as int) != 0,
             feelBurning: row['feelBurning'] == null ? null : (row['feelBurning'] as int) != 0),
-        arguments: [cpf],
-        queryableName: 'anamnesis',
-        isView: false);
+        arguments: [cpf]);
   }
 
   @override

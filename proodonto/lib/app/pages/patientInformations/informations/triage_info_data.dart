@@ -7,16 +7,10 @@ import '../../../shared/form_text.dart';
 class TriageInfoData extends StatelessWidget {
   const TriageInfoData({
     super.key,
-    required this.database,
     required this.triage,
   });
 
-  final ProodontoDatabase database;
   final Triage triage;
-
-  void updateTriage(Triage triage) {
-    database.triageDao.update(triage);
-  }
 
   @override
   Widget build(BuildContext context) {

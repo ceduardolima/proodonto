@@ -13,6 +13,9 @@ abstract class PatientDao {
   @Query("SELECT * FROM patient WHERE cpf=:cpf")
   Stream<Patient?> findByCPF(String cpf);
 
+  @Query("SELECT * FROM patient WHERE cpf LIKE :cpf")
+  Future<List<Patient?>> findLikeCPF(String cpf);
+
   @Query("SELECT * FROM patient WHERE name like :name")
   Stream<List<Patient>?> findByName(String name);
 

@@ -9,8 +9,11 @@ import '../../../shared/editable_text_field.dart';
 import '../../../shared/enum_types.dart';
 
 class PatientInformationData extends StatefulWidget {
-  PatientInformationData(
-      {super.key, required this.patient, required this.database});
+  PatientInformationData({
+    super.key,
+    required this.patient,
+    required this.database,
+  });
 
   final Patient patient;
   final ProodontoDatabase database;

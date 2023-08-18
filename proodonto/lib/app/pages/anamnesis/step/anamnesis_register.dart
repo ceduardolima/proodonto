@@ -97,26 +97,58 @@ class AnamnesisRegister extends RegisterForm {
         key: _formKey,
         child: Column(
           children: [
-            DefaultFormField(name: "chiefComplain", label: "Queixa principal"),
             DefaultFormField(
-                name: "diseaseHistory", label: "Histórico de doenças"),
+              name: "chiefComplain",
+              label: "Queixa principal",
+            ),
             DefaultFormField(
-                name: "sufferFromSomeDisease",
-                label: "Sofre de alguma doença?"),
-            DefaultFormField(name: "whichDisease", label: "Quais doenças?"),
+              name: "diseaseHistory",
+              label: "Histórico de doenças",
+            ),
             DefaultFormField(
-                name: "currentTreatment", label: "Tratamento atual"),
-            DefaultFormField(name: "forWhat", label: "Para que?"),
-            DefaultRadioButton(name: "pregnancy", label: "Gravida?"),
-            DefaultFormField(name: "howManyMonth", label: "Quantos meses?"),
+              name: "sufferFromSomeDisease",
+              label: "Sofre de alguma doença?",
+            ),
+            DefaultFormField(
+              name: "whichDisease",
+              label: "Quais doenças?",
+            ),
+            DefaultFormField(
+              name: "currentTreatment",
+              label: "Tratamento atual",
+            ),
+            DefaultFormField(
+              name: "forWhat",
+              label: "Para que?",
+            ),
             DefaultRadioButton(
-                name: "prenatalExam", label: "realizou o exame pre natal?"),
+              name: "pregnancy",
+              label: "Gravida?",
+            ),
             DefaultFormField(
-                name: "medicalRecommendation", label: "Recomendação médica"),
-            DefaultRadioButton(name: "breastfeeding", label: "Amamentando?"),
+              name: "howManyMonth",
+              label: "Quantos meses?",
+            ),
+            DefaultRadioButton(
+              name: "prenatalExam",
+              label: "realizou o exame pre natal?",
+            ),
             DefaultFormField(
-                name: "medicineUse", label: "Faz uso de remédio? Quais?"),
-            DefaultFormField(name: "doctorName", label: "Nome do médico"),
+              name: "medicalRecommendation",
+              label: "Recomendação médica",
+            ),
+            DefaultRadioButton(
+              name: "breastfeeding",
+              label: "Amamentando?",
+            ),
+            DefaultFormField(
+              name: "medicineUse",
+              label: "Faz uso de remédio? Quais?",
+            ),
+            DefaultFormField(
+              name: "doctorName",
+              label: "Nome do médico",
+            ),
             DefaultDropdownButton(
               name: "allergy",
               label: "Quais alergias?",
@@ -124,42 +156,69 @@ class AnamnesisRegister extends RegisterForm {
               initialValue: Allergy.getNameList()[0],
             ),
             DefaultFormField(
-                name: "hadSomeSurgery", label: "Fez alguma cirurgia? Quais?"),
+              name: "hadSomeSurgery",
+              label: "Fez alguma cirurgia? Quais?",
+            ),
             DefaultRadioButton(
-                name: "healingProblem",
-                label: "Possui problema de cicatrização?"),
+              name: "healingProblem",
+              label: "Possui problema de cicatrização?",
+            ),
             DefaultFormField(
-                name: "whatIsTheSituationWithHealingProblem",
-                label: "Qual é a situação?"),
+              name: "whatIsTheSituationWithHealingProblem",
+              label: "Qual é a situação?",
+            ),
             DefaultFormField(
-                name: "problemWithAnesthesiaSituation",
-                label: "Problema com anestesia?"),
+              name: "problemWithAnesthesiaSituation",
+              label: "Problema com anestesia?",
+            ),
             DefaultFormField(
-                name: "problemWithBleeding", label: "Problema com hemorragia?"),
+              name: "problemWithBleeding",
+              label: "Problema com hemorragia?",
+            ),
             DefaultRadioButton(
-                name: "hasRheumaticFever", label: "Tem febre reumática?"),
+              name: "hasRheumaticFever",
+              label: "Tem febre reumática?",
+            ),
             DefaultRadioButton(
-                name: "hasJointProblem",
-                label: "Tem problemas nas articulações?"),
+              name: "hasJointProblem",
+              label: "Tem problemas nas articulações?",
+            ),
             DefaultRadioButton(
-                name: "hasKidneyProblems", label: "Tem problema renais?"),
+              name: "hasKidneyProblems",
+              label: "Tem problema renais?",
+            ),
             DefaultRadioButton(
-                name: "hasRespiratoryProblems",
-                label: "Tem problemas respratórios?"),
+              name: "hasRespiratoryProblems",
+              label: "Tem problemas respratórios?",
+            ),
             DefaultRadioButton(
-                name: "hasJointProblems", label: "Tem problemas articulação"),
+              name: "hasJointProblems",
+              label: "Tem problemas articulação",
+            ),
             DefaultRadioButton(
-                name: "hasHighBloodPressureProblem",
-                label: "Tem problemas de hipertensão arterial?"),
+              name: "hasHighBloodPressureProblem",
+              label: "Tem problemas de hipertensão arterial?",
+            ),
             DefaultRadioButton(
-                name: "hasHeartProblem", label: "Tem problemas cardíacos?"),
+              name: "hasHeartProblem",
+              label: "Tem problemas cardíacos?",
+            ),
             DefaultRadioButton(
-                name: "hasGastricProblem", label: "Tem problemas gástricos?"),
-            DefaultRadioButton(name: "hasAnemia", label: "Tem anemia?"),
-            DefaultRadioButton(name: "hasDiabetes", label: "Tem diabetes?"),
+              name: "hasGastricProblem",
+              label: "Tem problemas gástricos?",
+            ),
             DefaultRadioButton(
-                name: "hasNeurologicalProblems",
-                label: "Tem problemas neurológicos?"),
+              name: "hasAnemia",
+              label: "Tem anemia?",
+            ),
+            DefaultRadioButton(
+              name: "hasDiabetes",
+              label: "Tem diabetes?",
+            ),
+            DefaultRadioButton(
+              name: "hasNeurologicalProblems",
+              label: "Tem problemas neurológicos?",
+            ),
             DefaultDropdownButton(
               name: "infectiousDiseases",
               label: "Doença infecciosas",
@@ -167,45 +226,86 @@ class AnamnesisRegister extends RegisterForm {
               initialValue: InfectiousDiseases.getNameList()[0],
             ),
             DefaultRadioButton(
-                name: "underwentChemotherapy",
-                label: "Realizou quimioterapia?"),
+              name: "underwentChemotherapy",
+              label: "Realizou quimioterapia?",
+            ),
             DefaultRadioButton(
-                name: "hasOnychophagy", label: "Tem onicofagia?"),
+              name: "hasOnychophagy",
+              label: "Tem onicofagia?",
+            ),
             DefaultRadioButton(
-                name: "hasMouthPiece", label: "Tem repirador bucal?"),
-            DefaultRadioButton(name: "hasBruxism", label: "Tem bruxismo?"),
-            DefaultRadioButton(name: "isSmoker", label: "É fumante?"),
-            DefaultFormField(name: "cigaretteType", label: "Tipo de cigarro"),
-            DefaultRadioButton(name: "isAlcoholic", label: "É alcoolatra?"),
-            DefaultFormField(name: "drinkType", label: "Tipo de bebida"),
-            DefaultFormField(name: "otherHabits", label: "Outros hábitos"),
+              name: "hasMouthPiece",
+              label: "Tem repirador bucal?",
+            ),
+            DefaultRadioButton(
+              name: "hasBruxism",
+              label: "Tem bruxismo?",
+            ),
+            DefaultRadioButton(
+              name: "isSmoker",
+              label: "É fumante?",
+            ),
+            DefaultFormField(
+              name: "cigaretteType",
+              label: "Tipo de cigarro",
+            ),
+            DefaultRadioButton(
+              name: "isAlcoholic",
+              label: "É alcoolatra?",
+            ),
+            DefaultFormField(
+              name: "drinkType",
+              label: "Tipo de bebida",
+            ),
+            DefaultFormField(
+              name: "otherHabits",
+              label: "Outros hábitos",
+            ),
             DefaultDropdownButton(
               name: "familyBackground",
               label: "Doenças presente no histórico familiar",
               list: FamilyBackground.getNameList(),
               initialValue: FamilyBackground.getNameList()[0],
             ),
-            DefaultRadioButton(name: "hasAnxiety", label: "Tem ansiedade?"),
+            DefaultRadioButton(
+              name: "hasAnxiety",
+              label: "Tem ansiedade?",
+            ),
             DefaultFormField(
-                name: "dentalTreatment", label: "Já fez tratamento dental?"),
+              name: "dentalTreatment",
+              label: "Já fez tratamento dental?",
+            ),
             DefaultFormField(
-                name: "lastVisitToTheDentist",
-                label: "Última visita ao dentista"),
+              name: "lastVisitToTheDentist",
+              label: "Última visita ao dentista",
+            ),
             DefaultFormField(
-                name: "negativeExperience",
-                label: "Teve alguma experiencia negativa"),
+              name: "negativeExperience",
+              label: "Teve alguma experiencia negativa",
+            ),
             DefaultFormField(
                 name: "whatKindOfTreatment",
                 label: "Qual foi o tipo do tratameto?"),
-            DefaultFormField(name: "brushNumber", label: "Número da escova"),
-            DefaultFormField(name: "brushType", label: "Tipo da escova"),
+            DefaultFormField(
+              name: "brushNumber",
+              label: "Número da escova",
+            ),
+            DefaultFormField(
+              name: "brushType",
+              label: "Tipo da escova",
+            ),
             DefaultRadioButton(
-                name: "useDentalFloss", label: "Faz uso do fio dental?"),
+              name: "useDentalFloss",
+              label: "Faz uso do fio dental?",
+            ),
             DefaultRadioButton(
-                name: "hasDryMouthFeeling",
-                label: "Tem a sensação de boca seca?"),
+              name: "hasDryMouthFeeling",
+              label: "Tem a sensação de boca seca?",
+            ),
             DefaultRadioButton(
-                name: "feelBurning", label: "Sente a boca queimando?"),
+              name: "feelBurning",
+              label: "Sente a boca queimando?",
+            ),
           ],
         ),
       ),

@@ -7,7 +7,7 @@ abstract class AnamnesisDao {
   Future<List<Anamnesis>> getAll();
 
   @Query("SELECT * FROM anamnesis WHERE patientCPF=:cpf")
-  Stream<List<Anamnesis>> findByCPF(String cpf);
+  Future<Anamnesis?>findByCPF(String cpf);
 
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Anamnesis anamnesis);

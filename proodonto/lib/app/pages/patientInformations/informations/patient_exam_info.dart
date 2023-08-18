@@ -6,14 +6,9 @@ import 'package:proodonto/app/shared/enum_types.dart';
 import '../../../shared/form_text.dart';
 
 class ExamInfo extends StatelessWidget {
-  const ExamInfo({super.key, required this.exam, required this.database});
+  const ExamInfo({super.key, required this.exam, });
 
-  final ProodontoDatabase database;
   final Exam exam;
-
-  void updateExamDatabase() {
-    database.examDao.update(exam);
-  }
 
   @override
   Widget build(BuildContext context) {
