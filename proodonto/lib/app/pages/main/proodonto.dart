@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/login/login.dart';
 import 'package:proodonto/app/theme/main_theme.dart';
@@ -7,9 +8,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemUiOverlay.bottom,
+  ]);
   runApp(Proodonto(
-    database: await $FloorProodontoDatabase.databaseBuilder("proodonto_database.db").build()
-  ));
+      database: await $FloorProodontoDatabase
+          .databaseBuilder("proodonto_database.db")
+          .build()));
 }
 
 class Proodonto extends StatelessWidget {
@@ -24,14 +29,10 @@ class Proodonto extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
-      supportedLocales: const [
-        Locale('pt', 'BR')
-      ],
+      supportedLocales: const [Locale('pt', 'BR')],
       locale: const Locale('pt', 'BR'),
       home: LoginPage(database: database),
-      theme: ThemeData(
-        inputDecorationTheme: MainInputTheme().theme()
-      ),
+      theme: ThemeData(inputDecorationTheme: MainInputTheme().theme()),
     );
   }
 }
