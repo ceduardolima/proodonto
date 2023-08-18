@@ -7,8 +7,6 @@ import 'package:proodonto/app/database/entity/anamnesis.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/anamnesis/anamnesis_home.dart';
 import 'package:proodonto/app/pages/exam/exam_home.dart';
-import 'package:proodonto/app/pages/home/expandable_fab.dart';
-import 'package:proodonto/app/pages/home/patient_item_list.dart';
 import 'package:proodonto/app/pages/home/seach_patient.dart';
 import 'package:proodonto/app/pages/patientInformations/patient_informations_page.dart';
 import 'package:proodonto/app/pages/triage/triage_home.dart';
@@ -28,42 +26,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text("Proodonto");
-  final FocusNode _focusNode = FocusNode();
-  final TextEditingController _controller = TextEditingController();
-  String _cpf = "";
-  static const _itemListVerticalPadding = 10.0;
-
-  void _enableSearchBar() {
-    customIcon = const Icon(Icons.cancel);
-    customSearchBar = ListTile(
-      title: TextField(
-        controller: _controller,
-        textInputAction: TextInputAction.done,
-        onSubmitted: (value) {
-          setState(() => _cpf = value);
-        },
-        decoration: const InputDecoration(
-          hintText: 'CPF...',
-          hintStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontStyle: FontStyle.italic,
-          ),
-          border: InputBorder.none,
-          enabledBorder: InputBorder.none,
-        ),
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  void _disableSearchBar() {
-    customIcon = const Icon(Icons.search);
-    customSearchBar = const Text('Proodonto');
-  }
+  final String _triageIconPath = "assets/icons/stethoscope.png";
+  final String _anamneseIconPath = "assets/icons/form.png";
+  final String _examIconPath = "assets/icons/examination.png";
 
   void _changeToPatientHomePage(BuildContext context) {
     Navigator.push(
@@ -128,92 +93,184 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _emptyListText() => const Center(
-        child: Text(
-          "Pesquise pelo CPF do seu paciênte",
-          style: TextStyle(color: Colors.grey),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
-    final key = GlobalObjectKey<ExpandableFabState>(context);
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: customSearchBar,
-        actions: [
-          IconButton(
-            onPressed:() {
-              showSearch(context: context, delegate: SearchPatient(widget.database));
-              },
-            icon: customIcon,
-          )
-        ],
-      ),
-      floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: MultiExpandableFab(
-        children: [
-          FloatingSubButton(
-              title: "Paciêntes",
-              navigate: () => _changeToPatientHomePage(context)),
-          FloatingSubButton(
-              title: "Triagem",
-              navigate: () => _changeToTriageHomePage(context)),
-          FloatingSubButton(
-              title: "Exames", navigate: () => _changeToExamHomePage(context)),
-          FloatingSubButton(
-              title: "Aamnese",
-              navigate: () => _changeToAnamnesisHome(context)),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: PaddingSize.small,
-          horizontal: PaddingSize.medium,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: _TabViewAppBar.build(
+          context: context,
+          database: widget.database,
+          tabList: [
+            const Tab(text: "Fomulários"),
+            const Tab(text: "Paciêntes"),
+          ],
         ),
-        child: FutureBuilder(
-          future: widget.database.patientDao.getAll(),
-          builder: (context, snapshot) {
-            return (snapshot.hasData)
-                ? ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: _itemListVerticalPadding,
-                        ),
-                        child: PatientItem(
-                          patient: snapshot.data![index]!,
-                          onTap: (patient) =>
-                              _changeToPatientInformation(context, patient),
-                        ),
-                      );
-                    },
-                  )
-                : _emptyListText();
-          },
+        body: TabBarView(
+          children: [
+            GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 1.3,
+              padding: const EdgeInsets.symmetric(
+                  vertical: PaddingSize.medium, horizontal: 2.0),
+              children: [
+                _FormButton(
+                  icon: Icons.people_alt,
+                  onPressed: () {
+                    _changeToPatientHomePage(context);
+                  },
+                  text: "Cadastro Paciênte",
+                ),
+                _FormButton(
+                  imagePath: _triageIconPath,
+                  onPressed: () {
+                    _changeToTriageHomePage(context);
+                  },
+                  text: "Cadastro Triagem",
+                ),
+                _FormButton(
+                  imagePath: _anamneseIconPath,
+                  onPressed: () {
+                    _changeToAnamnesisHome(context);
+                  },
+                  text: "Cadastro Anamnese",
+                ),
+                _FormButton(
+                  imagePath: _examIconPath,
+                  onPressed: () {
+                    _changeToExamHomePage(context);
+                  },
+                  text: "Cadastro Exame Físico",
+                ),
+              ],
+            ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+          ],
         ),
       ),
     );
   }
 }
 
-class FloatingSubButton extends StatelessWidget {
-  const FloatingSubButton(
-      {super.key, required this.title, required this.navigate});
+class _TabViewAppBar {
+  static const _height = 60.0;
+  static const _elevation = 0.0;
+  static const _title = "Proodonto";
+  static const _fontSize = 20.0;
+  static const String _userIconPath = "assets/icons/user.png";
 
-  final String title;
-  final Function() navigate;
+  static PreferredSizeWidget build({
+    required BuildContext context,
+    required ProodontoDatabase database,
+    required List<Widget> tabList,
+  }) {
+    return AppBar(
+      elevation: _elevation,
+      toolbarHeight: _height,
+      title: const Padding(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Text(
+          _title,
+          style: TextStyle(fontSize: _fontSize),
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10, top: 10),
+          child: Row(
+            children: [
+              IconButton.outlined(
+                onPressed: () {
+                  showSearch(context: context, delegate: SearchPatient(database));
+                },
+                icon: const Icon(Icons.search),
+              ),
+              IconButton.outlined(
+                onPressed: () {},
+                icon: Container(child: Image.asset(_userIconPath)),
+              ),
+            ],
+          ),
+        )
+      ],
+      bottom: TabBar(
+        tabs: tabList,
+      ),
+    );
+  }
+}
+
+class _FormButton extends StatelessWidget {
+  _FormButton(
+      {super.key,
+      required this.onPressed,
+      required this.text,
+      this.icon,
+      this.imagePath});
+
+  final String text;
+  IconData? icon;
+  String? imagePath;
+  final Function onPressed;
+  static const double _buttonSize = 50;
+  static const double _buttonRadius = 50;
+  static const double _iconSize = 30;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 40,
-      child: ElevatedButton(
-        onPressed: () => navigate(),
-        child: Text(title),
+    return Padding(
+      padding: const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 5.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(1)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(0, 3))
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            InkWell(
+              onTap: () => {onPressed()},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: _buttonSize,
+                    height: _buttonSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(_buttonRadius),
+                      color: Colors.blue,
+                    ),
+                    child: (icon != null)
+                        ? Icon(
+                            icon,
+                            size: _iconSize,
+                            color: Colors.white,
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Image.asset(
+                              imagePath!,
+                            ),
+                          ),
+                  ),
+                  Container(height: 20),
+                  Text(
+                    text,
+                    style: const TextStyle(color: Colors.black87),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
