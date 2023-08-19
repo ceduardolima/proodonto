@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/home/patient_item_list.dart';
 
 import '../../database/entity/anamnesis.dart';
 import '../../database/entity/exam.dart';
 import '../../database/entity/patient.dart';
 import '../../database/entity/triage.dart';
 import '../../shared/default_size.dart';
+import '../../shared/patient_list_view.dart';
 import '../patientInformations/patient_informations_page.dart';
 
 class SearchPatient extends SearchDelegate {
-  static const _itemListVerticalPadding = 10.0;
   final ProodontoDatabase _database;
 
-  SearchPatient(this._database, {super.keyboardType = TextInputType.number, super.searchFieldLabel = "Digite o CPF..."}) {
-  }
+  SearchPatient(
+    this._database, {
+    super.keyboardType = TextInputType.number,
+    super.searchFieldLabel = "Digite o CPF...",
+  });
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -49,20 +51,13 @@ class SearchPatient extends SearchDelegate {
         future: _database.patientDao.findLikeCPF(_cleanQuery()),
         builder: (context, snapshot) {
           return (snapshot.hasData)
-              ? ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: _itemListVerticalPadding,
-                      ),
-                      child: PatientItem(
-                        patient: snapshot.data![index]!,
-                        onTap: (patient) =>
-                            _changeToPatientInformation(context, patient),
-                      ),
-                    );
+              ? PatientListView(
+                  database: _database,
+                  patientList: snapshot.data!,
+                  onItemTap: (patient) {
+                    _changeToPatientInformation(context, patient);
                   },
+                  onFavButtonTap: () {},
                 )
               : _emptyListText();
         },

@@ -1,19 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/database/entity/anamnesis.dart';
-import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/pages/anamnesis/anamnesis_home.dart';
 import 'package:proodonto/app/pages/exam/exam_home.dart';
+import 'package:proodonto/app/pages/home/patient_tab.dart';
 import 'package:proodonto/app/pages/home/seach_patient.dart';
-import 'package:proodonto/app/pages/patientInformations/patient_informations_page.dart';
 import 'package:proodonto/app/pages/triage/triage_home.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 
-import '../../database/entity/exam.dart';
-import '../../database/entity/triage.dart';
 import '../patient/patient_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   final String _triageIconPath = "assets/icons/stethoscope.png";
   final String _anamneseIconPath = "assets/icons/form.png";
   final String _examIconPath = "assets/icons/examination.png";
+
 
   void _changeToPatientHomePage(BuildContext context) {
     Navigator.push(
@@ -68,29 +64,6 @@ class _HomePageState extends State<HomePage> {
         builder: (context) => AnamnesisHome(database: widget.database),
       ),
     );
-  }
-
-  void _changeToPatientInformation(
-      BuildContext context, Patient patient) async {
-    Exam? exam = await widget.database.examDao.findByCPF(patient.cpf!);
-    Triage? triage =
-        await widget.database.triageDao.findByPatientCPF(patient.cpf!);
-    Anamnesis? anamnesis =
-        await widget.database.anamnesisDao.findByCPF(patient.cpf!);
-    if (context.mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PatientInformationPage(
-            database: widget.database,
-            patient: patient,
-            exam: exam,
-            triage: triage,
-            anamnesis: anamnesis,
-          ),
-        ),
-      );
-    }
   }
 
   @override
@@ -144,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+            PatientTab(database: widget.database)
           ],
         ),
       ),
@@ -181,7 +154,8 @@ class _TabViewAppBar {
             children: [
               IconButton.outlined(
                 onPressed: () {
-                  showSearch(context: context, delegate: SearchPatient(database));
+                  showSearch(
+                      context: context, delegate: SearchPatient(database));
                 },
                 icon: const Icon(Icons.search),
               ),
