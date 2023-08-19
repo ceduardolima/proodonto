@@ -2,8 +2,8 @@ import 'package:floor/floor.dart';
 import 'package:proodonto/app/shared/enum_types.dart';
 
 class User {
-  @PrimaryKey(autoGenerate: true)
-  int? id;
+  @PrimaryKey(autoGenerate: false)
+  String? id;
   String? name;
   String? birthday;
   Sex? sex;

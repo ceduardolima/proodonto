@@ -69,6 +69,8 @@ class _$ProodontoDatabase extends ProodontoDatabase {
 
   AnamnesisDao? _anamnesisDaoInstance;
 
+  FavoritePatientDao? _favoritesPatientsDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -91,13 +93,15 @@ class _$ProodontoDatabase extends ProodontoDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `patient` (`recordNumber` INTEGER, `advisor` TEXT, `semester` TEXT, `careUnit` TEXT, `profession` TEXT, `workAddress` TEXT, `email` TEXT, `initialExam` TEXT, `responsibleName` TEXT, `responsibleAddress` TEXT, `responsibleRG` TEXT, `responsibleIssuingAgency` TEXT, `parentalRelationship` TEXT, `responsiblePhoneNumber` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `birthday` TEXT, `sex` INTEGER, `cpf` TEXT, `rg` TEXT, `issuingAgency` TEXT, `cep` TEXT, `address` TEXT, `neighborhood` TEXT, `addressComplement` TEXT, `skinColor` INTEGER, `fixNumber` TEXT, `phone` TEXT, `placeOfBirth` TEXT, `nationality` TEXT, `maritalStatus` INTEGER)');
+            'CREATE TABLE IF NOT EXISTS `patient` (`recordNumber` INTEGER, `advisor` TEXT, `semester` TEXT, `careUnit` TEXT, `profession` TEXT, `workAddress` TEXT, `email` TEXT, `initialExam` TEXT, `responsibleName` TEXT, `responsibleAddress` TEXT, `responsibleRG` TEXT, `responsibleIssuingAgency` TEXT, `parentalRelationship` TEXT, `responsiblePhoneNumber` TEXT, `isFavorite` INTEGER, `id` TEXT, `name` TEXT, `birthday` TEXT, `sex` INTEGER, `cpf` TEXT, `rg` TEXT, `issuingAgency` TEXT, `cep` TEXT, `address` TEXT, `neighborhood` TEXT, `addressComplement` TEXT, `skinColor` INTEGER, `fixNumber` TEXT, `phone` TEXT, `placeOfBirth` TEXT, `nationality` TEXT, `maritalStatus` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` INTEGER, `breastfeeding` INTEGER, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` TEXT, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` INTEGER, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER, `underwentChemotherapy` INTEGER, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` INTEGER, `hasAnxiety` INTEGER, `dentalTreatment` TEXT, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `favorites_patients` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientId` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -124,6 +128,12 @@ class _$ProodontoDatabase extends ProodontoDatabase {
   AnamnesisDao get anamnesisDao {
     return _anamnesisDaoInstance ??= _$AnamnesisDao(database, changeListener);
   }
+
+  @override
+  FavoritePatientDao get favoritesPatientsDao {
+    return _favoritesPatientsDaoInstance ??=
+        _$FavoritePatientDao(database, changeListener);
+  }
 }
 
 class _$PatientDao extends PatientDao {
@@ -149,6 +159,9 @@ class _$PatientDao extends PatientDao {
                   'responsibleIssuingAgency': item.responsibleIssuingAgency,
                   'parentalRelationship': item.parentalRelationship,
                   'responsiblePhoneNumber': item.responsiblePhoneNumber,
+                  'isFavorite': item.isFavorite == null
+                      ? null
+                      : (item.isFavorite! ? 1 : 0),
                   'id': item.id,
                   'name': item.name,
                   'birthday': item.birthday,
@@ -187,6 +200,9 @@ class _$PatientDao extends PatientDao {
                   'responsibleIssuingAgency': item.responsibleIssuingAgency,
                   'parentalRelationship': item.parentalRelationship,
                   'responsiblePhoneNumber': item.responsiblePhoneNumber,
+                  'isFavorite': item.isFavorite == null
+                      ? null
+                      : (item.isFavorite! ? 1 : 0),
                   'id': item.id,
                   'name': item.name,
                   'birthday': item.birthday,
@@ -236,7 +252,10 @@ class _$PatientDao extends PatientDao {
                 row['responsibleIssuingAgency'] as String?,
             parentalRelationship: row['parentalRelationship'] as String?,
             responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
-            id: row['id'] as int?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
             name: row['name'] as String?,
             birthday: row['birthday'] as String?,
             sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
@@ -278,7 +297,10 @@ class _$PatientDao extends PatientDao {
                 row['responsibleIssuingAgency'] as String?,
             parentalRelationship: row['parentalRelationship'] as String?,
             responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
-            id: row['id'] as int?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
             name: row['name'] as String?,
             birthday: row['birthday'] as String?,
             sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
@@ -323,7 +345,10 @@ class _$PatientDao extends PatientDao {
                 row['responsibleIssuingAgency'] as String?,
             parentalRelationship: row['parentalRelationship'] as String?,
             responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
-            id: row['id'] as int?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
             name: row['name'] as String?,
             birthday: row['birthday'] as String?,
             sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
@@ -368,7 +393,10 @@ class _$PatientDao extends PatientDao {
                 row['responsibleIssuingAgency'] as String?,
             parentalRelationship: row['parentalRelationship'] as String?,
             responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
-            id: row['id'] as int?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
             name: row['name'] as String?,
             birthday: row['birthday'] as String?,
             sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
@@ -412,7 +440,10 @@ class _$PatientDao extends PatientDao {
                 row['responsibleIssuingAgency'] as String?,
             parentalRelationship: row['parentalRelationship'] as String?,
             responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
-            id: row['id'] as int?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
             name: row['name'] as String?,
             birthday: row['birthday'] as String?,
             sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
@@ -436,6 +467,52 @@ class _$PatientDao extends PatientDao {
         arguments: [name],
         queryableName: 'patient',
         isView: false);
+  }
+
+  @override
+  Future<List<Patient?>> getFavoritePatients() async {
+    return _queryAdapter.queryList(
+        'SELECT patient.* FROM patient INNER JOIN favorites_patients ON patient.id = favorites_patients.patientId',
+        mapper: (Map<String, Object?> row) => Patient(
+            recordNumber: row['recordNumber'] as int?,
+            advisor: row['advisor'] as String?,
+            semester: row['semester'] as String?,
+            careUnit: row['careUnit'] as String?,
+            profession: row['profession'] as String?,
+            workAddress: row['workAddress'] as String?,
+            email: row['email'] as String?,
+            initialExam: row['initialExam'] as String?,
+            responsibleName: row['responsibleName'] as String?,
+            responsibleAddress: row['responsibleAddress'] as String?,
+            responsibleRG: row['responsibleRG'] as String?,
+            responsibleIssuingAgency:
+                row['responsibleIssuingAgency'] as String?,
+            parentalRelationship: row['parentalRelationship'] as String?,
+            responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
+            name: row['name'] as String?,
+            birthday: row['birthday'] as String?,
+            sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
+            cpf: row['cpf'] as String?,
+            rg: row['rg'] as String?,
+            issuingAgency: row['issuingAgency'] as String?,
+            cep: row['cep'] as String?,
+            address: row['address'] as String?,
+            neighborhood: row['neighborhood'] as String?,
+            addressComplement: row['addressComplement'] as String?,
+            skinColor: row['skinColor'] == null
+                ? null
+                : SkinColor.values[row['skinColor'] as int],
+            fixNumber: row['fixNumber'] as String?,
+            phone: row['phone'] as String?,
+            placeOfBirth: row['placeOfBirth'] as String?,
+            nationality: row['nationality'] as String?,
+            maritalStatus: row['maritalStatus'] == null
+                ? null
+                : MaritalStatus.values[row['maritalStatus'] as int]));
   }
 
   @override
@@ -1361,5 +1438,45 @@ class _$AnamnesisDao extends AnamnesisDao {
   @override
   Future<void> insert(Anamnesis anamnesis) async {
     await _anamnesisInsertionAdapter.insert(anamnesis, OnConflictStrategy.fail);
+  }
+}
+
+class _$FavoritePatientDao extends FavoritePatientDao {
+  _$FavoritePatientDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _favoritePatientInsertionAdapter = InsertionAdapter(
+            database,
+            'favorites_patients',
+            (FavoritePatient item) =>
+                <String, Object?>{'id': item.id, 'patientId': item.patientId});
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<FavoritePatient> _favoritePatientInsertionAdapter;
+
+  @override
+  Future<List<FavoritePatient>> getFavorites() async {
+    return _queryAdapter.queryList('SELECT * FROM favorites_patients',
+        mapper: (Map<String, Object?> row) =>
+            FavoritePatient(row['patientId'] as String));
+  }
+
+  @override
+  Future<void> delete(String id) async {
+    await _queryAdapter.queryNoReturn(
+        'DELETE FROM favorites_patients WHERE patientId=?1',
+        arguments: [id]);
+  }
+
+  @override
+  Future<void> insert(FavoritePatient patient) async {
+    await _favoritePatientInsertionAdapter.insert(
+        patient, OnConflictStrategy.fail);
   }
 }

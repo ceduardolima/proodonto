@@ -7,6 +7,9 @@ import 'package:proodonto/app/pages/patient/step/register_records.dart';
 import 'package:proodonto/app/pages/patient/step/register_patient_responsible.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
 import 'package:proodonto/app/widget/buttons.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../database/entity/favorites_patients.dart';
 
 class PatientHomePage extends StatefulWidget {
   const PatientHomePage({Key? key, required this.database}) : super(key: key);
@@ -152,7 +155,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
   void _registerPatient(Patient patient) async {
+    patient.id = const Uuid().v4().replaceAll("-", "");
+    patient.isFavorite = true;
     await _database.patientDao.insert(patient);
+    await _database.favoritesPatientsDao.insert(FavoritePatient(patient.id!));
     await Future.delayed(const Duration(seconds: 2));
   }
 }

@@ -19,6 +19,9 @@ abstract class PatientDao {
   @Query("SELECT * FROM patient WHERE name like :name")
   Stream<List<Patient>?> findByName(String name);
 
+  @Query("SELECT patient.* FROM patient INNER JOIN favorites_patients ON patient.id = favorites_patients.patientId")
+  Future<List<Patient?>> getFavoritePatients();
+
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Patient patient);
 
