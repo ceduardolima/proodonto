@@ -19,6 +19,7 @@ class Patient extends User {
   String? responsibleIssuingAgency;
   String? parentalRelationship;
   String? responsiblePhoneNumber;
+  bool? isFavorite;
 
   Patient(
       {this.recordNumber,
@@ -35,6 +36,7 @@ class Patient extends User {
       this.responsibleIssuingAgency,
       this.parentalRelationship,
       this.responsiblePhoneNumber,
+      this.isFavorite,
       super.id,
       super.name,
       super.birthday,
