@@ -34,6 +34,7 @@ dependencies:
   form_builder_validators: ^8.0.0
   floor: ^1.4.2
   intl: ^0.18.0
+  uuid: ^3.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
