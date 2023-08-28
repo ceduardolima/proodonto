@@ -5,6 +5,7 @@ import 'package:proodonto/app/shared/enum_types.dart';
 class Anamnesis {
   @PrimaryKey(autoGenerate: true)
   int? id;
+  int? recordNumber;
   String? patientCPF;
   String? complain;
   String? diseaseHistory;
@@ -61,6 +62,7 @@ class Anamnesis {
 
   Anamnesis({
       this.id,
+      this.recordNumber,
       this.patientCPF,
       this.complain,
       this.diseaseHistory,
@@ -116,6 +118,6 @@ class Anamnesis {
 
   @override
   String toString() {
-    return 'Anamnesis{id: $id, patientCPF: $patientCPF, complain: $complain, diseaseHistory: $diseaseHistory, diseases: $diseases, currentTreatment: $currentTreatment, forWhat: $forWhat, pregnancy: $pregnancy, breastfeeding: $breastfeeding, howManyMonth: $howManyMonth, prenatalExam: $prenatalExam, medicalRecommendations: $medicalRecommendations, useMedicine: $useMedicine, whichMedicines: $whichMedicines, doctorName: $doctorName, allergy: $allergy, surgery: $surgery, hasHealingProblem: $hasHealingProblem, healingProblemSituation: $healingProblemSituation, hasProblemWithAnesthesia: $hasProblemWithAnesthesia, problemWithAnesthesiaSituation: $problemWithAnesthesiaSituation, hasBleedingProblem: $hasBleedingProblem, bleedingProblemSituation: $bleedingProblemSituation, hasRheumaticFever: $hasRheumaticFever, hasKidneyProblem: $hasKidneyProblem, hasRespiratoryProblem: $hasRespiratoryProblem, hasJointProblem: $hasJointProblem, hasHighBloodPressureProblem: $hasHighBloodPressureProblem, hasHeartProblem: $hasHeartProblem, hasGastricProblem: $hasGastricProblem, hasAnemia: $hasAnemia, hasDiabetes: $hasDiabetes, hasNeurologicalProblems: $hasNeurologicalProblems, infectiousDiseases: $infectiousDiseases, underwentChemotherapy: $underwentChemotherapy, hasOnychophagy: $hasOnychophagy, hasMouthPiece: $hasMouthPiece, hasBruxism: $hasBruxism, isSmoker: $isSmoker, cigaretteType: $cigaretteType, isAlcoholic: $isAlcoholic, drinkType: $drinkType, otherHabits: $otherHabits, familyBackground: $familyBackground, hasAnxiety: $hasAnxiety, dentalTreatment: $dentalTreatment, lastVisitToTheDentist: $lastVisitToTheDentist, negativeExperience: $negativeExperience, whatKindOfTreatment: $whatKindOfTreatment, brushNumber: $brushNumber, brushType: $brushType, useDentalFloss: $useDentalFloss, hasDryMouthFeeling: $hasDryMouthFeeling, feelBurning: $feelBurning}';
+    return 'Anamnesis{id: $id, recordNumber: $recordNumber, patientCPF: $patientCPF, complain: $complain, diseaseHistory: $diseaseHistory, diseases: $diseases, currentTreatment: $currentTreatment, forWhat: $forWhat, pregnancy: $pregnancy, breastfeeding: $breastfeeding, howManyMonth: $howManyMonth, prenatalExam: $prenatalExam, medicalRecommendations: $medicalRecommendations, useMedicine: $useMedicine, whichMedicines: $whichMedicines, doctorName: $doctorName, allergy: $allergy, surgery: $surgery, hasHealingProblem: $hasHealingProblem, healingProblemSituation: $healingProblemSituation, hasProblemWithAnesthesia: $hasProblemWithAnesthesia, problemWithAnesthesiaSituation: $problemWithAnesthesiaSituation, hasBleedingProblem: $hasBleedingProblem, bleedingProblemSituation: $bleedingProblemSituation, hasRheumaticFever: $hasRheumaticFever, hasKidneyProblem: $hasKidneyProblem, hasRespiratoryProblem: $hasRespiratoryProblem, hasJointProblem: $hasJointProblem, hasHighBloodPressureProblem: $hasHighBloodPressureProblem, hasHeartProblem: $hasHeartProblem, hasGastricProblem: $hasGastricProblem, hasAnemia: $hasAnemia, hasDiabetes: $hasDiabetes, hasNeurologicalProblems: $hasNeurologicalProblems, infectiousDiseases: $infectiousDiseases, underwentChemotherapy: $underwentChemotherapy, hasOnychophagy: $hasOnychophagy, hasMouthPiece: $hasMouthPiece, hasBruxism: $hasBruxism, isSmoker: $isSmoker, cigaretteType: $cigaretteType, isAlcoholic: $isAlcoholic, drinkType: $drinkType, otherHabits: $otherHabits, familyBackground: $familyBackground, hasAnxiety: $hasAnxiety, dentalTreatment: $dentalTreatment, lastVisitToTheDentist: $lastVisitToTheDentist, negativeExperience: $negativeExperience, whatKindOfTreatment: $whatKindOfTreatment, brushNumber: $brushNumber, brushType: $brushType, useDentalFloss: $useDentalFloss, hasDryMouthFeeling: $hasDryMouthFeeling, feelBurning: $feelBurning}';
   }
 }

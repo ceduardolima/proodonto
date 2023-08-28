@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/database/entity/exam.dart';
 import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/anamnesis/step/anamnesis_basic_info.dart';
 import 'package:proodonto/app/pages/anamnesis/step/anamnesis_register.dart';
-import 'package:proodonto/app/pages/exam/step/exam_basic_info_step.dart';
-import 'package:proodonto/app/pages/exam/step/exam_step.dart';
 import 'package:proodonto/app/pages/home/home.dart';
+import 'package:proodonto/app/shared/alert_dialog.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 import '../../database/entity/anamnesis.dart';
@@ -115,11 +113,34 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
   bool _getFormIfHasNoEmptyField() {
     final form = formList[_currentStep];
     bool isValid = form.validate();
-    if (isValid) {
+      if (isValid) {
       form.getFields(anamnesis);
       return true;
     }
     return false;
+  }
+
+  void _nextStep(BuildContext context, bool isLastStep, ControlsDetails details) async {
+    bool isValid = _getFormIfHasNoEmptyField();
+    if (isValid) {
+      bool recordExist = await recordNumberExist(anamnesis.recordNumber!);
+      if (context.mounted) {
+        if (recordExist) {
+          if (isLastStep) {
+            _finishRegistryTriage(context);
+          } else {
+            details.onStepContinue!();
+          }
+        } else {
+          showAlertDialog(context, "Prontuário não existe");
+        }
+      }
+    }
+  }
+
+  Future<bool> recordNumberExist(int recordNumber) async {
+    int? records = await widget.database.patientDao.countPatientByRecord(recordNumber);
+    return records != null && recordNumber > 0;
   }
   
   @override
@@ -143,16 +164,7 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
               Expanded(
                 child: DefaultButton(
                   text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
-                  onPressed: () {
-                    bool isValid = _getFormIfHasNoEmptyField();
-                    if (isValid) {
-                      if (isLastStep) {
-                        _finishRegistryTriage(context);
-                      } else {
-                        details.onStepContinue!();
-                      }
-                    }
-                  },
+                  onPressed: () => _nextStep(context, isLastStep, details),
                 ),
               ),
               if (!isFirstStep)

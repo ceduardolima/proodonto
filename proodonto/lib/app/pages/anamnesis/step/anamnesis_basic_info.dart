@@ -14,7 +14,7 @@ class AnamnesisBasicInfoStep extends RegisterForm {
   getFields(field) {
     _formKey.currentState!.save();
     final fields = _formKey.currentState!.fields;
-    field.patientCPF = fields["patientCPF"]!.value;
+    field.recordNumber = int.parse(fields["recordNumber"]!.value);
   }
 
   @override
@@ -39,11 +39,11 @@ class AnamnesisBasicInfoStep extends RegisterForm {
         child: Column(
           children: [
             DefaultFormField(
-              name: "patientCPF",
-              label: "CPF do paciênte",
-              length: 11,
+              name: "recordNumber",
+              label: "Número do prontuário",
               inputType: TextInputType.number,
-              initialValue: anamnesis.patientCPF,
+              initialValue: anamnesis.recordNumber.toString(),
+              required: true,
             ),
           ],
         ),
