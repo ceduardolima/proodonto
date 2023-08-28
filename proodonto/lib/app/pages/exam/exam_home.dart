@@ -5,6 +5,7 @@ import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/exam/step/exam_basic_info_step.dart';
 import 'package:proodonto/app/pages/exam/step/exam_step.dart';
 import 'package:proodonto/app/pages/home/home.dart';
+import 'package:proodonto/app/shared/alert_dialog.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 class ExamHome extends StatelessWidget {
@@ -49,7 +50,8 @@ class _ExamStepperState extends State<_ExamStepper> {
   StepState setStepState(int state) =>
       _currentStep > state ? StepState.complete : StepState.indexed;
 
-  List<Step> _getSteps() => [
+  List<Step> _getSteps() =>
+      [
         Step(
             title: Text("Informações básicas"),
             content: formList[0],
@@ -63,13 +65,14 @@ class _ExamStepperState extends State<_ExamStepper> {
       ];
 
   void onStepContinue() {
-    setState(() => _currentStep =
-        (_currentStep >= _max) ? _currentStep : _currentStep + 1);
+    setState(() =>
+    _currentStep =
+    (_currentStep >= _max) ? _currentStep : _currentStep + 1);
   }
 
   void onStepCancel() {
     setState(() =>
-        _currentStep = (_currentStep <= 0) ? _currentStep : _currentStep - 1);
+    _currentStep = (_currentStep <= 0) ? _currentStep : _currentStep - 1);
   }
 
   void _finishRegistryTriage(BuildContext context) {
@@ -80,9 +83,10 @@ class _ExamStepperState extends State<_ExamStepper> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(
-                database: widget.database,
-              )),
+              builder: (context) =>
+                  HomePage(
+                    database: widget.database,
+                  )),
               (route) => false);
     }
   }
@@ -112,6 +116,31 @@ class _ExamStepperState extends State<_ExamStepper> {
     return false;
   }
 
+  void _nextStep(BuildContext context, bool isLastStep, ControlsDetails details) async {
+    RegisterForm form = formList[_currentStep];
+    if (form.validate()) {
+      form.getFields(exam);
+      bool recordExist = await _recordNumberExist(exam.recordNumber!);
+      if (context.mounted) {
+        if (recordExist) {
+          if (isLastStep) {
+            _finishRegistryTriage(context);
+          } else {
+            details.onStepContinue!();
+          }
+        } else {
+          showAlertDialog(context, "Prontuário não existe.");
+        }
+      }
+    }
+  }
+
+  Future<bool> _recordNumberExist(int recordNumber) async {
+    int? records = await widget.database.patientDao.countPatientByRecord(
+        recordNumber);
+    return records != null && records > 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stepper(
@@ -133,17 +162,7 @@ class _ExamStepperState extends State<_ExamStepper> {
               Expanded(
                 child: DefaultButton(
                   text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
-                  onPressed: () {
-                    RegisterForm form = formList[_currentStep];
-                    if (form.validate()) {
-                      form.getFields(exam);
-                      if (isLastStep) {
-                        _finishRegistryTriage(context);
-                      } else {
-                        details.onStepContinue!();
-                      }
-                    }
-                  },
+                  onPressed: () => _nextStep(context, isLastStep, details),
                 ),
               ),
               if (!isFirstStep)

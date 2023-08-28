@@ -15,10 +15,6 @@ class ExamInfo extends StatelessWidget {
     return Column(
       children: [
         FormText(
-          label: "CPF do paciênte",
-          value: exam.patientCPF,
-        ),
-        FormText(
           label: "Cor da pele",
           value: SkinColor.getNameList()[exam.skinColor!.index],
         ),

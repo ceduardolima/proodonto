@@ -30,7 +30,7 @@ class _PatientTabState extends State<PatientTab> {
 
   void _changeToPatientInformation(
       BuildContext context, Patient patient) async {
-    Exam? exam = await widget.database.examDao.findByCPF(patient.cpf!);
+    Exam? exam = await widget.database.examDao.findByRecordNumber(patient.recordNumber!);
     Triage? triage =
         await widget.database.triageDao.findByPatientCPF(patient.cpf!);
     Anamnesis? anamnesis =

@@ -97,7 +97,7 @@ class _$ProodontoDatabase extends ProodontoDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `recordNumber` INTEGER, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `recordNumber` INTEGER, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` INTEGER, `breastfeeding` INTEGER, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` TEXT, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` INTEGER, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER, `underwentChemotherapy` INTEGER, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` INTEGER, `hasAnxiety` INTEGER, `dentalTreatment` TEXT, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER)');
         await database.execute(
@@ -913,7 +913,7 @@ class _$ExamDao extends ExamDao {
             'exam',
             (Exam item) => <String, Object?>{
                   'id': item.id,
-                  'patientCPF': item.patientCPF,
+                  'recordNumber': item.recordNumber,
                   'generalType': item.generalType?.index,
                   'weight': item.weight,
                   'height': item.height,
@@ -957,7 +957,7 @@ class _$ExamDao extends ExamDao {
             ['id'],
             (Exam item) => <String, Object?>{
                   'id': item.id,
-                  'patientCPF': item.patientCPF,
+                  'recordNumber': item.recordNumber,
                   'generalType': item.generalType?.index,
                   'weight': item.weight,
                   'height': item.height,
@@ -1011,7 +1011,7 @@ class _$ExamDao extends ExamDao {
     return _queryAdapter.queryList('SELECT * FROM exam',
         mapper: (Map<String, Object?> row) => Exam(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as String?,
+            recordNumber: row['recordNumber'] as int?,
             generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
@@ -1067,11 +1067,11 @@ class _$ExamDao extends ExamDao {
   }
 
   @override
-  Future<Exam?> findByCPF(String cpf) async {
-    return _queryAdapter.query('SELECT * FROM exam WHERE patientCPF=?1',
+  Future<Exam?> findByRecordNumber(int recordNumber) async {
+    return _queryAdapter.query('SELECT * FROM exam WHERE recordNumber=?1',
         mapper: (Map<String, Object?> row) => Exam(
             id: row['id'] as int?,
-            patientCPF: row['patientCPF'] as String?,
+            recordNumber: row['recordNumber'] as int?,
             generalType: row['generalType'] == null
                 ? null
                 : GeneralType.values[row['generalType'] as int],
@@ -1124,7 +1124,7 @@ class _$ExamDao extends ExamDao {
             definitiveDiagnosis: row['definitiveDiagnosis'] as String?,
             diagnosticHypothesis: row['diagnosticHypothesis'] as String?,
             conduct: row['conduct'] as String?),
-        arguments: [cpf]);
+        arguments: [recordNumber]);
   }
 
   @override

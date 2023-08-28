@@ -16,7 +16,7 @@ class ExamBasicInfoStep extends RegisterForm {
   getFields(field) {
     _formKey.currentState!.save();
     final fields = _formKey.currentState!.fields;
-    field.patientCPF = fields["patientCPF"]!.value;
+    field.recordNumber = int.parse(fields["recordNumber"]!.value);
     field.generalType = GeneralType.values[
         GeneralType.getNameList().indexOf(fields["generalType"]!.value)];
     field.weight = fields["weight"]!.value;
@@ -47,11 +47,11 @@ class ExamBasicInfoStep extends RegisterForm {
         child: Column(
           children: [
             DefaultFormField(
-              name: "patientCPF",
-              label: "CPF do paciênte",
-              length: 11,
+              name: "recordNumber",
+              label: "Número do prontuário",
               inputType: TextInputType.number,
-              initialValue: exam.patientCPF,
+              initialValue: exam.recordNumber.toString(),
+              required: true,
             ),
             DefaultDropdownButton(
               name: "skinColor",

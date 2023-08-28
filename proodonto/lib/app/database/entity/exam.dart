@@ -5,7 +5,7 @@ import 'package:proodonto/app/shared/enum_types.dart';
 class Exam {
   @PrimaryKey(autoGenerate: true)
   int? id;
-  String? patientCPF;
+  int? recordNumber;
   GeneralType? generalType;
   String? weight;
   String? height;
@@ -45,7 +45,7 @@ class Exam {
 
   Exam(
       {this.id,
-      this.patientCPF,
+      this.recordNumber,
       this.generalType,
       this.weight,
       this.height,
@@ -85,6 +85,6 @@ class Exam {
 
   @override
   String toString() {
-    return 'Exam{id: $id, patientCPF: $patientCPF, generalType: $generalType, weight: $weight, height: $height, temperature: $temperature, bloodPressure: $bloodPressure, pulsation: $pulsation, oximetry: $oximetry, othersObservations: $othersObservations, skinColor: $skinColor, skinColoring: $skinColoring, consistency: $consistency, skinTexture: $skinTexture, eyeColor: $eyeColor, hairColor: $hairColor, asymmetryType: $asymmetryType, surfaceType: $surfaceType, mobilityType: $mobilityType, sensibilityType: $sensibilityType, lipsType: $lipsType, tongueType: $tongueType, buccalMucosa: $buccalMucosa, gum: $gum, alveolarRidge: $alveolarRidge, retromolarTrigone: $retromolarTrigone, mouthFloor: $mouthFloor, palateModel: $palateModel, tonsilPillars: $tonsilPillars, variationNormality: $variationNormality, whichVariations: $whichVariations, injuryPresence: $injuryPresence, injuryDescription: $injuryDescription, complementaryExams: $complementaryExams, examResult: $examResult, definitiveDiagnosis: $definitiveDiagnosis, conduct: $conduct, diagnosticHypothesis: $diagnosticHypothesis}';
+    return 'Exam{id: $id, recordNumber: $recordNumber, generalType: $generalType, weight: $weight, height: $height, temperature: $temperature, bloodPressure: $bloodPressure, pulsation: $pulsation, oximetry: $oximetry, othersObservations: $othersObservations, skinColor: $skinColor, skinColoring: $skinColoring, consistency: $consistency, skinTexture: $skinTexture, eyeColor: $eyeColor, hairColor: $hairColor, asymmetryType: $asymmetryType, surfaceType: $surfaceType, mobilityType: $mobilityType, sensibilityType: $sensibilityType, lipsType: $lipsType, tongueType: $tongueType, buccalMucosa: $buccalMucosa, gum: $gum, alveolarRidge: $alveolarRidge, retromolarTrigone: $retromolarTrigone, mouthFloor: $mouthFloor, palateModel: $palateModel, tonsilPillars: $tonsilPillars, variationNormality: $variationNormality, whichVariations: $whichVariations, injuryPresence: $injuryPresence, injuryDescription: $injuryDescription, complementaryExams: $complementaryExams, examResult: $examResult, definitiveDiagnosis: $definitiveDiagnosis, conduct: $conduct, diagnosticHypothesis: $diagnosticHypothesis}';
   }
 }

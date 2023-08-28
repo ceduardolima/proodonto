@@ -6,8 +6,8 @@ abstract class ExamDao {
   @Query("SELECT * FROM exam")
   Future<List<Exam>> getAll();
 
-  @Query("SELECT * FROM exam WHERE patientCPF=:cpf")
-  Future<Exam?> findByCPF(String cpf);
+  @Query("SELECT * FROM exam WHERE recordNumber=:recordNumber")
+  Future<Exam?> findByRecordNumber(int recordNumber);
 
   @Update()
   Future<void> update(Exam exam);
