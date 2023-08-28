@@ -53,6 +53,7 @@ class TriageBasicInfoForm extends RegisterForm {
   dynamic getFields(dynamic field) {
     final fields = _formKey.currentState!.fields;
     field.patientCPF = fields["patientCPF"]!.value;
+    field.recordNumber = int.parse(fields["recordNumber"]!.value);
     field.operatorName = fields["operatorName"]!.value;
     field.patientName = fields["patientName"]!.value;
     field.reasonForConsultation = fields["reasonForConsultation"]!.value;

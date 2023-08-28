@@ -5,6 +5,7 @@ import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/pages/home/home.dart';
 import 'package:proodonto/app/pages/triage/step/register_triage.dart';
 import 'package:proodonto/app/pages/triage/step/register_triage_basic_info.dart';
+import 'package:proodonto/app/shared/alert_dialog.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 class TriageHome extends StatefulWidget {
@@ -87,6 +88,30 @@ class _TriageHomeState extends State<TriageHome> {
     return false;
   }
 
+  void changeStep(BuildContext context, bool isLastStep, ControlsDetails details) async {
+    RegisterForm form = formList[_currentStep];
+    if (form.validate()) {
+      form.getFields(triage);
+      bool recordNumberExist = await checkIfRecordNumberExist(triage.recordNumber!);
+      if (context.mounted) {
+        if (recordNumberExist) {
+          if (isLastStep) {
+            _finishRegistryTriage(context);
+          } else {
+            details.onStepContinue!();
+          }
+        } else {
+          showAlertDialog(context, "Número de printuário não existe.");
+        }
+      }
+    }
+  }
+
+  Future<bool> checkIfRecordNumberExist(int recordNumber) async {
+    int? records = await widget.database.patientDao.countPatientByRecord(recordNumber);
+    return records != null && records > 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,15 +139,7 @@ class _TriageHomeState extends State<TriageHome> {
                 Expanded(
                   child: DefaultButton(
                     onPressed: () {
-                      RegisterForm form = formList[_currentStep];
-                      if (form.validate()) {
-                        form.getFields(triage);
-                        if (isLastStep) {
-                          _finishRegistryTriage(context);
-                        } else {
-                          details.onStepContinue!();
-                        }
-                      }
+                      changeStep(context, isLastStep, details);
                     },
                     text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                   ),
