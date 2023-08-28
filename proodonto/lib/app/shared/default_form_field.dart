@@ -5,17 +5,18 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'default_size.dart';
 
 class DefaultFormField extends StatelessWidget {
-  DefaultFormField(
-      {required this.name,
-      required this.label,
-      this.hint,
-      Key? key,
-      this.inputType,
-      this.length,
-      this.requireErrorMessenger,
-      this.initialValue,
-        this.suffixText})
-      : super(key: key);
+  DefaultFormField({
+    required this.name,
+    required this.label,
+    this.hint,
+    Key? key,
+    this.inputType,
+    this.length,
+    this.requireErrorMessenger,
+    this.initialValue,
+    this.suffixText,
+    this.required = false,
+  }) : super(key: key);
 
   final String name;
   final String? hint;
@@ -23,9 +24,10 @@ class DefaultFormField extends StatelessWidget {
   final int? length;
   final TextInputType? inputType;
   final String? suffixText;
+  final String? initialValue;
+  final bool required;
   String? requireErrorMessenger;
   String? minLengthErrorMessenger = "Campo incompleto";
-  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +38,25 @@ class DefaultFormField extends StatelessWidget {
         keyboardType: inputType,
         initialValue: initialValue,
         decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          helperText: "",
-          suffixText: suffixText
-        ),
+            labelText: label,
+            hintText: hint,
+            helperText: "",
+            suffixText: suffixText),
         maxLines: 1,
         maxLength: length,
-        validator: FormBuilderValidators.compose([
-          FormBuilderValidators.required(
-              errorText: requireErrorMessenger ?? "Campo Obrigatório"),
-          (value) {
-            if (length != null && length! > value!.length) {
-              return "Campo incompleto";
-            }
-            return null;
-          }
-        ]),
+        validator: FormBuilderValidators.compose(
+          [
+            if (length != null && required)
+              FormBuilderValidators.equalLength(
+                length!,
+                errorText: requireErrorMessenger ?? "Dado incompleto",
+              ),
+            if (required)
+              FormBuilderValidators.required(
+                errorText: requireErrorMessenger ?? "Campo Obrigatório",
+              )
+          ],
+        ),
       ),
     );
   }

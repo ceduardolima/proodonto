@@ -27,6 +27,7 @@ class RegisterPatientForm extends RegisterForm {
             name: "name",
             label: "Nome",
             initialValue: patient.name,
+            required: true,
           ),
           DefaultDropdownButton(
             name: "sex",
@@ -79,14 +80,14 @@ class RegisterPatientForm extends RegisterForm {
           DefaultFormField(
             name: "phone",
             label: "Celular",
-            hint: "81912341234",
+            hint: "(81) 91234-5678",
             initialValue: patient.phone,
             inputType: TextInputType.number,
             length: 11,
           ),
           DefaultFormField(
             name: "email",
-            label: "email",
+            label: "Email",
             initialValue: patient.email,
             inputType: TextInputType.emailAddress,
           ),

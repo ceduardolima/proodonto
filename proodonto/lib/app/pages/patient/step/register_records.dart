@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/interfaces/form_abstraction.dart';
 import 'package:proodonto/app/shared/default_form_field.dart';
+import 'package:proodonto/app/shared/dropdown_button.dart';
+import 'package:proodonto/app/shared/enum_types.dart';
 import '../../../database/entity/patient.dart';
 
 class RegisterRecordsForm extends RegisterForm {
@@ -22,6 +24,7 @@ class RegisterRecordsForm extends RegisterForm {
               name: "recordNumber",
               label: "Número do prontuário",
               inputType: TextInputType.number,
+              required: true,
             ),
             DefaultFormField(
               name: "advisor",
@@ -31,14 +34,17 @@ class RegisterRecordsForm extends RegisterForm {
             DefaultFormField(
               name: "semester",
               label: "Período",
+              hint: "Ex: 05",
               initialValue: patient.semester,
-              length: 6,
+              length: 2,
               inputType: TextInputType.number,
+              required: true,
             ),
-            DefaultFormField(
+            DefaultDropdownButton(
               name: "careUnit",
               label: "Unidade de atendimento",
-              initialValue: patient.careUnit,
+              initialValue: CareUnit.getNameList()[0],
+              list: CareUnit.getNameList(),
             ),
             DefaultFormField(
               name: "initialExam",

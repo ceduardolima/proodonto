@@ -22,6 +22,9 @@ abstract class PatientDao {
   @Query("SELECT patient.* FROM patient INNER JOIN favorites_patients ON patient.id = favorites_patients.patientId")
   Future<List<Patient?>> getFavoritePatients();
 
+  @Query("SELECT COUNT(*) FROM patient WHERE recordNumber=:recordNumber")
+  Future<int?> countPatientByRecord(int recordNumber);
+
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Patient patient);
 

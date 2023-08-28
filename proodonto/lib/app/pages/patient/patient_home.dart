@@ -63,6 +63,70 @@ class _PatientHomePageState extends State<PatientHomePage> {
     return false;
   }
 
+  Future<void> _showDuplicateRecordNumberDialog() {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(
+              child: Icon(
+            Icons.error_outline,
+            color: Colors.red,
+          )),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Center(
+                  child: Text(
+                    'O número de prontuário inserido já existe.\n'
+                    'Por favor, coloque um número válido para que possamos prosseguir.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _nextStep(ControlsDetails details, bool isLastStep) async {
+    if (isLastStep) {
+      _finishRegistry(context, responsibleForm.patient);
+    } else {
+      RegisterForm form = formList[_currentStep];
+      if (form.validate()) {
+        patient = form.getFields(patient);
+        if (_currentStep == 0) {
+          bool isDuplicated = await _isRecordDuplicated(patient.recordNumber!);
+          if (!isDuplicated) {
+            details.onStepContinue!();
+          } else {
+            _showDuplicateRecordNumberDialog();
+          }
+        } else {
+          details.onStepContinue!();
+        }
+      }
+    }
+  }
+
+  Future<bool> _isRecordDuplicated(int recordNumber) async {
+    int? numberOfDuplicate =
+        await _database.patientDao.countPatientByRecord(patient.recordNumber!);
+    return numberOfDuplicate != null && numberOfDuplicate != 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,20 +154,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 Expanded(
                   child: DefaultButton(
                     onPressed: () {
-                      if (isLastStep) {
-                        _finishRegistry(context, responsibleForm.patient);
-                      } else {
-                        RegisterForm form = formList[_currentStep];
-                        if (form.validate()) {
-                          patient = form.getFields(patient);
-                          details.onStepContinue!();
-                        }
-                      }
+                      _nextStep(details, isLastStep);
                     },
                     text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                   ),
                 ),
-                if (!isFirstStep) const SizedBox(width: 10,),
+                if (!isFirstStep)
+                  const SizedBox(
+                    width: 10,
+                  ),
                 if (!isFirstStep)
                   Expanded(
                     child: DefaultButton(

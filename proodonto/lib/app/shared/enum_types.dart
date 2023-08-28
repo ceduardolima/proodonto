@@ -1,9 +1,7 @@
 enum SkinColor {
   branca,
   parda,
-  morena_clara,
-  morena_moderada,
-  morena_escura;
+  preta;
 
   static List<String> getNameList() =>
       ["Branca", "Parda", "Morena clara", "Morena moderada", "Morena escura"];
@@ -194,6 +192,19 @@ enum FamilyBackground {
   static String getValueByName(FamilyBackground familyBackground) {
     const nameList = FamilyBackground.values;
     int index = nameList.indexOf(familyBackground);
+    return getNameList()[index];
+  }
+}
+
+enum CareUnit {
+  faculdade,
+  mens_sana;
+
+  static List<String> getNameList() => ["Faculdade", "Mens Sana"];
+
+  static String getValueByName(CareUnit careUnit) {
+    const nameList = CareUnit.values;
+    int index = nameList.indexOf(careUnit);
     return getNameList()[index];
   }
 }

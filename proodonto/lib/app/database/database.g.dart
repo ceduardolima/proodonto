@@ -516,6 +516,14 @@ class _$PatientDao extends PatientDao {
   }
 
   @override
+  Future<int?> countPatientByRecord(int recordNumber) async {
+    return _queryAdapter.query(
+        'SELECT COUNT(*) FROM patient WHERE recordNumber=?1',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [recordNumber]);
+  }
+
+  @override
   Future<void> deletePatientByCPF(String cpf) async {
     await _queryAdapter
         .queryNoReturn('DELETE FROM patient WHERE cpf=?1', arguments: [cpf]);
