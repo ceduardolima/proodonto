@@ -47,7 +47,7 @@ class _PatientItemState extends State<PatientItem> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _Text(text: widget.patient.name!),
-                        _Text(text: "CPF - ${widget.patient.cpf!}"),
+                        //_Text(text: "CPF - ${widget.patient.cpf!}"),
                         _Text(
                             text:
                                 "N. Pront. - ${widget.patient.recordNumber!}"),

@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     _changeToPatientHomePage(context);
                   },
-                  text: "Cadastro Paciênte",
+                  text: "Cadastro Paciente",
                 ),
                 FormButton(
                   imagePath: _triageIconPath,

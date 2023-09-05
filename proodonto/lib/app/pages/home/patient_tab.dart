@@ -34,7 +34,7 @@ class _PatientTabState extends State<PatientTab> {
     Triage? triage =
         await widget.database.triageDao.findByPatientCPF(patient.cpf!);
     Anamnesis? anamnesis =
-        await widget.database.anamnesisDao.findByCPF(patient.cpf!);
+        await widget.database.anamnesisDao.findByRecordNumber(patient.recordNumber!);
     if (context.mounted) {
       Navigator.push(
         context,

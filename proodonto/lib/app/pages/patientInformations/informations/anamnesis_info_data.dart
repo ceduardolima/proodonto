@@ -22,8 +22,8 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.diseaseHistory,
         ),
         FormText(
-          label: "Sofre de alguma doença?",
-          value: anamnesis.diseases,
+          label: "Sofre de alguma doença? Quais?",
+          value: anamnesis.otherDiseases,
         ),
         FormText(
           label: "Tratamento atual",
@@ -42,7 +42,7 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.howManyMonth,
         ),
         FormText(
-          label: "realizou o exame pre natal?",
+          label: "Realizou o exame pre natal?",
           value: anamnesis.prenatalExam,
         ),
         FormText(
@@ -58,12 +58,8 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.whichMedicines,
         ),
         FormText(
-          label: "Nome do médico",
-          value: anamnesis.doctorName,
-        ),
-        FormText(
-          label: "Quais alergias?",
-          value: Allergy.getNameList()[anamnesis.allergy!.index],
+          label: "Alergias?",
+          value: anamnesis.allergy,
         ),
         FormText(
           label: "Fez alguma cirurgia? Quais?",
@@ -86,7 +82,7 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.problemWithAnesthesiaSituation,
         ),
         FormText(
-          label: "Problema com hemorragia?",
+          label: "Problema de hemorragia?",
           value: anamnesis.hasBleedingProblem,
         ),
         FormText(
@@ -94,69 +90,12 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.bleedingProblemSituation,
         ),
         FormText(
-          label: "Tem febre reumática?",
-          value: anamnesis.hasRheumaticFever,
-        ),
-        FormText(
-          label: "Tem problemas nas articulações?",
-          value: anamnesis.hasJointProblem,
-        ),
-        FormText(
-          label: "Tem problema renais?",
-          value: anamnesis.hasKidneyProblem,
-        ),
-        FormText(
-          label: "Tem problemas respratórios?",
-          value: anamnesis.hasRespiratoryProblem,
-        ),
-        FormText(
-          label: "Tem problemas articulação",
-          value: anamnesis.hasJointProblem,
-        ),
-        FormText(
-          label: "Tem problemas de hipertensão arterial?",
-          value: anamnesis.hasHighBloodPressureProblem,
-        ),
-        FormText(
-          label: "Tem problemas cardíacos?",
-          value: anamnesis.hasHeartProblem,
-        ),
-        FormText(
-          label: "Tem problemas gástricos?",
-          value: anamnesis.hasGastricProblem,
-        ),
-        FormText(
-          label: "Tem anemia?",
-          value: anamnesis.hasAnemia,
-        ),
-        FormText(
-          label: "Tem diabetes?",
-          value: anamnesis.hasDiabetes,
-        ),
-        FormText(
-          label: "Tem problemas neurológicos?",
-          value: anamnesis.hasNeurologicalProblems,
-        ),
-        FormText(
-          label: "Doença infecciosas",
-          value: InfectiousDiseases.getNameList()[
-              anamnesis.infectiousDiseases!.index],
-        ),
-        FormText(
           label: "Realizou quimioterapia?",
           value: anamnesis.underwentChemotherapy,
         ),
         FormText(
-          label: "Tem onicofagia?",
-          value: anamnesis.hasOnychophagy,
-        ),
-        FormText(
-          label: "Tem repirador bucal?",
-          value: anamnesis.hasMouthPiece,
-        ),
-        FormText(
-          label: "Tem bruxismo?",
-          value: anamnesis.hasBruxism,
+          label: "Realizou quimioterapia?",
+          value: anamnesis.chemotherapyDate,
         ),
         FormText(
           label: "É fumante?",
@@ -165,6 +104,10 @@ class AnamnesisInfoData extends StatelessWidget {
         FormText(
           label: "Tipo de cigarro",
           value: anamnesis.cigaretteType,
+        ),
+        FormText(
+          label: "Número de cigarros por dia",
+          value: anamnesis.howManyCigarette,
         ),
         FormText(
           label: "É alcoolatra?",
@@ -179,13 +122,8 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.otherHabits,
         ),
         FormText(
-          label: "Doenças presente no histórico familiar",
-          value:
-              FamilyBackground.getNameList()[anamnesis.familyBackground!.index],
-        ),
-        FormText(
-          label: "Tem ansiedade?",
-          value: anamnesis.hasAnxiety,
+          label: "Doenças presentes no histórico familiar",
+          value: anamnesis.familyBackground,
         ),
         FormText(
           label: "Já fez tratamento dental?",
@@ -196,6 +134,10 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.lastVisitToTheDentist,
         ),
         FormText(
+          label: "Nome do médico",
+          value: anamnesis.doctorName,
+        ),
+        FormText(
           label: "Teve alguma experiencia negativa",
           value: anamnesis.negativeExperience,
         ),
@@ -204,7 +146,7 @@ class AnamnesisInfoData extends StatelessWidget {
           value: anamnesis.whatKindOfTreatment,
         ),
         FormText(
-          label: "Número da escova",
+          label: "Número de escovações",
           value: anamnesis.brushNumber,
         ),
         FormText(
@@ -214,14 +156,6 @@ class AnamnesisInfoData extends StatelessWidget {
         FormText(
           label: "Faz uso do fio dental?",
           value: anamnesis.useDentalFloss,
-        ),
-        FormText(
-          label: "Tem a sensação de boca seca?",
-          value: anamnesis.hasDryMouthFeeling,
-        ),
-        FormText(
-          label: "Sente a boca queimando?",
-          value: anamnesis.feelBurning,
         ),
       ],
     );

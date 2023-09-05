@@ -34,6 +34,7 @@ class FormText extends StatelessWidget {
         child: FormBuilderTextField(
           name: "",
           enabled: false,
+          maxLines: null,
           initialValue: getValue(),
           decoration: InputDecoration(
             label: Text(label),

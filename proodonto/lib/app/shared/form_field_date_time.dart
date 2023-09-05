@@ -30,7 +30,7 @@ class FormFieldDateTime extends StatelessWidget {
             suffixIcon: const Icon(Icons.date_range)),
         inputType: InputType.date,
         initialDate:
-            initialDate == null ? null : DateFormat("dd/MM/yyyy").parse(initialDate!),
+            initialDate == null ? null : parse(initialDate!),
       ),
     );
   }

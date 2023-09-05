@@ -29,7 +29,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
       children: [
         EditableTextField(
           label: "Nome",
-          initialValue: widget.patient.name!,
+          initialValue: widget.patient.name,
           submit: (changedValue) {
             setState(() {
               widget.patient.name = changedValue;
@@ -39,7 +39,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Email",
-          initialValue: widget.patient.email!,
+          initialValue: widget.patient.email,
           submit: (changedValue) {
             setState(() {
               widget.patient.email = changedValue;
@@ -49,7 +49,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Telefone fixo",
-          initialValue: widget.patient.fixNumber!,
+          initialValue: widget.patient.fixNumber,
           submit: (changedValue) {
             setState(() {
               widget.patient.fixNumber = changedValue;
@@ -59,7 +59,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Telefone celular",
-          initialValue: widget.patient.phone!,
+          initialValue: widget.patient.phone,
           submit: (changedValue) {
             setState(() {
               widget.patient.phone = changedValue;
@@ -69,7 +69,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "cpf",
-          initialValue: widget.patient.cpf!,
+          initialValue: widget.patient.cpf,
           submit: (changedValue) {
             setState(() {
               widget.patient.cpf = changedValue;
@@ -79,7 +79,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Orgão expedidor",
-          initialValue: widget.patient.issuingAgency!,
+          initialValue: widget.patient.issuingAgency,
           submit: (changedValue) {
             setState(() {
               widget.patient.issuingAgency = changedValue;
@@ -132,7 +132,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Naturalidade",
-          initialValue: widget.patient.placeOfBirth!,
+          initialValue: widget.patient.placeOfBirth,
           submit: (changedValue) {
             setState(() {
               widget.patient.placeOfBirth = changedValue;
@@ -142,7 +142,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Nacionalidade",
-          initialValue: widget.patient.nationality!,
+          initialValue: widget.patient.nationality,
           submit: (changedValue) {
             setState(() {
               widget.patient.nationality = changedValue;
@@ -152,7 +152,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Endereço",
-          initialValue: widget.patient.address!,
+          initialValue: widget.patient.address,
           submit: (changedValue) {
             setState(() {
               widget.patient.address = changedValue;
@@ -162,7 +162,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Bairro",
-          initialValue: widget.patient.neighborhood!,
+          initialValue: widget.patient.neighborhood,
           submit: (changedValue) {
             setState(() {
               widget.patient.neighborhood = changedValue;
@@ -172,7 +172,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Complemento",
-          initialValue: widget.patient.addressComplement!,
+          initialValue: widget.patient.addressComplement,
           submit: (changedValue) {
             setState(() {
               widget.patient.addressComplement = changedValue;
@@ -182,7 +182,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "CEP",
-          initialValue: widget.patient.cep!,
+          initialValue: widget.patient.cep,
           submit: (changedValue) {
             setState(() {
               widget.patient.cep = changedValue;
@@ -192,7 +192,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Profissão",
-          initialValue: widget.patient.profession!,
+          initialValue: widget.patient.profession,
           submit: (changedValue) {
             setState(() {
               widget.patient.profession = changedValue;
@@ -202,7 +202,7 @@ class _PatientInformationDataState extends State<PatientInformationData> {
         ),
         EditableTextField(
           label: "Edereço do trabalho",
-          initialValue: widget.patient.workAddress!,
+          initialValue: widget.patient.workAddress,
           submit: (changedValue) {
             setState(() {
               widget.patient.workAddress = changedValue;

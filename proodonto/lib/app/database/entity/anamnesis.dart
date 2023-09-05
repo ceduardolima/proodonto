@@ -17,10 +17,10 @@ class Anamnesis {
   String? howManyMonth;
   bool? prenatalExam;
   String? medicalRecommendations;
-  String? useMedicine;
+  bool? useMedicine;
   String? whichMedicines;
   String? doctorName;
-  Allergy? allergy = Allergy.none;
+  String? allergy = Allergy.none.name;
   String? surgery;
   bool? hasHealingProblem;
   String? healingProblemSituation;
@@ -40,17 +40,19 @@ class Anamnesis {
   bool? hasNeurologicalProblems;
   InfectiousDiseases? infectiousDiseases = InfectiousDiseases.none;
   bool? underwentChemotherapy;
+  String? chemotherapyDate;
   bool? hasOnychophagy;
   bool? hasMouthPiece;
   bool? hasBruxism;
   bool? isSmoker;
   String? cigaretteType;
+  int? howManyCigarette = 0;
   bool? isAlcoholic;
   String? drinkType;
   String? otherHabits;
-  FamilyBackground? familyBackground = FamilyBackground.none;
+  String? familyBackground;
   bool? hasAnxiety;
-  String? dentalTreatment;
+  bool? dentalTreatment;
   String? lastVisitToTheDentist;
   String? negativeExperience;
   String? whatKindOfTreatment;
@@ -59,62 +61,68 @@ class Anamnesis {
   bool? useDentalFloss;
   bool? hasDryMouthFeeling;
   bool? feelBurning;
+  String? otherDiseases;
 
   Anamnesis({
-      this.id,
-      this.recordNumber,
-      this.patientCPF,
-      this.complain,
-      this.diseaseHistory,
-      this.diseases,
-      this.currentTreatment,
-      this.forWhat,
-      this.pregnancy,
-      this.howManyMonth,
-      this.prenatalExam,
-      this.medicalRecommendations,
-      this.useMedicine,
-      this.whichMedicines,
-      this.doctorName,
-      this.allergy,
-      this.surgery,
-      this.hasHealingProblem,
-      this.healingProblemSituation,
-      this.hasProblemWithAnesthesia,
-      this.problemWithAnesthesiaSituation,
-      this.hasBleedingProblem,
-      this.bleedingProblemSituation,
-      this.hasRheumaticFever,
-      this.hasKidneyProblem,
-      this.hasRespiratoryProblem,
-      this.hasJointProblem,
-      this.hasHighBloodPressureProblem,
-      this.hasHeartProblem,
-      this.hasGastricProblem,
-      this.hasAnemia,
-      this.hasDiabetes,
-      this.hasNeurologicalProblems,
-      this.infectiousDiseases,
-      this.underwentChemotherapy,
-      this.hasOnychophagy,
-      this.hasMouthPiece,
-      this.hasBruxism,
-      this.isSmoker,
-      this.cigaretteType,
-      this.isAlcoholic,
-      this.drinkType,
-      this.otherHabits,
-      this.familyBackground,
-      this.hasAnxiety,
-      this.dentalTreatment,
-      this.lastVisitToTheDentist,
-      this.negativeExperience,
-      this.whatKindOfTreatment,
-      this.brushNumber,
-      this.brushType,
-      this.useDentalFloss,
-      this.hasDryMouthFeeling,
-      this.feelBurning});
+    this.id,
+    this.recordNumber,
+    this.patientCPF,
+    this.complain,
+    this.diseaseHistory,
+    this.diseases,
+    this.currentTreatment,
+    this.forWhat,
+    this.pregnancy,
+    this.howManyMonth,
+    this.prenatalExam,
+    this.medicalRecommendations,
+    this.useMedicine,
+    this.whichMedicines,
+    this.doctorName,
+    this.allergy,
+    this.surgery,
+    this.hasHealingProblem,
+    this.healingProblemSituation,
+    this.hasProblemWithAnesthesia,
+    this.problemWithAnesthesiaSituation,
+    this.hasBleedingProblem,
+    this.bleedingProblemSituation,
+    this.hasRheumaticFever,
+    this.hasKidneyProblem,
+    this.hasRespiratoryProblem,
+    this.hasJointProblem,
+    this.hasHighBloodPressureProblem,
+    this.hasHeartProblem,
+    this.hasGastricProblem,
+    this.hasAnemia,
+    this.hasDiabetes,
+    this.hasNeurologicalProblems,
+    this.infectiousDiseases,
+    this.underwentChemotherapy,
+    this.hasOnychophagy,
+    this.hasMouthPiece,
+    this.hasBruxism,
+    this.isSmoker,
+    this.cigaretteType,
+    this.isAlcoholic,
+    this.drinkType,
+    this.otherHabits,
+    this.familyBackground,
+    this.hasAnxiety,
+    this.dentalTreatment,
+    this.lastVisitToTheDentist,
+    this.negativeExperience,
+    this.whatKindOfTreatment,
+    this.brushNumber,
+    this.brushType,
+    this.useDentalFloss,
+    this.hasDryMouthFeeling,
+    this.chemotherapyDate,
+    this.howManyCigarette,
+    this.breastfeeding,
+    this.feelBurning,
+    this.otherDiseases,
+  });
 
   @override
   String toString() {

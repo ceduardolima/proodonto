@@ -9,7 +9,7 @@ class EditableDatePicker extends StatefulWidget {
   const EditableDatePicker(
       {super.key, required this.date, required this.label, required this.submit});
   final Function(String) submit;
-  final String date;
+  final String? date;
   final String label;
 
   @override
@@ -20,7 +20,10 @@ class _EditableDatePickerState extends State<EditableDatePicker> {
   bool edit = false;
   final _controller = TextEditingController();
 
-  DateTime parse(String date) {
+  DateTime? parse(String? date) {
+    if (date == null) {
+      return null;
+    }
     DateTime dateTime = DateTime.parse(date);
     String formattedString = DateFormat("dd/MM/yyyy").format(dateTime);
     return DateFormat("dd/MM/yyyy").parse(formattedString);
@@ -41,7 +44,7 @@ class _EditableDatePickerState extends State<EditableDatePicker> {
               format: DateFormat("dd/MM/yyyy"),
               initialEntryMode: DatePickerEntryMode.input,
               inputType: InputType.date,
-              initialValue: parse(widget.date),
+              initialValue: widget.date == null ? parse("") : parse(widget.date!),
               decoration:
               InputDecoration(labelText: widget.label),
             ),

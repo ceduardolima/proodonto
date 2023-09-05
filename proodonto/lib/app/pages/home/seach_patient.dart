@@ -76,7 +76,7 @@ class SearchPatient extends SearchDelegate {
       BuildContext context, Patient patient) async {
     Exam? exam = await _database.examDao.findByRecordNumber(patient.recordNumber!);
     Triage? triage = await _database.triageDao.findByPatientCPF(patient.cpf!);
-    Anamnesis? anamnesis = await _database.anamnesisDao.findByCPF(patient.cpf!);
+    Anamnesis? anamnesis = await _database.anamnesisDao.findByRecordNumber(patient.recordNumber!);
     if (context.mounted) {
       Navigator.push(
         context,

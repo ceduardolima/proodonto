@@ -42,7 +42,7 @@ class AnamnesisBasicInfoStep extends RegisterForm {
               name: "recordNumber",
               label: "Número do prontuário",
               inputType: TextInputType.number,
-              initialValue: anamnesis.recordNumber.toString(),
+              initialValue: anamnesis.recordNumber != null ? anamnesis.recordNumber.toString() : "",
               required: true,
             ),
           ],
