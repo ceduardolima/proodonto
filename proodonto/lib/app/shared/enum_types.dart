@@ -4,7 +4,7 @@ enum SkinColor {
   preta;
 
   static List<String> getNameList() =>
-      ["Branca", "Parda", "Morena clara", "Morena moderada", "Morena escura"];
+      ["Branca", "Parda", "Preta"];
 
   static String getValueByName(SkinColor skinColor) {
     const nameList = SkinColor.values;
@@ -148,14 +148,13 @@ enum Tongue {
 }
 
 enum Allergy {
-  none,
   respiratoryAllergy,
   skinAllergy,
   insectAllergy,
   medicineAllergy,
   petHairAllergy;
 
-  static List<String> getNameList () => ["Nenhuma", "Alergia respiratória", "Alergia cutânea", "Alergia a insetos", "Alergia a medicamentos", "Alergia a pelo de animais"];
+  static List<String> getNameList () => ["Alergia respiratória", "Alergia cutânea", "Alergia a insetos", "Alergia a medicamentos", "Alergia a pelo de animais"];
 
   static String getValueByName(Allergy allergy) {
     const nameList = Allergy.values;
@@ -165,14 +164,13 @@ enum Allergy {
 }
 
 enum InfectiousDiseases {
-  none,
   hepatitis,
   syphilis,
   hiv,
   tuberculosis,
   covid19;
 
-  static List<String> getNameList () => ["Nenhuma", "Hepatite", "Sifilis", "HIV", "Tuberculose", "Covid 19"];
+  static List<String> getNameList () => ["Hepatite", "Sifilis", "HIV", "Tuberculose", "Covid 19"];
 
   static String getValueByName(InfectiousDiseases infectiousDiseases) {
     const nameList = InfectiousDiseases.values;
@@ -182,12 +180,11 @@ enum InfectiousDiseases {
 }
 
 enum FamilyBackground {
-  none,
   diabetes,
   highBloodPressure,
   cancer;
 
-  static List<String> getNameList () => ["Nenhuma", "Diabete", "Hipertensão arterial", "cancer"];
+  static List<String> getNameList () => ["Diabete", "Hipertensão arterial", "cancer"];
 
   static String getValueByName(FamilyBackground familyBackground) {
     const nameList = FamilyBackground.values;

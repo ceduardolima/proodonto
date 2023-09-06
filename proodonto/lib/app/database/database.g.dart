@@ -97,7 +97,7 @@ class _$ProodontoDatabase extends ProodontoDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `triage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `patientCPF` TEXT, `operatorCPF` TEXT, `operatorName` TEXT, `patientName` TEXT, `recordNumber` INTEGER, `reasonForConsultation` TEXT, `hasCovid` INTEGER, `hasCough` INTEGER, `testType` TEXT, `kinship` TEXT, `hasFever` INTEGER, `hasDifficultyToBreathing` INTEGER, `hasTiredness` INTEGER, `hasLossOfSmell` INTEGER, `hasLossOfTaste` INTEGER, `hasSoreThroat` INTEGER, `hasHeadache` INTEGER, `hasDiarrhea` INTEGER, `oximetry` TEXT, `heartRate` TEXT, `temperature` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `recordNumber` INTEGER, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `exam` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `recordNumber` INTEGER, `generalType` INTEGER, `weight` TEXT, `height` TEXT, `temperature` TEXT, `bloodPressure` TEXT, `pulsation` TEXT, `oximetry` TEXT, `othersObservations` TEXT, `skinColor` INTEGER, `skinColoring` TEXT, `consistency` TEXT, `skinTexture` TEXT, `eyeColor` TEXT, `hairColor` TEXT, `asymmetryType` INTEGER, `surfaceType` INTEGER, `mobilityType` INTEGER, `sensibilityType` INTEGER, `lipsType` INTEGER, `lipsTypeDescription` TEXT, `tongueType` INTEGER, `buccalMucosa` TEXT, `gum` TEXT, `alveolarRidge` TEXT, `retromolarTrigone` TEXT, `mouthFloor` TEXT, `palateModel` TEXT, `tonsilPillars` TEXT, `variationNormality` TEXT, `whichVariations` TEXT, `injuryPresence` TEXT, `injuryDescription` TEXT, `complementaryExams` TEXT, `examResult` TEXT, `definitiveDiagnosis` TEXT, `conduct` TEXT, `diagnosticHypothesis` TEXT, `tongueTypeDescription` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `anamnesis` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `recordNumber` INTEGER, `patientCPF` TEXT, `complain` TEXT, `diseaseHistory` TEXT, `diseases` TEXT, `currentTreatment` TEXT, `forWhat` TEXT, `pregnancy` INTEGER, `breastfeeding` INTEGER, `howManyMonth` TEXT, `prenatalExam` INTEGER, `medicalRecommendations` TEXT, `useMedicine` INTEGER, `whichMedicines` TEXT, `doctorName` TEXT, `allergy` TEXT, `surgery` TEXT, `hasHealingProblem` INTEGER, `healingProblemSituation` TEXT, `hasProblemWithAnesthesia` INTEGER, `problemWithAnesthesiaSituation` TEXT, `hasBleedingProblem` INTEGER, `bleedingProblemSituation` TEXT, `hasRheumaticFever` INTEGER, `hasKidneyProblem` INTEGER, `hasRespiratoryProblem` INTEGER, `hasJointProblem` INTEGER, `hasHighBloodPressureProblem` INTEGER, `hasHeartProblem` INTEGER, `hasGastricProblem` INTEGER, `hasAnemia` INTEGER, `hasDiabetes` INTEGER, `hasNeurologicalProblems` INTEGER, `infectiousDiseases` INTEGER, `underwentChemotherapy` INTEGER, `chemotherapyDate` TEXT, `hasOnychophagy` INTEGER, `hasMouthPiece` INTEGER, `hasBruxism` INTEGER, `isSmoker` INTEGER, `cigaretteType` TEXT, `howManyCigarette` INTEGER, `isAlcoholic` INTEGER, `drinkType` TEXT, `otherHabits` TEXT, `familyBackground` TEXT, `hasAnxiety` INTEGER, `dentalTreatment` INTEGER, `lastVisitToTheDentist` TEXT, `negativeExperience` TEXT, `whatKindOfTreatment` TEXT, `brushNumber` TEXT, `brushType` TEXT, `useDentalFloss` INTEGER, `hasDryMouthFeeling` INTEGER, `feelBurning` INTEGER, `otherDiseases` TEXT)');
         await database.execute(
@@ -743,9 +743,8 @@ class _$TriageDao extends TriageDao {
   }
 
   @override
-  Stream<Triage?> findByRecordNumber(int recordNumber) {
-    return _queryAdapter.queryStream(
-        'SELECT * FROM triage WHERE recordNumber=?1',
+  Future<Triage?> findByRecordNumber(int recordNumber) async {
+    return _queryAdapter.query('SELECT * FROM triage WHERE recordNumber=?1',
         mapper: (Map<String, Object?> row) => Triage(
             id: row['id'] as int?,
             patientCPF: row['patientCPF'] as String?,
@@ -786,9 +785,7 @@ class _$TriageDao extends TriageDao {
             oximetry: row['oximetry'] as String?,
             heartRate: row['heartRate'] as String?,
             temperature: row['temperature'] as String?),
-        arguments: [recordNumber],
-        queryableName: 'triage',
-        isView: false);
+        arguments: [recordNumber]);
   }
 
   @override
@@ -933,6 +930,7 @@ class _$ExamDao extends ExamDao {
                   'mobilityType': item.mobilityType?.index,
                   'sensibilityType': item.sensibilityType?.index,
                   'lipsType': item.lipsType?.index,
+                  'lipsTypeDescription': item.lipsTypeDescription,
                   'tongueType': item.tongueType?.index,
                   'buccalMucosa': item.buccalMucosa,
                   'gum': item.gum,
@@ -949,7 +947,8 @@ class _$ExamDao extends ExamDao {
                   'examResult': item.examResult,
                   'definitiveDiagnosis': item.definitiveDiagnosis,
                   'conduct': item.conduct,
-                  'diagnosticHypothesis': item.diagnosticHypothesis
+                  'diagnosticHypothesis': item.diagnosticHypothesis,
+                  'tongueTypeDescription': item.tongueTypeDescription
                 }),
         _examUpdateAdapter = UpdateAdapter(
             database,
@@ -977,6 +976,7 @@ class _$ExamDao extends ExamDao {
                   'mobilityType': item.mobilityType?.index,
                   'sensibilityType': item.sensibilityType?.index,
                   'lipsType': item.lipsType?.index,
+                  'lipsTypeDescription': item.lipsTypeDescription,
                   'tongueType': item.tongueType?.index,
                   'buccalMucosa': item.buccalMucosa,
                   'gum': item.gum,
@@ -993,7 +993,8 @@ class _$ExamDao extends ExamDao {
                   'examResult': item.examResult,
                   'definitiveDiagnosis': item.definitiveDiagnosis,
                   'conduct': item.conduct,
-                  'diagnosticHypothesis': item.diagnosticHypothesis
+                  'diagnosticHypothesis': item.diagnosticHypothesis,
+                  'tongueTypeDescription': item.tongueTypeDescription
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -1045,9 +1046,11 @@ class _$ExamDao extends ExamDao {
             lipsType: row['lipsType'] == null
                 ? null
                 : Lip.values[row['lipsType'] as int],
+            lipsTypeDescription: row['lipsTypeDescription'] as String?,
             tongueType: row['tongueType'] == null
                 ? null
                 : Tongue.values[row['tongueType'] as int],
+            tongueTypeDescription: row['tongueTypeDescription'] as String?,
             buccalMucosa: row['buccalMucosa'] as String?,
             gum: row['gum'] as String?,
             alveolarRidge: row['alveolarRidge'] as String?,
@@ -1105,9 +1108,11 @@ class _$ExamDao extends ExamDao {
             lipsType: row['lipsType'] == null
                 ? null
                 : Lip.values[row['lipsType'] as int],
+            lipsTypeDescription: row['lipsTypeDescription'] as String?,
             tongueType: row['tongueType'] == null
                 ? null
                 : Tongue.values[row['tongueType'] as int],
+            tongueTypeDescription: row['tongueTypeDescription'] as String?,
             buccalMucosa: row['buccalMucosa'] as String?,
             gum: row['gum'] as String?,
             alveolarRidge: row['alveolarRidge'] as String?,

@@ -95,7 +95,7 @@ class AnamnesisRegister extends RegisterForm {
     field.chemotherapyDate = fields["chemotherapyDate"]!.value?.toString();
     field.isSmoker = fields["isSmoker"]!.value;
     field.cigaretteType = fields["cigaretteType"]!.value;
-    field.howManyCigarette = fields["howManyCigarettes"]!.value != null ? int.parse(fields["howManyCigarettes"]!.value) : 0;
+    field.howManyCigarette = fields["howManyCigarettes"]!.value != null ? int.parse(fields["howManyCigarettes"]!.value.toString()) : 0;
     field.isAlcoholic = fields["isAlcoholic"]!.value;
     field.drinkType = fields["drinkType"]!.value;
     field.otherHabits = fields["otherHabits"]!.value;

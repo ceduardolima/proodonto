@@ -6,7 +6,10 @@ import 'package:proodonto/app/shared/enum_types.dart';
 import '../../../shared/form_text.dart';
 
 class ExamInfo extends StatelessWidget {
-  const ExamInfo({super.key, required this.exam, });
+  const ExamInfo({
+    super.key,
+    required this.exam,
+  });
 
   final Exam exam;
 
@@ -14,10 +17,6 @@ class ExamInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FormText(
-          label: "Cor da pele",
-          value: SkinColor.getNameList()[exam.skinColor!.index],
-        ),
         FormText(
           label: "Peso",
           value: exam.weight,
@@ -87,11 +86,19 @@ class ExamInfo extends StatelessWidget {
           value: Sensibility.getNameList()[exam.sensibilityType!.index],
         ),
         FormText(
-          label: "Tipo de lábio",
+          label: "Lábio",
           value: Lip.getNameList()[exam.lipsType!.index],
         ),
         FormText(
-          label: "Tipo de língua",
+          label: "Descição do tipo de lábio",
+          value: exam.lipsTypeDescription,
+        ),
+        FormText(
+          label: "Descição do tipo de língua",
+          value: exam.tongueTypeDescription,
+        ),
+        FormText(
+          label: "Língua",
           value: Tongue.getNameList()[exam.tongueType!.index],
         ),
         FormText(

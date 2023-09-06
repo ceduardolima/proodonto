@@ -11,7 +11,7 @@ abstract class TriageDao {
   Stream<Triage?> findById(int id);
 
   @Query("SELECT * FROM triage WHERE recordNumber=:recordNumber")
-  Stream<Triage?> findByRecordNumber(int recordNumber);
+  Future<Triage?> findByRecordNumber(int recordNumber);
 
   @Query("SELECT * FROM triage WHERE patientCPF=:cpf")
   Future<Triage?> findByPatientCPF(String cpf);

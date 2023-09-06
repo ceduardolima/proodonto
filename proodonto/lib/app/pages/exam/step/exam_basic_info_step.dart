@@ -53,12 +53,6 @@ class ExamBasicInfoStep extends RegisterForm {
               initialValue: exam.recordNumber?.toString(),
               required: true,
             ),
-            DefaultDropdownButton(
-              name: "skinColor",
-              label: "Cor da pele",
-              list: SkinColor.getNameList(),
-              initialValue: SkinColor.getNameList()[0],
-            ),
             DefaultFormField(
               name: "weight",
               label: "Peso",

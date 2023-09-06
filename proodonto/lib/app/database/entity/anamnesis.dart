@@ -20,7 +20,7 @@ class Anamnesis {
   bool? useMedicine;
   String? whichMedicines;
   String? doctorName;
-  String? allergy = Allergy.none.name;
+  String? allergy;
   String? surgery;
   bool? hasHealingProblem;
   String? healingProblemSituation;
@@ -38,7 +38,7 @@ class Anamnesis {
   bool? hasAnemia;
   bool? hasDiabetes;
   bool? hasNeurologicalProblems;
-  InfectiousDiseases? infectiousDiseases = InfectiousDiseases.none;
+  InfectiousDiseases? infectiousDiseases;
   bool? underwentChemotherapy;
   String? chemotherapyDate;
   bool? hasOnychophagy;

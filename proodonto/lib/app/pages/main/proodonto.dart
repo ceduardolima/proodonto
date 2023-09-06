@@ -8,9 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-    SystemUiOverlay.bottom,
-  ]);
   runApp(Proodonto(
       database: await $FloorProodontoDatabase
           .databaseBuilder("proodonto_database.db")
