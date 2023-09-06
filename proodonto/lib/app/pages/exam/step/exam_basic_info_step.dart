@@ -50,7 +50,7 @@ class ExamBasicInfoStep extends RegisterForm {
               name: "recordNumber",
               label: "Número do prontuário",
               inputType: TextInputType.number,
-              initialValue: exam.recordNumber.toString(),
+              initialValue: exam.recordNumber?.toString(),
               required: true,
             ),
             DefaultDropdownButton(
