@@ -34,8 +34,10 @@ class ExamStep extends RegisterForm {
         Sensibility.getNameList().indexOf(fields["sensibilityType"]!.value)];
     exam.lipsType =
         Lip.values[Lip.getNameList().indexOf(fields["lipsType"]!.value)];
+    exam.lipsTypeDescription = fields["lipsTypeDescription"]!.value;
     exam.tongueType = Tongue
         .values[Tongue.getNameList().indexOf(fields["tongueType"]!.value)];
+    exam.tongueTypeDescription = fields["tongueTypeDescription"]!.value;
     exam.buccalMucosa = fields["buccalMucosa"]!.value;
     exam.gum = fields["gum"]!.value;
     exam.alveolarRidge = fields["alveolarRidge"]!.value;
@@ -113,11 +115,21 @@ class ExamStep extends RegisterForm {
               list: Lip.getNameList(),
               initialValue: Lip.getNameList()[0],
             ),
+            DefaultFormField(
+              name: "lipsTypeDescription",
+              label: "Descrição do lábio",
+              initialValue: exam.lipsTypeDescription,
+            ),
             DefaultDropdownButton(
                 name: "tongueType",
-                label: "Tipo de língua",
+                label: "Língua",
                 list: Tongue.getNameList(),
                 initialValue: Tongue.getNameList()[0]),
+            DefaultFormField(
+              name: "tongueTypeDescription",
+              label: "Descrição da língua",
+              initialValue: exam.tongueTypeDescription,
+            ),
             DefaultFormField(name: "buccalMucosa", label: "Mucosa jugal"),
             DefaultFormField(name: "gum", label: "Gengiva"),
             DefaultFormField(name: "alveolarRidge", label: "Rebordo alveolar"),

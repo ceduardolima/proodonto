@@ -25,6 +25,7 @@ class Exam {
   Mobility? mobilityType;
   Sensibility? sensibilityType;
   Lip? lipsType;
+  String? lipsTypeDescription;
   Tongue? tongueType;
   String? buccalMucosa;
   String? gum;
@@ -42,6 +43,8 @@ class Exam {
   String? definitiveDiagnosis;
   String? conduct;
   String? diagnosticHypothesis;
+
+  String? tongueTypeDescription;
 
   Exam(
       {this.id,
@@ -65,7 +68,9 @@ class Exam {
       this.mobilityType,
       this.sensibilityType,
       this.lipsType,
+      this.lipsTypeDescription,
       this.tongueType,
+      this.tongueTypeDescription,
       this.buccalMucosa,
       this.gum,
       this.alveolarRidge,
