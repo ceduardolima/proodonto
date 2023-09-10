@@ -5,9 +5,13 @@ import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/login/login.dart';
 import 'package:proodonto/app/theme/main_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:proodonto/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Proodonto(
       database: await $FloorProodontoDatabase
           .databaseBuilder("proodonto_database.db")
