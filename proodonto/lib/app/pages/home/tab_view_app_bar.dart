@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/seach_patient.dart';
+import 'package:proodonto/app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class TabViewAppBar {
   static const _height = 60.0;
@@ -38,8 +40,10 @@ class TabViewAppBar {
                 icon: const Icon(Icons.search),
               ),
               IconButton.outlined(
-                onPressed: () {},
-                icon: Image.asset(_userIconPath),
+                onPressed: () {
+                  context.read<AuthService>().logout();
+                },
+                icon: const Icon(Icons.logout),
               ),
             ],
           ),

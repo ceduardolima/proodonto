@@ -1,21 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:proodonto/app/database/database.dart';
-import 'package:proodonto/app/pages/login/login.dart';
+import 'package:proodonto/app/services/auth_service.dart';
 import 'package:proodonto/app/theme/main_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:proodonto/app/widget/auth_check.dart';
 import 'package:proodonto/firebase_options.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(Proodonto(
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthService()),
+    ],
+    child: Proodonto(
       database: await $FloorProodontoDatabase
           .databaseBuilder("proodonto_database.db")
-          .build()));
+          .build(),
+    ),
+  ));
 }
 
 class Proodonto extends StatelessWidget {
@@ -32,7 +38,7 @@ class Proodonto extends StatelessWidget {
       ],
       supportedLocales: const [Locale('pt', 'BR')],
       locale: const Locale('pt', 'BR'),
-      home: LoginPage(database: database),
+      home: AuthCheck(database: database),
       theme: ThemeData(inputDecorationTheme: MainInputTheme().theme()),
     );
   }
