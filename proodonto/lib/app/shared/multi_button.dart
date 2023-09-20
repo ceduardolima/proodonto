@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/shared/default_radio_form_field.dart';
 import 'package:proodonto/app/shared/default_size.dart';
 import 'package:proodonto/app/shared/dropdown_button.dart';
+import 'package:proodonto/app/theme/colors.dart';
 
 class MultiButton extends StatefulWidget {
   const MultiButton({
@@ -38,6 +39,7 @@ class _MultiButtonState extends State<MultiButton> {
         children: [
           FormBuilderRadioGroup(
             name: widget.name,
+            activeColor: ProodontoColors.ternary,
             options: options,
             initialValue: currentOption,
             decoration: InputDecoration(labelText: widget.label, helperText: ""),

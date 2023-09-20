@@ -6,6 +6,8 @@ import 'package:proodonto/app/pages/patient/step/register_patient_informations.d
 import 'package:proodonto/app/pages/patient/step/register_records.dart';
 import 'package:proodonto/app/pages/patient/step/register_patient_responsible.dart';
 import 'package:proodonto/app/database/entity/patient.dart';
+import 'package:proodonto/app/theme/colors.dart';
+import 'package:proodonto/app/theme/main_theme.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 import 'package:uuid/uuid.dart';
 
@@ -132,48 +134,60 @@ class _PatientHomePageState extends State<PatientHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pacientes"),
+        elevation: 0.0,
       ),
-      body: Stepper(
-        type: StepperType.horizontal,
-        steps: _getSteps(),
-        currentStep: _currentStep,
-        onStepContinue: () => setState(() => _currentStep =
-            (_currentStep >= _max) ? _currentStep : _currentStep + 1),
-        onStepCancel: () => setState(() => _currentStep =
-            (_currentStep == 0) ? _currentStep : _currentStep - 1),
-        onStepTapped: (step) => setState(() => _onStepTapped(step)),
-        controlsBuilder: (context, details) {
-          bool isLastStep = _currentStep == _getSteps().length - 1;
-          bool isFirstStep = _currentStep == 0;
+      body: Theme(
+        data: ThemeData(
+          canvasColor: ProodontoColors.primary,
+          colorScheme: Theme.of(context)
+              .colorScheme
+              .copyWith(primary: ProodontoColors.ternary, onPrimary: Colors.white),
+          inputDecorationTheme: MainInputTheme().inputTheme(),
+          elevatedButtonTheme: MainInputTheme().elevatedButtonTheme(),
 
-          return Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: DefaultButton(
-                    onPressed: () {
-                      _nextStep(details, isLastStep);
-                    },
-                    text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
-                  ),
-                ),
-                if (!isFirstStep)
-                  const SizedBox(
-                    width: 10,
-                  ),
-                if (!isFirstStep)
+        ),
+        child: Stepper(
+          type: StepperType.horizontal,
+          steps: _getSteps(),
+          currentStep: _currentStep,
+          onStepContinue: () => setState(() => _currentStep =
+              (_currentStep >= _max) ? _currentStep : _currentStep + 1),
+          onStepCancel: () => setState(() => _currentStep =
+              (_currentStep == 0) ? _currentStep : _currentStep - 1),
+          onStepTapped: (step) => setState(() => _onStepTapped(step)),
+          controlsBuilder: (context, details) {
+            bool isLastStep = _currentStep == _getSteps().length - 1;
+            bool isFirstStep = _currentStep == 0;
+
+            return Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
                   Expanded(
                     child: DefaultButton(
-                      onPressed: () => details.onStepCancel!(),
-                      text: "VOLTAR",
+                      onPressed: () {
+                        _nextStep(details, isLastStep);
+                      },
+                      text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
                     ),
                   ),
-              ],
-            ),
-          );
-        },
+                  if (!isFirstStep)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  if (!isFirstStep)
+                    Expanded(
+                      child: DefaultButton(
+                        onPressed: () => details.onStepCancel!(),
+                        text: "VOLTAR",
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -181,17 +195,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
   List<Step> _getSteps() {
     return [
       Step(
-          title: Text("Registro"),
+          title: Text("Registro", style: TextStyle(color: Colors.white),),
           content: recordsForm.build(context),
           state: _currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 0),
       Step(
-          title: Text("Paciênte"),
+          title: Text("Paciênte",  style: TextStyle(color: Colors.white),),
           content: patientForm.build(context),
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 1),
       Step(
-          title: Text("Responsável"),
+          title: Text("Responsável",  style: TextStyle(color: Colors.white),),
           content: responsibleForm.build(context),
           state: _currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 2),

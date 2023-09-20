@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:proodonto/app/shared/default_size.dart';
+import 'package:proodonto/app/theme/colors.dart';
 
 class DefaultRadioGroup extends StatelessWidget {
   DefaultRadioGroup({
@@ -33,6 +34,7 @@ class DefaultRadioGroup extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
       child: FormBuilderCheckboxGroup(
         name: name,
+        activeColor: ProodontoColors.ternary,
         options: formOptions,
         wrapDirection: Axis.vertical,
         wrapVerticalDirection: VerticalDirection.down,

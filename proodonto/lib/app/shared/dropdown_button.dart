@@ -21,6 +21,7 @@ class DefaultDropdownButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: PaddingSize.small),
       child: FormBuilderDropdown<String>(
         name: name,
+        dropdownColor: Colors.white,
         initialValue: initialValue,
         decoration: InputDecoration(labelText: label, helperText: ""),
         validator: FormBuilderValidators.required(errorText: "Campo obrigatório"),

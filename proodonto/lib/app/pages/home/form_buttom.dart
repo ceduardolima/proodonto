@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proodonto/app/theme/colors.dart';
 
 class FormButton extends StatelessWidget {
   FormButton({
@@ -17,7 +18,7 @@ class FormButton extends StatelessWidget {
   static const double _buttonRadius = 50;
   static const double _iconSize = 30;
   final BoxShadow _boxShadow = BoxShadow(
-    color: Colors.grey.withOpacity(0.2),
+    color: Colors.grey.withOpacity(0.3),
     spreadRadius: 1,
     blurRadius: 2,
     offset: const Offset(0, 3),
@@ -47,7 +48,7 @@ class FormButton extends StatelessWidget {
                     height: _buttonSize,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(_buttonRadius),
-                      color: Colors.blue,
+                      color: ProodontoColors.ternary,
                     ),
                     child: (icon != null)
                         ? Icon(icon, size: _iconSize, color: Colors.white)

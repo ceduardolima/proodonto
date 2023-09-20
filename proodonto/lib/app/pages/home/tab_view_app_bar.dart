@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/seach_patient.dart';
 import 'package:proodonto/app/services/auth_service.dart';
+import 'package:proodonto/app/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class TabViewAppBar {
   static const _height = 60.0;
-  static const _elevation = 0.0;
+  static const _elevation = 5.0;
   static const _title = "Proodonto";
   static const _fontSize = 20.0;
   static const String _userIconPath = "assets/icons/user.png";
@@ -51,6 +52,7 @@ class TabViewAppBar {
       ],
       bottom: TabBar(
         tabs: tabList,
+        indicatorColor: ProodontoColors.accent,
       ),
     );
   }

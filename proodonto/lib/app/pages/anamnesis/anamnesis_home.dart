@@ -8,6 +8,8 @@ import 'package:proodonto/app/shared/alert_dialog.dart';
 import 'package:proodonto/app/widget/buttons.dart';
 
 import '../../database/entity/anamnesis.dart';
+import '../../theme/colors.dart';
+import '../../theme/main_theme.dart';
 
 class AnamnesisHome extends StatelessWidget {
   const AnamnesisHome({Key? key, required this.database}) : super(key: key);
@@ -18,6 +20,7 @@ class AnamnesisHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Anamnese"),
+        elevation: 0.0,
       ),
       body: _AnamnesisStepper(
         database: database,
@@ -59,12 +62,12 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
 
   List<Step> _getSteps() => [
         Step(
-            title: Text("Informações do paciênte"),
+            title: Text("Informações do paciênte", style: TextStyle(color: Colors.white),),
             content: formList[0],
             state: setStepState(0),
             isActive: _currentStep >= 0),
         Step(
-            title: Text("Anamnese"),
+            title: Text("Anamnese", style: TextStyle(color: Colors.white),),
             content: formList[1],
             state: setStepState(1),
             isActive: _currentStep >= 1),
@@ -145,43 +148,54 @@ class _AnamnesisStepperState extends State<_AnamnesisStepper> {
   
   @override
   Widget build(BuildContext context) {
-    return Stepper(
-      steps: _getSteps(),
-      type: StepperType.horizontal,
-      currentStep: _currentStep,
-      onStepContinue: onStepContinue,
-      onStepCancel: onStepCancel,
-      onStepTapped: (step) => setState(() => _onStepTapped(step)),
-      controlsBuilder: (context, details) {
-        bool isLastStep = _currentStep == _getSteps().length - 1;
-        bool isFirstStep = _currentStep == 0;
+    return Theme(
+      data: ThemeData(
+        canvasColor: ProodontoColors.primary,
+        colorScheme: Theme.of(context)
+            .colorScheme
+            .copyWith(primary: ProodontoColors.ternary, onPrimary: Colors.white),
+        inputDecorationTheme: MainInputTheme().inputTheme(),
+        elevatedButtonTheme: MainInputTheme().elevatedButtonTheme(),
 
-        return Container(
-          margin: const EdgeInsets.only(top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: DefaultButton(
-                  text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
-                  onPressed: () => _nextStep(context, isLastStep, details),
-                ),
-              ),
-              if (!isFirstStep)
-                const SizedBox(
-                  width: 10,
-                ),
-              if (!isFirstStep)
+      ),
+      child: Stepper(
+        steps: _getSteps(),
+        type: StepperType.horizontal,
+        currentStep: _currentStep,
+        onStepContinue: onStepContinue,
+        onStepCancel: onStepCancel,
+        onStepTapped: (step) => setState(() => _onStepTapped(step)),
+        controlsBuilder: (context, details) {
+          bool isLastStep = _currentStep == _getSteps().length - 1;
+          bool isFirstStep = _currentStep == 0;
+
+          return Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
                 Expanded(
                   child: DefaultButton(
-                    onPressed: () => details.onStepCancel!(),
-                    text: "VOLTAR",
+                    text: isLastStep ? "REGISTRAR" : "PRÓXIMO",
+                    onPressed: () => _nextStep(context, isLastStep, details),
                   ),
                 ),
-            ],
-          ),
-        );
-      },
+                if (!isFirstStep)
+                  const SizedBox(
+                    width: 10,
+                  ),
+                if (!isFirstStep)
+                  Expanded(
+                    child: DefaultButton(
+                      onPressed: () => details.onStepCancel!(),
+                      text: "VOLTAR",
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

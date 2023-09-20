@@ -32,6 +32,7 @@ class Proodonto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: ProodontoColors.primary,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -41,18 +42,17 @@ class Proodonto extends StatelessWidget {
       locale: const Locale('pt', 'BR'),
       home: AuthCheck(database: database),
       theme: ThemeData(
-          inputDecorationTheme: MainInputTheme().theme(),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  primary: ProodontoColors.ternary,
-                  onPrimary: Colors.white,
-
-              )
+        inputDecorationTheme: MainInputTheme().inputTheme(),
+        elevatedButtonTheme: MainInputTheme().elevatedButtonTheme(),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: ProodontoColors.accent,
           ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              primary: ProodontoColors.accent,
-            ),)
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: ProodontoColors.primary,
+          iconTheme: IconThemeData(color: ProodontoColors.ternary),
+        ),
       ),
     );
   }

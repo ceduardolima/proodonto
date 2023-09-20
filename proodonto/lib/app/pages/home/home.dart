@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor:  Colors.white,
         appBar: TabViewAppBar.build(
           context: context,
           database: widget.database,
@@ -79,48 +80,49 @@ class _HomePageState extends State<HomePage> {
             const Tab(text: "Paciêntes"),
           ],
         ),
-        body: TabBarView(
-          children: [
-            GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 1.3,
-              padding: const EdgeInsets.symmetric(
-                  vertical: PaddingSize.medium, horizontal: 2.0),
-              children: [
-                FormButton(
-                  icon: Icons.people_alt,
-                  onPressed: () {
-                    _changeToPatientHomePage(context);
-                  },
-                  text: "Cadastro Paciente",
-                ),
-                FormButton(
-                  imagePath: _triageIconPath,
-                  onPressed: () {
-                    _changeToTriageHomePage(context);
-                  },
-                  text: "Cadastro Triagem",
-                ),
-                FormButton(
-                  imagePath: _anamneseIconPath,
-                  onPressed: () {
-                    _changeToAnamnesisHome(context);
-                  },
-                  text: "Cadastro Anamnese",
-                ),
-                FormButton(
-                  imagePath: _examIconPath,
-                  onPressed: () {
-                    _changeToExamHomePage(context);
-                  },
-                  text: "Cadastro Exame Físico",
-                ),
-              ],
-            ),
-            PatientTab(database: widget.database)
-          ],
+        body:
+          TabBarView(
+            children: [
+              GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 1.3,
+                padding: const EdgeInsets.symmetric(
+                    vertical: PaddingSize.medium, horizontal: 2.0),
+                children: [
+                  FormButton(
+                    icon: Icons.people_alt,
+                    onPressed: () {
+                      _changeToPatientHomePage(context);
+                    },
+                    text: "Cadastro Paciente",
+                  ),
+                  FormButton(
+                    imagePath: _triageIconPath,
+                    onPressed: () {
+                      _changeToTriageHomePage(context);
+                    },
+                    text: "Cadastro Triagem",
+                  ),
+                  FormButton(
+                    imagePath: _anamneseIconPath,
+                    onPressed: () {
+                      _changeToAnamnesisHome(context);
+                    },
+                    text: "Cadastro Anamnese",
+                  ),
+                  FormButton(
+                    imagePath: _examIconPath,
+                    onPressed: () {
+                      _changeToExamHomePage(context);
+                    },
+                    text: "Cadastro Exame Físico",
+                  ),
+                ],
+              ),
+              PatientTab(database: widget.database)
+            ],
+          ),
         ),
-      ),
     );
   }
 }
