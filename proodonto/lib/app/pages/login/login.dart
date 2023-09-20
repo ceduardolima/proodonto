@@ -3,6 +3,7 @@ import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/pages/home/home.dart';
 import 'package:proodonto/app/services/auth_service.dart';
 import 'package:proodonto/app/shared/default_size.dart';
+import 'package:proodonto/app/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -66,61 +67,68 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Proodonto",
-                  style: TextStyle(
-                    fontSize: 32.0,
-                  ),
-                  textAlign: TextAlign.center,
+        body: Container(
+      color: ProodontoColors.primary,
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PaddingSize.big),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                "Proodonto",
+                style: TextStyle(fontSize: 32.0, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              LoginTextField(
+                email,
+                "Email",
+                TextInputType.emailAddress,
+                hint: "xxxx@upe.com.br",
+                icon: const Icon(
+                  Icons.email_outlined,
+                  color: Colors.white,
                 ),
-                LoginTextField(
-                  email,
-                  "Email",
-                  TextInputType.emailAddress,
-                  hint: "xxxx@upe.com.br",
-                  icon: const Icon(Icons.email_outlined),
+              ),
+              LoginTextField(
+                password,
+                "Senha",
+                TextInputType.text,
+                isPassword: true,
+                icon: const Icon(
+                  Icons.password,
+                  color: Colors.white,
                 ),
-                LoginTextField(
-                  password,
-                  "Senha",
-                  TextInputType.text,
-                  isPassword: true,
-                  icon: const Icon(Icons.password),
-                ),
-                LoginButton(
-                  title: buttonTitle,
-                  isLoading: isLoading,
-                  onChanged: () {
-                    if (_isLoging) {
-                      login(context);
-                    } else {
-                      registrar(context);
-                    }
+              ),
+              LoginButton(
+                title: buttonTitle,
+                isLoading: isLoading,
+                onChanged: () {
+                  if (_isLoging) {
+                    login(context);
+                  } else {
+                    registrar(context);
+                  }
+                },
+              ),
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _isLoging = !_isLoging;
+                      if (_isLoging) {
+                        buttonTitle = "Login";
+                        textButtonTitle =
+                            "Não tem conta? Click aqui Para se cadastrar!";
+                      } else {
+                        buttonTitle = "Cadastar";
+                        textButtonTitle = "Voltar ao login";
+                      }
+                    });
                   },
-                ),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoging = !_isLoging;
-                        if (_isLoging) {
-                          buttonTitle = "Login";
-                          textButtonTitle =
-                              "Não tem conta? Click aqui Para se cadastrar!";
-                        } else {
-                          buttonTitle = "Cadastar";
-                          textButtonTitle = "Voltar ao login";
-                        }
-                      });
-                    },
-                    child: Text(textButtonTitle))
-              ],
-            )));
+                  child: Text(textButtonTitle))
+            ],
+          )),
+    ));
   }
 }
 
@@ -152,8 +160,29 @@ class LoginTextField extends StatelessWidget {
         obscureText: isPassword ?? false,
         controller: controller,
         keyboardType: inputType,
-        decoration:
-            InputDecoration(prefixIcon: icon, labelText: label, hintText: hint),
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white10,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: ProodontoColors.accent,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          prefixIcon: icon,
+          label: Text(
+            label,
+            style: TextStyle(color: Colors.white),
+          ),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.white70),
+        ),
         validator: (String? value) => validatorMessenger,
       ),
     );
@@ -183,6 +212,7 @@ class LoginButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
           minimumSize: const Size.fromHeight(50),
+
         ),
         child: isLoading
             ? const SizedBox(

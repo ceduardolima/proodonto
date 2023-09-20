@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proodonto/app/database/database.dart';
 import 'package:proodonto/app/services/auth_service.dart';
+import 'package:proodonto/app/theme/colors.dart';
 import 'package:proodonto/app/theme/main_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,20 @@ class Proodonto extends StatelessWidget {
       supportedLocales: const [Locale('pt', 'BR')],
       locale: const Locale('pt', 'BR'),
       home: AuthCheck(database: database),
-      theme: ThemeData(inputDecorationTheme: MainInputTheme().theme()),
+      theme: ThemeData(
+          inputDecorationTheme: MainInputTheme().theme(),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  primary: ProodontoColors.ternary,
+                  onPrimary: Colors.white,
+
+              )
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary: ProodontoColors.accent,
+            ),)
+      ),
     );
   }
 }
