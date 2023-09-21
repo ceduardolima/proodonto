@@ -15,7 +15,7 @@ class SearchPatient extends SearchDelegate {
   SearchPatient(
     this._database, {
     super.keyboardType = TextInputType.number,
-    super.searchFieldLabel = "Digite o CPF...",
+    super.searchFieldLabel = "Digite o número de prontuário...",
   });
 
   @override
@@ -48,7 +48,7 @@ class SearchPatient extends SearchDelegate {
         horizontal: PaddingSize.medium,
       ),
       child: FutureBuilder(
-        future: _database.patientDao.findLikeCPF(_cleanQuery()),
+        future: _database.patientDao.findByRecordNumber(int.parse(_cleanQuery())),
         builder: (context, snapshot) {
           return (snapshot.hasData)
               ? PatientListView(
@@ -69,7 +69,7 @@ class SearchPatient extends SearchDelegate {
     if (query.isEmpty) {
       return query;
     }
-    return "${query.trim()}%";
+    return "${query.trim()}";
   }
 
   void _changeToPatientInformation(

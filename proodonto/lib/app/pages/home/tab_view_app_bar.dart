@@ -42,7 +42,7 @@ class TabViewAppBar {
               ),
               IconButton.outlined(
                 onPressed: () {
-                  context.read<AuthService>().logout();
+                  context.read<AuthService>().logout(context, database);
                 },
                 icon: const Icon(Icons.logout),
               ),

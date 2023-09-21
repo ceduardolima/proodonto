@@ -524,6 +524,53 @@ class _$PatientDao extends PatientDao {
   }
 
   @override
+  Future<List<Patient>> findByRecordNumber(int recordNumber) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM patient WHERE recordNumber like ?1',
+        mapper: (Map<String, Object?> row) => Patient(
+            recordNumber: row['recordNumber'] as int?,
+            advisor: row['advisor'] as String?,
+            semester: row['semester'] as String?,
+            careUnit: row['careUnit'] as String?,
+            profession: row['profession'] as String?,
+            workAddress: row['workAddress'] as String?,
+            email: row['email'] as String?,
+            initialExam: row['initialExam'] as String?,
+            responsibleName: row['responsibleName'] as String?,
+            responsibleAddress: row['responsibleAddress'] as String?,
+            responsibleRG: row['responsibleRG'] as String?,
+            responsibleIssuingAgency:
+                row['responsibleIssuingAgency'] as String?,
+            parentalRelationship: row['parentalRelationship'] as String?,
+            responsiblePhoneNumber: row['responsiblePhoneNumber'] as String?,
+            isFavorite: row['isFavorite'] == null
+                ? null
+                : (row['isFavorite'] as int) != 0,
+            id: row['id'] as String?,
+            name: row['name'] as String?,
+            birthday: row['birthday'] as String?,
+            sex: row['sex'] == null ? null : Sex.values[row['sex'] as int],
+            cpf: row['cpf'] as String?,
+            rg: row['rg'] as String?,
+            issuingAgency: row['issuingAgency'] as String?,
+            cep: row['cep'] as String?,
+            address: row['address'] as String?,
+            neighborhood: row['neighborhood'] as String?,
+            addressComplement: row['addressComplement'] as String?,
+            skinColor: row['skinColor'] == null
+                ? null
+                : SkinColor.values[row['skinColor'] as int],
+            fixNumber: row['fixNumber'] as String?,
+            phone: row['phone'] as String?,
+            placeOfBirth: row['placeOfBirth'] as String?,
+            nationality: row['nationality'] as String?,
+            maritalStatus: row['maritalStatus'] == null
+                ? null
+                : MaritalStatus.values[row['maritalStatus'] as int]),
+        arguments: [recordNumber]);
+  }
+
+  @override
   Future<void> deletePatientByCPF(String cpf) async {
     await _queryAdapter
         .queryNoReturn('DELETE FROM patient WHERE cpf=?1', arguments: [cpf]);

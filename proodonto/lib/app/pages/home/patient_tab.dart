@@ -76,7 +76,7 @@ class _PatientTabState extends State<PatientTab> {
                           widget.database.patientDao.getFavoritePatients();
                     }),
                   )
-                : const Center(child: Text("Vazio"));
+                : const Center(child: Text("Você não tem favoritos"));
           },
         ),
       ),

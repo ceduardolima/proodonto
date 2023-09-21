@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:proodonto/app/database/database.dart';
+
+import '../pages/login/login.dart';
 
 class AuthService extends ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -51,9 +55,12 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  logout() async {
+  logout(BuildContext context, ProodontoDatabase database) async {
     await _auth.signOut();
     _getUser();
+   Navigator.of(context)
+       .pushAndRemoveUntil(
+       MaterialPageRoute(builder: (context) => LoginPage(database: database)),(route) => false);
   }
 
   void _getUser() {

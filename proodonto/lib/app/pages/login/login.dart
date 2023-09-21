@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => isLoading = true);
     try {
       await context.read<AuthService>().login(email.text, password.text);
+      _changeToHomePage(context);
     } on AuthException catch (e) {
       setState(() => isLoading = false);
       ScaffoldMessenger.of(context)
@@ -75,10 +76,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                "Proodonto",
-                style: TextStyle(fontSize: 32.0, color: Colors.white),
-                textAlign: TextAlign.center,
+              Container(
+                margin: EdgeInsets.only(bottom: 50),
+                child: Image.asset("assets/images/logo_1.png"),
               ),
               LoginTextField(
                 email,
@@ -212,7 +212,6 @@ class LoginButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
           minimumSize: const Size.fromHeight(50),
-
         ),
         child: isLoading
             ? const SizedBox(

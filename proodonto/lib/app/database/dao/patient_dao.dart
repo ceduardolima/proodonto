@@ -25,6 +25,9 @@ abstract class PatientDao {
   @Query("SELECT COUNT(*) FROM patient WHERE recordNumber=:recordNumber")
   Future<int?> countPatientByRecord(int recordNumber);
 
+  @Query("SELECT * FROM patient WHERE recordNumber like :recordNumber")
+  Future<List<Patient?>> findByRecordNumber(int recordNumber);
+
   @Insert(onConflict: OnConflictStrategy.fail)
   Future<void> insert(Patient patient);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proodonto/app/theme/colors.dart';
 
 class ChangeVisibilityIconButton extends StatefulWidget {
   const ChangeVisibilityIconButton(
@@ -18,7 +19,7 @@ class _ChangeVisibilityIconButtonState
   final String _iconPath = "assets/icons/minus.png";
   bool _visibility = false;
 
-  Widget getMinusIcon() => Image.asset(_iconPath, scale: _iconScale);
+  Widget getMinusIcon() => Image.asset(_iconPath, scale: _iconScale, color: ProodontoColors.ternary,);
 
   void changeVisibility() => setState(() {
         debugPrint("Change visibility: $_visibility");
@@ -34,8 +35,8 @@ class _ChangeVisibilityIconButtonState
           onPressed: () {
             changeVisibility();
           },
-          icon: _visibility ? getMinusIcon() : const Icon(Icons.add),
-          label: Text(widget.text),
+          icon: _visibility ? getMinusIcon() : Icon(Icons.add, color: ProodontoColors.ternary,),
+          label: Text(widget.text, style: TextStyle(color: Colors.black87),),
         ),
         Visibility(visible: _visibility, child: widget.child)
       ],
